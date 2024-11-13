@@ -1,0 +1,602 @@
+[
+  {
+    "name": "Area campo calcio Baselga del Bondone",
+    "latitude": "46.078381",
+    "longitude": "11.046315"
+  },
+  {
+    "name": "Area campo Coni",
+    "latitude": "46.080659",
+    "longitude": "11.118852"
+  },
+  {
+    "name": "Area Canossiane",
+    "latitude": "46.067228",
+    "longitude": "11.127053"
+  },
+  {
+    "name": "Area cimitero Gardolo",
+    "latitude": "46.103595",
+    "longitude": "11.104733"
+  },
+  {
+    "name": "Area cimitero Montevaccino",
+    "latitude": "46.071765",
+    "longitude": "11.138338"
+  },
+  {
+    "name": "Area cimitero monumentale Trento",
+    "latitude": "46.063494",
+    "longitude": "11.117917"
+  },
+  {
+    "name": "Area comunale Sopramonte campo sportivo",
+    "latitude": "46.06997",
+    "longitude": "11.053298"
+  },
+  {
+    "name": "Area di Oltrecastello",
+    "latitude": "46.072412",
+    "longitude": "11.156155"
+  },
+  {
+    "name": "Area piazza d'Arogno",
+    "latitude": "46.066711",
+    "longitude": "11.12146"
+  },
+  {
+    "name": "Area piazza/giardino Garzetti",
+    "latitude": "46.065905",
+    "longitude": "11.123966"
+  },
+  {
+    "name": "Area S. Don\u00e0 biblioteca",
+    "latitude": "46.071392",
+    "longitude": "11.139343"
+  },
+  {
+    "name": "Area S. Pio X",
+    "latitude": "46.052605",
+    "longitude": "11.121009"
+  },
+  {
+    "name": "Area Sopramonte Dossolo",
+    "latitude": "46.071891",
+    "longitude": "11.056538"
+  },
+  {
+    "name": "Area Sopramonte piazza Oveno 15",
+    "latitude": "46.071184",
+    "longitude": "11.058624"
+  },
+  {
+    "name": "Area verde Piedicastello o giardino Andreas Hofer",
+    "latitude": "46.07131",
+    "longitude": "11.114495"
+  },
+  {
+    "name": "Area via Pranzelores",
+    "latitude": "46.087158",
+    "longitude": "11.120144"
+  },
+  {
+    "name": "Aree verdi al Magnete",
+    "latitude": "46.09012",
+    "longitude": "11.113331"
+  },
+  {
+    "name": "Aree verdi Madonna Bianca",
+    "latitude": "46.041321",
+    "longitude": "11.135137"
+  },
+  {
+    "name": "Cortile scuola elementare Cadine",
+    "latitude": "46.087237",
+    "longitude": "11.062734"
+  },
+  {
+    "name": "Giardini Saluga",
+    "latitude": "46.07",
+    "longitude": "11.12826"
+  },
+  {
+    "name": "Giardino  dei colori (via Muredei)",
+    "latitude": "46.05609",
+    "longitude": "11.118895"
+  },
+  {
+    "name": "Giardino - Aree verdi Madonna Bianca",
+    "latitude": "46.040707",
+    "longitude": "11.13071"
+  },
+  {
+    "name": "Giardino al Pont dei Vodi - Spini",
+    "latitude": "46.12196",
+    "longitude": "11.090966"
+  },
+  {
+    "name": "Giardino Aleksandr Isaevi\u010d Sol\u017eenicyn - ex Santa Chiara",
+    "latitude": "46.063286",
+    "longitude": "11.126243"
+  },
+  {
+    "name": "Giardino Alexander Langer - ex Giardino del Sal\u00e8",
+    "latitude": "46.055238",
+    "longitude": "11.125835"
+  },
+  {
+    "name": "Giardino area bocciofila via Fermi",
+    "latitude": "46.049736",
+    "longitude": "11.13003"
+  },
+  {
+    "name": "Giardino Baselga del Bondone Pieve",
+    "latitude": "46.078381",
+    "longitude": "11.046315"
+  },
+  {
+    "name": "Giardino Borino",
+    "latitude": "46.06725",
+    "longitude": "11.165918"
+  },
+  {
+    "name": "Giardino botanico alpino delle Viote",
+    "latitude": "46.022744",
+    "longitude": "11.037648"
+  },
+  {
+    "name": "Giardino Cadine centro civico",
+    "latitude": "46.086295",
+    "longitude": "11.063308"
+  },
+  {
+    "name": "Giardino Cadine delle Mele d'oro",
+    "latitude": "46.087594",
+    "longitude": "11.065829"
+  },
+  {
+    "name": "Giardino Canova",
+    "latitude": "46.100376",
+    "longitude": "11.109538"
+  },
+  {
+    "name": "Giardino Canova ambulatorio",
+    "latitude": "46.098416",
+    "longitude": "11.11119"
+  },
+  {
+    "name": "Giardino case Pincheri",
+    "latitude": "46.074846",
+    "longitude": "11.126252"
+  },
+  {
+    "name": "Giardino Clarina Itea ",
+    "latitude": "46.051731",
+    "longitude": "11.124966"
+  },
+  {
+    "name": "Giardino Cognola Marnighe",
+    "latitude": "46.078716",
+    "longitude": "11.141499"
+  },
+  {
+    "name": "Giardino del Maso Smalz  o dello skate",
+    "latitude": "46.052052",
+    "longitude": "11.1153"
+  },
+  {
+    "name": "Giardino della Cervara",
+    "latitude": "46.073033",
+    "longitude": "11.128156"
+  },
+  {
+    "name": "Giardino della Predara",
+    "latitude": "46.072911",
+    "longitude": "11.126854"
+  },
+  {
+    "name": "Giardino delle erbe aromatiche lungo Fersina",
+    "latitude": "46.056098",
+    "longitude": "11.124129"
+  },
+  {
+    "name": "Giardino delle Viote",
+    "latitude": "46.020565",
+    "longitude": "11.04226"
+  },
+  {
+    "name": "Giardino di Maso Ginocchio",
+    "latitude": "46.058201",
+    "longitude": "11.117156"
+  },
+  {
+    "name": "Giardino di piazza Centa",
+    "latitude": "46.075895",
+    "longitude": "11.123228"
+  },
+  {
+    "name": "Giardino di piazza Dante",
+    "latitude": "46.070804",
+    "longitude": "11.120353"
+  },
+  {
+    "name": "Giardino di Spini di Gardolo via del Loghet",
+    "latitude": "46.120972",
+    "longitude": "11.091471"
+  },
+  {
+    "name": "Giardino di Vaneze",
+    "latitude": "46.050428",
+    "longitude": "11.072813"
+  },
+  {
+    "name": "Giardino di via Caio Valerio Mariano o del Moschen",
+    "latitude": "46.074946",
+    "longitude": "11.11464"
+  },
+  {
+    "name": "Giardino Enrico Pruner ",
+    "latitude": "46.051593",
+    "longitude": "11.131597"
+  },
+  {
+    "name": "Giardino ex caserme Duca d'Aosta",
+    "latitude": "46.056804",
+    "longitude": "11.122009"
+  },
+  {
+    "name": "Giardino fratelli Bernardi - ex Lungofersina",
+    "latitude": "46.057639",
+    "longitude": "11.125513"
+  },
+  {
+    "name": "Giardino Gardolo Casa Pedrolli",
+    "latitude": "46.107767",
+    "longitude": "11.112381"
+  },
+  {
+    "name": "Giardino Gardolo dell'Arcobaleno ex scuole Pigarelli",
+    "latitude": "46.10478",
+    "longitude": "11.110418"
+  },
+  {
+    "name": "Giardino Gardolo di Mezzo",
+    "latitude": "46.115243",
+    "longitude": "11.115772"
+  },
+  {
+    "name": "Giardino Gardolo ex segheria ",
+    "latitude": "46.107253",
+    "longitude": "11.11222"
+  },
+  {
+    "name": "Giardino Gardolo S. Anna",
+    "latitude": "46.110165",
+    "longitude": "11.110386"
+  },
+  {
+    "name": "Giardino Gazzadina",
+    "latitude": "46.130497",
+    "longitude": "11.128464"
+  },
+  {
+    "name": "Giardino Giuseppe Dalla Fior - ex Centochiavi",
+    "latitude": "46.093784",
+    "longitude": "11.12043"
+  },
+  {
+    "name": "Giardino Giuseppe Gilli o Lucio Susmel",
+    "latitude": "46.08999",
+    "longitude": "11.118851"
+  },
+  {
+    "name": "Giardino Graffiano",
+    "latitude": "46.061332",
+    "longitude": "11.150275"
+  },
+  {
+    "name": "Giardino Ilaria Alpi e Miran Hrovatin (ex via Guardini)",
+    "latitude": "46.095031",
+    "longitude": "11.11832"
+  },
+  {
+    "name": "Giardino Ines Pisoni (via Palermo)",
+    "latitude": "46.057137",
+    "longitude": "11.125889"
+  },
+  {
+    "name": "Giardino La Vela centro civico",
+    "latitude": "46.08192",
+    "longitude": "11.101754"
+  },
+  {
+    "name": "Giardino largo Pigarelli o G. B. Garzetti",
+    "latitude": "46.066394",
+    "longitude": "11.125814"
+  },
+  {
+    "name": "Giardino Maria de Unterrichter (ex via Einaudi)",
+    "latitude": "46.05252",
+    "longitude": "11.127584"
+  },
+  {
+    "name": "Giardino Maria Teresa d'Asburgo, ex Giardino della Clarina",
+    "latitude": "46.050957",
+    "longitude": "11.124923"
+  },
+  {
+    "name": "Giardino Martignano o Carlo Firmian",
+    "latitude": "46.088572",
+    "longitude": "11.134273"
+  },
+  {
+    "name": "Giardino Massimiliano I d'Asburgo - ex Giardino Cristo Re",
+    "latitude": "46.080762",
+    "longitude": "11.11384"
+  },
+  {
+    "name": "Giardino Mattarello",
+    "latitude": "46.007641",
+    "longitude": "11.130631"
+  },
+  {
+    "name": "Giardino Mattarello via della Rozola",
+    "latitude": "46.011076",
+    "longitude": "11.133313"
+  },
+  {
+    "name": "Giardino Mattia Giosafat - ex Solteri",
+    "latitude": "46.086344",
+    "longitude": "11.120594"
+  },
+  {
+    "name": "Giardino Meano Canon",
+    "latitude": "46.122225",
+    "longitude": "11.118711"
+  },
+  {
+    "name": "Giardino Meano La Madonnina",
+    "latitude": "46.124935",
+    "longitude": "11.117703"
+  },
+  {
+    "name": "Giardino Melta Itea",
+    "latitude": "46.102965",
+    "longitude": "11.116195"
+  },
+  {
+    "name": "Giardino Michele de Finis o Giardino corti fiorite",
+    "latitude": "46.047859",
+    "longitude": "11.128791"
+  },
+  {
+    "name": "Giardino Montevaccino",
+    "latitude": "46.108276",
+    "longitude": "11.14166"
+  },
+  {
+    "name": "Giardino Oltrecastello",
+    "latitude": "46.071359",
+    "longitude": "11.162388"
+  },
+  {
+    "name": "Giardino palazzo Crivelli",
+    "latitude": "46.109016",
+    "longitude": "11.110525"
+  },
+  {
+    "name": "Giardino palazzo Sardagna",
+    "latitude": "46.1221",
+    "longitude": "11.116655"
+  },
+  {
+    "name": "Giardino parcheggio Melta",
+    "latitude": "46.101544",
+    "longitude": "11.117772"
+  },
+  {
+    "name": "Giardino piazza General Cantore",
+    "latitude": "46.077093",
+    "longitude": "11.119559"
+  },
+  {
+    "name": "Giardino piazza Venezia",
+    "latitude": "46.068266",
+    "longitude": "11.127691"
+  },
+  {
+    "name": "Giardino piazza Vicenza",
+    "latitude": "46.061752",
+    "longitude": "11.133254"
+  },
+  {
+    "name": "Giardino Povo Cassa rurale ",
+    "latitude": "46.065452",
+    "longitude": "11.15461"
+  },
+  {
+    "name": "Giardino Povo Centro civico ",
+    "latitude": "46.064555",
+    "longitude": "11.152877"
+  },
+  {
+    "name": "Giardino Povo Itea",
+    "latitude": "46.066971",
+    "longitude": "11.153966"
+  },
+  {
+    "name": "Giardino Ravina Itea",
+    "latitude": "46.037448",
+    "longitude": "11.110139"
+  },
+  {
+    "name": "Giardino Ravina Rio Val Gola",
+    "latitude": "46.036994",
+    "longitude": "11.105719"
+  },
+  {
+    "name": "Giardino Rita Levi Montalcini, ex via Volta",
+    "latitude": "46.048705",
+    "longitude": "11.123672"
+  },
+  {
+    "name": "Giardino Romagnano",
+    "latitude": "46.017477",
+    "longitude": "11.105279"
+  },
+  {
+    "name": "Giardino Romagnano Centro civico ",
+    "latitude": "46.01713",
+    "longitude": "11.106067"
+  },
+  {
+    "name": "Giardino Roncafort o Giardino Ettore Sottsass",
+    "latitude": "46.102072",
+    "longitude": "11.10029"
+  },
+  {
+    "name": "Giardino S. Don\u00e0 Itea  o Carlo Bertotti",
+    "latitude": "46.071258",
+    "longitude": "11.140813"
+  },
+  {
+    "name": "Giardino S. Lazzaro",
+    "latitude": "46.135791",
+    "longitude": "11.114484"
+  },
+  {
+    "name": "Giardino Sal\u00e8 Povo",
+    "latitude": "46.061432",
+    "longitude": "11.152014"
+  },
+  {
+    "name": "Giardino San Marco",
+    "latitude": "46.069762",
+    "longitude": "11.126345"
+  },
+  {
+    "name": "Giardino Sardagna suore di Maria Bambina",
+    "latitude": "46.063405",
+    "longitude": "11.097211"
+  },
+  {
+    "name": "Giardino Sopramonte fra Dolcino e Margherita",
+    "latitude": "46.07067",
+    "longitude": "11.059129"
+  },
+  {
+    "name": "Giardino Spr\u00e8",
+    "latitude": "46.068612",
+    "longitude": "11.160935"
+  },
+  {
+    "name": "Giardino storico di Villa de Mersi",
+    "latitude": "46.048418",
+    "longitude": "11.144117"
+  },
+  {
+    "name": "Giardino storico Garbari",
+    "latitude": "46.041283",
+    "longitude": "11.137068"
+  },
+  {
+    "name": "Giardino Tavernaro",
+    "latitude": "46.082009",
+    "longitude": "11.153929"
+  },
+  {
+    "name": "Giardino Trento Biblioteca comunale",
+    "latitude": "46.069937",
+    "longitude": "11.120701"
+  },
+  {
+    "name": "Giardino Trento Palazzo Geremia",
+    "latitude": "46.069159",
+    "longitude": "11.120267"
+  },
+  {
+    "name": "Giardino Valsorda Chiesa",
+    "latitude": "46.007671",
+    "longitude": "11.155897"
+  },
+  {
+    "name": "Giardino via Conci",
+    "latitude": "46.040099",
+    "longitude": "11.137106"
+  },
+  {
+    "name": "Giardino via Coni Zugna",
+    "latitude": "46.060386",
+    "longitude": "11.133147"
+  },
+  {
+    "name": "Giardino via De Gaspari o Giardino meteorologico (del tempo che gira e ritorna)",
+    "latitude": "46.054843",
+    "longitude": "11.119752"
+  },
+  {
+    "name": "Giardino via Doss Trento",
+    "latitude": "46.073677",
+    "longitude": "11.114248"
+  },
+  {
+    "name": "Giardino Vigo Meano Sandrin",
+    "latitude": "46.131259",
+    "longitude": "11.134424"
+  },
+  {
+    "name": "Giardino Vigolo Baselga",
+    "latitude": "46.081704",
+    "longitude": "11.046715"
+  },
+  {
+    "name": "Giardino Villa Cavagna",
+    "latitude": "46.064983",
+    "longitude": "11.159084"
+  },
+  {
+    "name": "Giardino Villamontagna",
+    "latitude": "46.085194",
+    "longitude": "11.157078"
+  },
+  {
+    "name": "Giardino Villamontagna casa civica",
+    "latitude": "46.083546",
+    "longitude": "11.155972"
+  },
+  {
+    "name": "Giardino Villazzano Centro Don Onorio Spada",
+    "latitude": "46.051631",
+    "longitude": "11.143329"
+  },
+  {
+    "name": "Giardino Villazzano Le Terrazze Grotta",
+    "latitude": "46.045245",
+    "longitude": "11.149305"
+  },
+  {
+    "name": "Giardino Vito Goller",
+    "latitude": "46.05255",
+    "longitude": "11.134118"
+  },
+  {
+    "name": "Giardino Vittime del lavoro della Sloi",
+    "latitude": "46.089141",
+    "longitude": "11.109163"
+  },
+  {
+    "name": "Parco Bosco della Citt\u00e0",
+    "latitude": "46.034417",
+    "longitude": "11.142846"
+  },
+  {
+    "name": "Parco Cantine Ferrari",
+    "latitude": "46.042505",
+    "longitude": "11.112392"
+  },
+  {
+    "name": "Parco Cigoi",
+    "latitude": "46.12723",
+    "longitude": "11.128519"
+  }
+]
