@@ -17,11 +17,11 @@ export default function newMarker(parkName ,long, lat) {
     image: new style.Icon({
       anchor: [0.5, 1],
       src: gps.src,
-      scale: 0.06
+      scale: 0.065  
     })
   });
+  
   marker.setStyle(markerStyle);
-
   const vectorSource = new source.Vector({
     features: [marker]
   });

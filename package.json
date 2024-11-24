@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "kompas": "^0.0.2",
     "next": "14.2.15",
     "ol": "^10.2.1",
     "react": "^18",
