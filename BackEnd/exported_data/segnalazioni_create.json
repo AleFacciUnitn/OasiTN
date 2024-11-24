@@ -1,0 +1,60 @@
+{
+  "create": "segnalazioni",
+  "validator": {
+    "$jsonSchema": {
+      "bsonType": "object",
+      "required": [
+        "parco",
+        "oggetto",
+        "descrizione",
+        "priorita",
+        "stato"
+      ],
+      "properties": {
+        "parco": {
+          "bsonType": "objectId",
+          "description": "L'ID del parco è obbligatorio e deve essere un ObjectId valido."
+        },
+        "oggetto": {
+          "bsonType": "string",
+          "description": "L'oggetto della segnalazione è obbligatorio e deve essere una stringa."
+        },
+        "descrizione": {
+          "bsonType": "string",
+          "description": "La descrizione della segnalazione è obbligatoria e deve essere una stringa."
+        },
+        "priorita": {
+          "bsonType": "int",
+          "minimum": 1,
+          "maximum": 4,
+          "description": "La priorità deve essere un numero intero compreso tra 1 e 4."
+        },
+        "stato": {
+          "bsonType": "string",
+          "enum": [
+            "in attesa",
+            "in lavorazione",
+            "completata",
+            "annullata"
+          ],
+          "description": "Lo stato della segnalazione è obbligatorio e deve essere uno dei valori validi."
+        },
+        "scadenza": {
+          "bsonType": [
+            "null",
+            "date"
+          ],
+          "description": "Il campo scadenza è opzionale. Se presente, deve essere una data valida."
+        },
+        "createdAt": {
+          "bsonType": "date",
+          "description": "La data di creazione è generata automaticamente."
+        },
+        "updatedAt": {
+          "bsonType": "date",
+          "description": "La data di aggiornamento è generata automaticamente."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+[{"_id":{"$oid":"67420e81a3120494c875a8b8"},"nome":"panchina","categoria":{"$oid":"67420b5f93c523b1af4108f9"},"createdAt":{"$date":"2024-11-23T17:18:57.838Z"},"updatedAt":{"$date":"2024-11-23T17:18:57.838Z"},"__v":0}]
