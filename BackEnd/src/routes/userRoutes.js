@@ -6,5 +6,6 @@ const { addSegnalazione } = require('../controllers/user/segnalazioneController'
 
 // Rotta per ottenere tutti i parchi
 router.get('/init', init);
+//router.get('/infoParco/:id', getInfoParco);
 router.post('/segnala', addSegnalazione);
 module.exports = router;

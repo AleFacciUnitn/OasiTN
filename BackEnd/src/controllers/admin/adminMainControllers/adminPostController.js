@@ -1,23 +1,17 @@
 // controllers/adminController.js
-const Tag = require('../../models/Tag');
-const Categoria = require('../../models/Categoria');
-const Parco = require('../../models/Parco');
-const crypto = require('crypto');
+const Tag = require('../../../models/Tag');
+const Categoria = require('../../../models/Categoria');
+const Parco = require('../../../models/Parco');
+const validatePassword = require('../../../middleware/auth.js').validatePassword; 
 
 // Funzione per generare MD5
-const generateMD5 = (text) => {
-  return crypto.createHash('md5').update(text).digest('hex');
-};
 
 const reformatNome = (nome) => {
   return nome.toLowerCase().replace(/\s/g, '-');
 };
 
-// Funzione di validazione della password
-const validatePassword = (passwordFromRequest) => {
-  const hardcodedPassword = '1234';  // Cambia con una password più sicura
-  return generateMD5(passwordFromRequest) === generateMD5(hardcodedPassword);
-};
+
+
 
 // Aggiungi una nuova categoria
 const addCategoria = async (req, res) => {
