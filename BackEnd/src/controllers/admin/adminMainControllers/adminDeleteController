@@ -4,6 +4,8 @@ const Parco = require('../../../models/Parco');
 const validatePassword = require('../../../middleware/auth.js').validatePassword; 
 // Funzione per cancellare un parco
 async function deleteParco(req, res) {
+    // prendi la password dall'header
+    const password = req.headers.password;
     if (!validatePassword(password)) {
         return res.status(403).json({ message: 'Password non valida!' });
       }
@@ -34,6 +36,7 @@ async function deleteParco(req, res) {
 
 // Funzione per cancellare una categoria
 async function deleteCategoria(req, res) {
+    const password = req.headers.password;
     if (!validatePassword(password)) {
         return res.status(403).json({ message: 'Password non valida!' });
       }
@@ -64,6 +67,8 @@ async function deleteCategoria(req, res) {
 
 // Funzione per cancellare un tag
 async function deleteTag(req, res) {
+    const password = req.headers.password;
+
     if (!validatePassword(password)) {
         return res.status(403).json({ message: 'Password non valida!' });
       }

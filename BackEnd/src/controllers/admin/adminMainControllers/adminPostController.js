@@ -15,7 +15,7 @@ const reformatNome = (nome) => {
 
 // Aggiungi una nuova categoria
 const addCategoria = async (req, res) => {
-  const { nome, descrizione, password } = req.body;
+  let { nome, descrizione, password } = req.body;
   nome = reformatNome(nome);
   // Verifica la password
   if (!validatePassword(password)) {
@@ -52,7 +52,7 @@ const addCategoria = async (req, res) => {
 // Funzione per aggiungere un tag
 const addTag = async (req, res) => {
   try {
-    const { nome, nomeCategoria, password } = req.body;
+    let { nome, nomeCategoria, password } = req.body;
     nome = reformatNome(nome);
     // Controllo della validità della categoria
     const categoria = await Categoria.findOne({ nome: nomeCategoria });

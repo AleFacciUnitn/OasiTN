@@ -13,8 +13,8 @@ const router = express.Router();
 router.get('/Categoria', getCategorie);
 router.get('/Categoria/:id', getCategorie);
 router.post('/Categoria', addCategoria);
-router.put('/Categoria', updateCategoria);
-router.delete('/Categoria', deleteCategoria);
+router.put('/Categoria/:id', updateCategoria);
+router.delete('/Categoria/:id', deleteCategoria);
 
 
 
@@ -23,15 +23,15 @@ router.delete('/Categoria', deleteCategoria);
 router.get('/Tag', getTags);
 router.get('/Tag/:id', getTags);
 router.post('/Tag', addTag);
-router.put('/Tag', updateTag);
-router.delete('/Tag', deleteTag);
+router.put('/Tag/:id', updateTag);
+router.delete('/Tag/:id', deleteTag);
 
 // Route per azioni su parco
 router.get('/Parco', getParchi);
 router.get('/Parco/:id', getParchi);
 router.post('/Parco', addParco);
-router.put('/Parco', updateParco);
-router.delete('/Parco', deleteParco);
+router.put('/Parco/:id', updateParco);
+router.delete('/Parco/:id', deleteParco);
 
 // Route per azioni su segnalazioni
 router.get('/Segnalazioni', getSegnalazioni);

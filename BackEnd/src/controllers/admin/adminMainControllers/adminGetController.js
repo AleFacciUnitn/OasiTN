@@ -6,9 +6,11 @@ const validatePassword = require('../../../middleware/auth.js').validatePassword
 
 // Funzione per ottenere tutti i parchi con tutte le informazioni
 async function getParchi(req, res) {
-    // if (!validatePassword(req)) {
-    //     return res.status(403).json({ message: 'Password non valida!' });
-    //   }
+    const password = req.headers.password;
+
+    if (!validatePassword(req)) {
+        return res.status(403).json({ message: 'Password non valida!' });
+    }
   try {
     let Parchi;
     if(req.params.id){
@@ -46,9 +48,10 @@ async function getParchi(req, res) {
 
 // Funzione per ottenere tutte le categorie
 async function getCategorie(req, res) {
-    // if (!validatePassword(password)) {
-    //     return res.status(403).json({ message: 'Password non valida!' });
-    //   }
+    const password = req.headers.password;
+    if (!validatePassword(password)) {
+        return res.status(403).json({ message: 'Password non valida!' });
+      }
   try {
     let Categorie;
     if(req.params.id){
@@ -71,9 +74,10 @@ async function getCategorie(req, res) {
 
 // Funzione per ottenere tutti i tag
 async function getTags(req, res) {
-    // if (!validatePassword(password)) {
-    //     return res.status(403).json({ message: 'Password non valida!' });
-    //   }
+    const password = req.headers.password;
+    if (!validatePassword(password)) {
+        return res.status(403).json({ message: 'Password non valida!' });
+      }
   try {
     let tags;
     if(req.params.id){
