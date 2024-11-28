@@ -2,7 +2,12 @@ const Tag = require('../../../models/Tag');
 const Categoria = require('../../../models/Categoria');
 const Parco = require('../../../models/Parco');
 const validatePassword = require('../../../middleware/auth.js').validatePassword; 
+
+const reformatNome = (nome) => {
+    return nome.toLowerCase().replace(/\s/g, '-');
+  };
 // Funzione per aggiornare un parco
+
 const updateParco = async (req, res) => {
     try {
       const parcoId = req.params.id; // ID del parco dalla URL
@@ -93,14 +98,14 @@ const updateParco = async (req, res) => {
 
 // Funzione per aggiornare una categoria
 async function updateCategoria(req, res) {
-    const { password } = req.body;
+  try {
+    const password  = req.body.password;
     if (!validatePassword(password)) {
         return res.status(403).json({ message: 'Password non valida!' });
       }
-  try {
     const { id } = req.params; // Ottieni l'ID dal parametro
-    const updateData = req.body; // Ottieni i dati aggiornati dal corpo della richiesta
-
+    let updateData = req.body; // Ottieni i dati aggiornati dal corpo della richiesta
+    updateData.nome = reformatNome(updateData.nome);
     const updatedCategoria = await Categoria.findByIdAndUpdate(id, updateData, { new: true });
 
     if (!updatedCategoria) {
@@ -125,14 +130,14 @@ async function updateCategoria(req, res) {
 
 // Funzione per aggiornare un tag
 async function updateTag(req, res) {
-    const { password } = req.body;
-    if (!validatePassword(password)) {
-        return res.status(403).json({ message: 'Password non valida!' });
-      }
+    
   try {
     const { id } = req.params; // Ottieni l'ID dal parametro
-    const updateData = req.body; // Ottieni i dati aggiornati dal corpo della richiesta
-
+    let {nome, nomeCategoria, password} = req.body; // Ottieni i dati aggiornati dal corpo della richiesta
+    if (!validatePassword(password)) {
+        return res.status(403).json({ message: 'Password non valida!' });
+    }
+    const updateData = { nome: reformatName(nome), categoria: nomeCategoria }; // Crea un oggetto con i dati aggiornati
     const updatedTag = await Tag.findByIdAndUpdate(id, updateData, { new: true });
 
     if (!updatedTag) {

@@ -55,7 +55,7 @@ async function getCategorie(req, res) {
   try {
     let Categorie;
     if(req.params.id){
-        Categorie = await Categoria.find({nome: req.params.id});
+        Categorie = await Categoria.findById(req.params.id);
     }else{
         Categorie = await Categoria.find({});
     }
@@ -81,7 +81,7 @@ async function getTags(req, res) {
   try {
     let tags;
     if(req.params.id){
-        tags = await Tag.find({nome: req.params.id});
+        tags = await Tag.findById(req.params.id);
     }else{
         tags = await Tag.find({});
     }

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const trimMiddleware = require('../middleware/trimForUpdate');
 // Definizione dello schema per la Categoria
 const categoriaSchema = new Schema(
   {
@@ -19,6 +19,9 @@ const categoriaSchema = new Schema(
     timestamps: true,          // Aggiunge i campi createdAt e updatedAt
   }
 );
+
+// Aggiunta del middleware per il trim
+//categoriaSchema.pre('findByIdAndUpdate', trimMiddleware);
 
 // Creazione del modello per la Categoria
 const Categoria = mongoose.model('Categoria', categoriaSchema, 'categorie');
