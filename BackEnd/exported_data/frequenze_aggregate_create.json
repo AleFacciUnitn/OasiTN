@@ -1,0 +1,48 @@
+{
+  "create": "frequenze_aggregate",
+  "validator": {
+    "$jsonSchema": {
+      "bsonType": "object",
+      "required": [
+        "_id",
+        "fasce_orarie",
+        "ultimo_aggiornamento"
+      ],
+      "properties": {
+        "_id": {
+          "bsonType": "string",
+          "description": "ID del parco"
+        },
+        "fasce_orarie": {
+          "bsonType": "object",
+          "description": "Oggetto contenente i dati aggregati per fascia oraria",
+          "additionalProperties": {
+            "bsonType": "object",
+            "required": [
+              "media",
+              "conteggio_eventi"
+            ],
+            "properties": {
+              "media": {
+                "bsonType": "double",
+                "description": "Media dei visitatori per fascia oraria"
+              },
+              "conteggio_eventi": {
+                "bsonType": "int",
+                "description": "Numero di eventi registrati per questa fascia oraria"
+              },
+              "deviazione_standard": {
+                "bsonType": "double",
+                "description": "Deviazione standard dei dati (opzionale)"
+              }
+            }
+          }
+        },
+        "ultimo_aggiornamento": {
+          "bsonType": "date",
+          "description": "Data e ora dell'ultimo aggiornamento dei dati aggregati"
+        }
+      }
+    }
+  }
+}

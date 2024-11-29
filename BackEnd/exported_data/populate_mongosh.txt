@@ -1,0 +1,269 @@
+# Comandi per popolare il database OasiTN2 con mongosh
+use OasiTN2
+
+db.createCollection("segnalazioni", {
+  "create": "segnalazioni",
+  "validator": {
+    "$jsonSchema": {
+      "bsonType": "object",
+      "required": [
+        "parco",
+        "oggetto",
+        "descrizione",
+        "priorita",
+        "stato"
+      ],
+      "properties": {
+        "parco": {
+          "bsonType": "objectId",
+          "description": "L'ID del parco è obbligatorio e deve essere un ObjectId valido."
+        },
+        "oggetto": {
+          "bsonType": "string",
+          "description": "L'oggetto della segnalazione è obbligatorio e deve essere una stringa."
+        },
+        "descrizione": {
+          "bsonType": "string",
+          "description": "La descrizione della segnalazione è obbligatoria e deve essere una stringa."
+        },
+        "priorita": {
+          "bsonType": "int",
+          "minimum": 1,
+          "maximum": 4,
+          "description": "La priorità deve essere un numero intero compreso tra 1 e 4."
+        },
+        "stato": {
+          "bsonType": "string",
+          "enum": [
+            "in attesa",
+            "in lavorazione",
+            "completata",
+            "annullata"
+          ],
+          "description": "Lo stato della segnalazione è obbligatorio e deve essere uno dei valori validi."
+        },
+        "scadenza": {
+          "bsonType": [
+            "null",
+            "date"
+          ],
+          "description": "Il campo scadenza è opzionale. Se presente, deve essere una data valida."
+        },
+        "createdAt": {
+          "bsonType": "date",
+          "description": "La data di creazione è generata automaticamente."
+        },
+        "updatedAt": {
+          "bsonType": "date",
+          "description": "La data di aggiornamento è generata automaticamente."
+        }
+      }
+    }
+  }
+});
+db.createCollection("frequenza_raw", {
+  "create": "frequenza_raw"
+});
+db.createCollection("frequenza_raw", {
+  "create": "frequenza_raw"
+});
+# Nota: i dati per la collezione frequenza_raw non sono stati esportati (time series).
+db.createCollection("frequenze_aggregate", {
+  "create": "frequenze_aggregate",
+  "validator": {
+    "$jsonSchema": {
+      "bsonType": "object",
+      "required": [
+        "_id",
+        "fasce_orarie",
+        "ultimo_aggiornamento"
+      ],
+      "properties": {
+        "_id": {
+          "bsonType": "string",
+          "description": "ID del parco"
+        },
+        "fasce_orarie": {
+          "bsonType": "object",
+          "description": "Oggetto contenente i dati aggregati per fascia oraria",
+          "additionalProperties": {
+            "bsonType": "object",
+            "required": [
+              "media",
+              "conteggio_eventi"
+            ],
+            "properties": {
+              "media": {
+                "bsonType": "double",
+                "description": "Media dei visitatori per fascia oraria"
+              },
+              "conteggio_eventi": {
+                "bsonType": "int",
+                "description": "Numero di eventi registrati per questa fascia oraria"
+              },
+              "deviazione_standard": {
+                "bsonType": "double",
+                "description": "Deviazione standard dei dati (opzionale)"
+              }
+            }
+          }
+        },
+        "ultimo_aggiornamento": {
+          "bsonType": "date",
+          "description": "Data e ora dell'ultimo aggiornamento dei dati aggregati"
+        }
+      }
+    }
+  }
+});
+db.createCollection("categorie", {
+  "create": "categorie",
+  "validator": {
+    "$jsonSchema": {
+      "bsonType": "object",
+      "required": [
+        "nome"
+      ],
+      "properties": {
+        "nome": {
+          "bsonType": "string",
+          "description": "Il nome della categoria è obbligatorio, unico, e deve essere una stringa."
+        },
+        "descrizione": {
+          "bsonType": "string",
+          "description": "La descrizione della categoria, se presente, deve essere una stringa."
+        },
+        "createdAt": {
+          "bsonType": "date",
+          "description": "Data di creazione automatica tramite timestamps."
+        },
+        "updatedAt": {
+          "bsonType": "date",
+          "description": "Data di aggiornamento automatica tramite timestamps."
+        }
+      }
+    }
+  }
+});
+db.createCollection("system.views", {
+  "create": "system.views"
+});
+db.createCollection("tags", {
+  "create": "tags",
+  "validator": {
+    "$jsonSchema": {
+      "bsonType": "object",
+      "required": [
+        "nome",
+        "categoria"
+      ],
+      "properties": {
+        "nome": {
+          "bsonType": "string",
+          "description": "Il nome del tag è obbligatorio e deve essere una stringa."
+        },
+        "categoria": {
+          "bsonType": "objectId",
+          "description": "Il campo categoria deve essere un ObjectId valido e fa riferimento alla collection 'categorie'."
+        },
+        "createdAt": {
+          "bsonType": "date",
+          "description": "Data di creazione automatica tramite timestamps."
+        },
+        "updatedAt": {
+          "bsonType": "date",
+          "description": "Data di aggiornamento automatica tramite timestamps."
+        }
+      }
+    }
+  }
+});
+db.createCollection("parchi", {
+  "create": "parchi",
+  "validator": {
+    "$jsonSchema": {
+      "bsonType": "object",
+      "required": [
+        "nome",
+        "location",
+        "tags"
+      ],
+      "properties": {
+        "nome": {
+          "bsonType": "string",
+          "description": "Il nome del parco è obbligatorio e deve essere una stringa."
+        },
+        "location": {
+          "bsonType": "object",
+          "required": [
+            "lat",
+            "long"
+          ],
+          "properties": {
+            "lat": {
+              "bsonType": "double",
+              "description": "La latitudine è obbligatoria e deve essere un numero."
+            },
+            "long": {
+              "bsonType": "double",
+              "description": "La longitudine è obbligatoria e deve essere un numero."
+            }
+          },
+          "description": "La posizione deve essere un oggetto con latitudine e longitudine."
+        },
+        "tags": {
+          "bsonType": "array",
+          "minItems": 1,
+          "items": {
+            "bsonType": "object",
+            "required": [
+              "tagId",
+              "count",
+              "positions"
+            ],
+            "properties": {
+              "tagId": {
+                "bsonType": "objectId",
+                "description": "Il riferimento al tag è obbligatorio e deve essere un ObjectId."
+              },
+              "count": {
+                "bsonType": "int",
+                "minimum": 1,
+                "description": "Il numero di oggetti per il tag deve essere almeno 1."
+              },
+              "positions": {
+                "bsonType": "array",
+                "minItems": 1,
+                "items": {
+                  "bsonType": "object",
+                  "required": [
+                    "lat",
+                    "long"
+                  ],
+                  "properties": {
+                    "lat": {
+                      "bsonType": "double",
+                      "description": "La latitudine della posizione è obbligatoria e deve essere un numero."
+                    },
+                    "long": {
+                      "bsonType": "double",
+                      "description": "La longitudine della posizione è obbligatoria e deve essere un numero."
+                    }
+                  },
+                  "description": "Ogni posizione deve essere un oggetto con latitudine e longitudine."
+                },
+                "description": "Le posizioni devono essere un array di oggetti con latitudine e longitudine."
+              }
+            },
+            "description": "Ogni tag deve avere un riferimento, un conteggio e un array di posizioni."
+          },
+          "description": "Tags deve essere un array contenente oggetti validi."
+        },
+        "infoParco": {
+          "bsonType": "string",
+          "description": "L'informazione del parco è opzionale ma, se presente, deve essere una stringa."
+        }
+      }
+    }
+  }
+});
