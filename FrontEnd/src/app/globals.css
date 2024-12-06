@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap');
 
 :root {
   --background: #ffffff;
@@ -14,16 +15,29 @@
     --foreground: #ededed;
   }
 }
+
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+
+.quicksand {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
 #hotbar {
-  background-color: rgb(32, 126, 40);
-  background-image: url(../../assets/prismi-menu.svg);
-  background-repeat: no-repeat;
+  background-color: rgb(32, 126, 40); 
   box-shadow: #505050 0px 0px 10px;
   background-size: 320px;
   width: 100%;
-  height: 90px;
+  height: 4.2rem;
   background-position: 100% -2px;
-  padding: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,8 +52,8 @@
   background-size: cover;
   padding: 0.5rem;
   margin-right: 5%;
-  margin-bottom: auto;
   margin-left: -15%;
+  scale: 85%;
   }
 
   .search-bar{
@@ -72,12 +86,6 @@ body {
   z-index: 0;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
 #suggerimenti{
   position: fixed;
   left: 3%;
@@ -95,11 +103,45 @@ body {
 }
 
 .categories {
+  position: relative;
   display: inline-block;
-  font-size: 1.5rem;
-  font-family: "Ubuntu Sans", sans-serif; 
-  font-weight: 550;
+  font-size: 2rem;
   width: 12%;
+  cursor: pointer;
+  z-index: 20;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.categories .topdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 23%;
+  background-color: limegreen;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 100;
+  list-style: none;
+  margin: 0;
+  padding: 5px 0;
+  display: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.categories .topdown-menu li {
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
+.categories .topdown-menu li:hover {
+  background-color: #058001;
+}
+
+.categories:hover .topdown-menu {
+  display: block;
 }
 
 .ol-zoom {

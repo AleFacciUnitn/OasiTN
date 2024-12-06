@@ -29,7 +29,7 @@ export default function MapView() {
         });
 
         const zoomSlider = new ZoomSlider();
-        
+        console.log("ciao");
         map.addLayer(newGeolocation(view,map));
         map.addControl(zoomSlider);
         parks.forEach(park =>{

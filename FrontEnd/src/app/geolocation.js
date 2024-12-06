@@ -3,9 +3,12 @@ import Geolocation from 'ol/Geolocation.js';
 import Feature from 'ol/Feature';
 import * as layer from 'ol/layer';
 import * as source from 'ol/source';
+import newgeoloc from './geoloc_point';
+import geoloc from '../../assets/geoloc.png';
 
 
 export default function newGeolocation(view, map) {
+    console.log("inizio");
     const geolocation = new Geolocation({
         trackingOptions: {
             enableHighAccuracy: true,
@@ -13,26 +16,14 @@ export default function newGeolocation(view, map) {
         projection: view.getProjection(),
     });
 
-    function el(id) {
-        return document.getElementById(id);
-    }
-
-    el('track').addEventListener('change', function () {
-        geolocation.setTracking(this.checked);
-    });
+    geolocation.setTracking(true);
 
     geolocation.on('change', function () {
-        el('accuracy').innerText = geolocation.getAccuracy() + ' [m]';
-        el('altitude').innerText = geolocation.getAltitude() + ' [m]';
-        el('altitudeAccuracy').innerText = geolocation.getAltitudeAccuracy() + ' [m]';
-        el('heading').innerText = geolocation.getHeading() + ' [rad]';
-        el('speed').innerText = geolocation.getSpeed() + ' [m/s]';
+        console.log(geolocation.getPosition());
     });
 
     geolocation.on('error', function (error) {
-        const info = document.getElementById('info');
-        info.innerHTML = error.message;
-        info.style.display = '';
+        console.log(error.message);
     });
 
     const accuracyFeature = new Feature();
@@ -43,16 +34,11 @@ export default function newGeolocation(view, map) {
     const positionFeature = new Feature();
     positionFeature.setStyle(
         new style.Style({
-            image: new style.Circle({
-                radius: 6,
-                fill: new style.Fill({
-                    color: '#3399CC',
-                }),
-                stroke: new style.Stroke({
-                    color: '#fff',
-                    width: 2,
-                }),
-            }),
+            image: new style.Icon({
+                anchor: [0.5, 0.5],
+                src: geoloc.src,
+                scale: 0.1
+            })
         }),
     );
 
@@ -60,10 +46,11 @@ export default function newGeolocation(view, map) {
         features: [accuracyFeature, positionFeature]
       });
 
-    const positionlayer = new layer.Vector({
+      const geoLayer = new layer.Vector({
         source: vectorSource
-    });
+      });
 
-    return positionlayer;
+
+      return geoLayer;
 
 }
