@@ -58,10 +58,11 @@
 
   .search-bar{
     float: right;
-    padding-left: 5px;
+    padding-left: 9px;
     color:#0a0a0a;
     font-family: "Ubuntu Sans", sans-serif;
     margin-right: -100%;
+    border-radius: 15px;
   }
   .search-bar::placeholder {
     color: #888; 
@@ -73,7 +74,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Quicksand", sans-serif;
   height: 100vh;
 }
 
@@ -142,6 +143,30 @@ body {
 
 .categories:hover .topdown-menu {
   display: block;
+}
+
+#help {
+  position: fixed;
+  width: 12rem;
+  height: 2rem;
+  bottom: 2rem;
+  right: 3rem;
+  font-size: small;
+  background-color: rgb(32, 126, 40); 
+  color: white;
+  box-shadow: #505050 0px 0px 8px;
+  border-radius: 5px;
+  padding-left: 3px;
+  z-index: 26;
+  display: flex;
+  align-items: center;
+}
+
+#help-content {
+  position: relative;
+  left: 0.5rem;
+  display: flex;
+  gap: 20%; /* Adjust the gap as needed */
 }
 
 .ol-zoom {

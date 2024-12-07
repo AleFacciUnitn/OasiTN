@@ -3,7 +3,6 @@ import Geolocation from 'ol/Geolocation.js';
 import Feature from 'ol/Feature';
 import * as layer from 'ol/layer';
 import * as source from 'ol/source';
-import newgeoloc from './geoloc_point';
 import geoloc from '../../assets/geoloc.png';
 
 
