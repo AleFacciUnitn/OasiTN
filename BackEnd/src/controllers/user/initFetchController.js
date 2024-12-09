@@ -44,7 +44,7 @@ const getParchiInit = async (req, res) => {
       };
     });
 
-    res.json(risultato); // Risultato finale
+    return risultato; // Risultato finale
   } catch (error) {
     console.error('Errore nel recupero dei parchi:', error);
     res.status(500).send('Errore nel recupero dei parchi');
@@ -74,7 +74,7 @@ const getTagsForCategories = async () => {
 
 const getTagInit = async (req, res) => {
   const risultato = await getTagsForCategories();
-  res.json(risultato);
+  return risultato;
 }
 
 const init = async (req, res) => {

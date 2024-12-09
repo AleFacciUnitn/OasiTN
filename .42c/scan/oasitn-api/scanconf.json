@@ -1,0 +1,1210 @@
+{
+  "version": "2.0.0",
+  "runtimeConfiguration": {
+    "environment": "default",
+    "laxTestingModeEnabled": false,
+    "apiConnectivityCheck": true,
+    "logLevel": "error",
+    "logDestination": "stdout+platform",
+    "logMaxFileSize": 2147483648,
+    "requestHeaderNameRequestId": "x-scan-request-id",
+    "requestHeaderNameScenarioId": "x-scan-scenario-id",
+    "requestHeaderNameRequestType": "x-scan-request-type",
+    "requestFlowrate": 100,
+    "requestTimeout": 30,
+    "requestTlsInsecureSkipVerify": true,
+    "responseFollowRedirection": false,
+    "responseMaxBodySizeScan": 10485760,
+    "happyPathOnly": false,
+    "maxRequestRetryAttempts": 5,
+    "maxScanDuration": 1800,
+    "memoryLimit": 2147483648,
+    "memoryTimeSpan": 10,
+    "reportMaxRequestSizeHappyPath": 8092,
+    "reportMaxRequestSizeTest": 8092,
+    "reportIncludeRequestBody": true,
+    "reportIncludeResponseBody": true,
+    "reportMaxHttpResponseSizeHappyPath": 8092,
+    "reportMaxBodySizeHappyPath": 8092,
+    "reportMaxHttpResponseSizeTest": 8092,
+    "reportMaxBodySizeTest": 8092,
+    "reportIssuesOnly": false,
+    "reportMaxIssues": 1000,
+    "reportMaxSize": 20971520,
+    "reportGenerateCurlCommand": true
+  },
+  "customizations": {
+    "happyPaths": {
+      "retry": 1,
+      "responsePolicy": {
+        "httpStatusExpected": true,
+        "mustBeConformant": true
+      },
+      "httpStatusExpected": []
+    },
+    "tests": {
+      "responsePolicy": {
+        "httpStatusExpected": true,
+        "mustBeConformant": true
+      }
+    }
+  },
+  "environments": {
+    "default": {
+      "variables": {
+        "host": {
+          "name": "SCAN42C_HOST",
+          "from": "environment",
+          "required": false,
+          "default": "http://localhost:5000/api"
+        }
+      }
+    }
+  },
+  "operations": {
+    "/admin/Categoria/{id}:delete": {
+      "operationId": "/admin/Categoria/{id}:delete",
+      "request": {
+        "operationId": "/admin/Categoria/{id}:delete",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Categoria/{id}:delete",
+            "method": "DELETE",
+            "url": "{{host}}/admin/Categoria/{id}",
+            "headers": [
+              {
+                "key": "password",
+                "value": "yjtpgzfuejctvquxwekdqvkwcnafwvem"
+              }
+            ],
+            "paths": [
+              {
+                "key": "id",
+                "value": "iupcsfpkncmpsyenxzamqjhmfilzmtgs"
+              }
+            ]
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Categoria~1{id}:delete/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Categoria/{id}:get": {
+      "operationId": "/admin/Categoria/{id}:get",
+      "request": {
+        "operationId": "/admin/Categoria/{id}:get",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Categoria/{id}:get",
+            "method": "GET",
+            "url": "{{host}}/admin/Categoria/{id}",
+            "headers": [
+              {
+                "key": "password",
+                "value": "aakwiuxnxmodktrebjfzwnunntrvhwyb"
+              }
+            ],
+            "paths": [
+              {
+                "key": "id",
+                "value": "zdqkqoykhvkhvdkvwplqlpkcjugptcqx"
+              }
+            ]
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Categoria~1{id}:get/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Categoria/{id}:put": {
+      "operationId": "/admin/Categoria/{id}:put",
+      "request": {
+        "operationId": "/admin/Categoria/{id}:put",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Categoria/{id}:put",
+            "method": "PUT",
+            "url": "{{host}}/admin/Categoria/{id}",
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "paths": [
+              {
+                "key": "id",
+                "value": "dlwzcpxnuvtnoczaphnbzfirctctoupo"
+              }
+            ],
+            "requestBody": {
+              "mode": "json",
+              "json": {}
+            }
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Categoria~1{id}:put/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Categoria:get": {
+      "operationId": "/admin/Categoria:get",
+      "request": {
+        "operationId": "/admin/Categoria:get",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Categoria:get",
+            "method": "GET",
+            "url": "{{host}}/admin/Categoria",
+            "headers": [
+              {
+                "key": "password",
+                "value": "zvxxyyovgcrvfswtyqdsrhptjkoqcqcl"
+              }
+            ]
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Categoria:get/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Categoria:post": {
+      "operationId": "/admin/Categoria:post",
+      "request": {
+        "operationId": "/admin/Categoria:post",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Categoria:post",
+            "method": "POST",
+            "url": "{{host}}/admin/Categoria",
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "requestBody": {
+              "mode": "json",
+              "json": {}
+            }
+          }
+        },
+        "defaultResponse": "201",
+        "responses": {
+          "201": {
+            "expectations": {
+              "httpStatus": 201
+            }
+          },
+          "400": {
+            "expectations": {
+              "httpStatus": 400
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Categoria:post/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Parco/{id}:delete": {
+      "operationId": "/admin/Parco/{id}:delete",
+      "request": {
+        "operationId": "/admin/Parco/{id}:delete",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Parco/{id}:delete",
+            "method": "DELETE",
+            "url": "{{host}}/admin/Parco/{id}",
+            "headers": [
+              {
+                "key": "password",
+                "value": "bfetalushmkvwflscwtnywkcbcqndvic"
+              }
+            ],
+            "paths": [
+              {
+                "key": "id",
+                "value": "nskccizofiyoeawrkrmuxxanmlwpjhip"
+              }
+            ]
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Parco~1{id}:delete/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Parco/{id}:get": {
+      "operationId": "/admin/Parco/{id}:get",
+      "request": {
+        "operationId": "/admin/Parco/{id}:get",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Parco/{id}:get",
+            "method": "GET",
+            "url": "{{host}}/admin/Parco/{id}",
+            "headers": [
+              {
+                "key": "password",
+                "value": "zkudzkmlhghqprzzblwvsqxjkjqdnmum"
+              }
+            ],
+            "paths": [
+              {
+                "key": "id",
+                "value": "sbvxbfcownqlfvmrclfcfzcteiitphzh"
+              }
+            ]
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Parco~1{id}:get/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Parco/{id}:put": {
+      "operationId": "/admin/Parco/{id}:put",
+      "request": {
+        "operationId": "/admin/Parco/{id}:put",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Parco/{id}:put",
+            "method": "PUT",
+            "url": "{{host}}/admin/Parco/{id}",
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "paths": [
+              {
+                "key": "id",
+                "value": "eelehxthuepjnhuvqlnpfsyotjbyredb"
+              }
+            ],
+            "requestBody": {
+              "mode": "json",
+              "json": {}
+            }
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Parco~1{id}:put/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Parco:get": {
+      "operationId": "/admin/Parco:get",
+      "request": {
+        "operationId": "/admin/Parco:get",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Parco:get",
+            "method": "GET",
+            "url": "{{host}}/admin/Parco",
+            "headers": [
+              {
+                "key": "password",
+                "value": "uklojetodkfyibbarfdcfqqqtainwgwe"
+              }
+            ]
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Parco:get/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Parco:post": {
+      "operationId": "/admin/Parco:post",
+      "request": {
+        "operationId": "/admin/Parco:post",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Parco:post",
+            "method": "POST",
+            "url": "{{host}}/admin/Parco",
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "requestBody": {
+              "mode": "json",
+              "json": {}
+            }
+          }
+        },
+        "defaultResponse": "201",
+        "responses": {
+          "201": {
+            "expectations": {
+              "httpStatus": 201
+            }
+          },
+          "400": {
+            "expectations": {
+              "httpStatus": 400
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Parco:post/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Segnalazioni:delete": {
+      "operationId": "/admin/Segnalazioni:delete",
+      "request": {
+        "operationId": "/admin/Segnalazioni:delete",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Segnalazioni:delete",
+            "method": "DELETE",
+            "url": "{{host}}/admin/Segnalazioni",
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "requestBody": {
+              "mode": "json",
+              "json": {}
+            }
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Segnalazioni:delete/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Segnalazioni:get": {
+      "operationId": "/admin/Segnalazioni:get",
+      "request": {
+        "operationId": "/admin/Segnalazioni:get",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Segnalazioni:get",
+            "method": "GET",
+            "url": "{{host}}/admin/Segnalazioni"
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Segnalazioni:get/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Segnalazioni:put": {
+      "operationId": "/admin/Segnalazioni:put",
+      "request": {
+        "operationId": "/admin/Segnalazioni:put",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Segnalazioni:put",
+            "method": "PUT",
+            "url": "{{host}}/admin/Segnalazioni",
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "requestBody": {
+              "mode": "json",
+              "json": {}
+            }
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "400": {
+            "expectations": {
+              "httpStatus": 400
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Segnalazioni:put/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Tag/{id}:delete": {
+      "operationId": "/admin/Tag/{id}:delete",
+      "request": {
+        "operationId": "/admin/Tag/{id}:delete",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Tag/{id}:delete",
+            "method": "DELETE",
+            "url": "{{host}}/admin/Tag/{id}",
+            "headers": [
+              {
+                "key": "password",
+                "value": "kisfaijpiejecmfoyebqrbtiycgexqav"
+              }
+            ],
+            "paths": [
+              {
+                "key": "id",
+                "value": "ijupvsplgaenrtfqjpxutigtcnuwhyob"
+              }
+            ]
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Tag~1{id}:delete/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Tag/{id}:get": {
+      "operationId": "/admin/Tag/{id}:get",
+      "request": {
+        "operationId": "/admin/Tag/{id}:get",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Tag/{id}:get",
+            "method": "GET",
+            "url": "{{host}}/admin/Tag/{id}",
+            "headers": [
+              {
+                "key": "password",
+                "value": "undbljgikrkxmdbrxvsgikfqqxqnfvnp"
+              }
+            ],
+            "paths": [
+              {
+                "key": "id",
+                "value": "gntkrisirirxgscxdgvqujeeiwgltwff"
+              }
+            ]
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Tag~1{id}:get/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Tag/{id}:put": {
+      "operationId": "/admin/Tag/{id}:put",
+      "request": {
+        "operationId": "/admin/Tag/{id}:put",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Tag/{id}:put",
+            "method": "PUT",
+            "url": "{{host}}/admin/Tag/{id}",
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "paths": [
+              {
+                "key": "id",
+                "value": "foirfwvojxbsgevxsgfixydhqoyozrpt"
+              }
+            ],
+            "requestBody": {
+              "mode": "json",
+              "json": {}
+            }
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Tag~1{id}:put/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Tag:get": {
+      "operationId": "/admin/Tag:get",
+      "request": {
+        "operationId": "/admin/Tag:get",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Tag:get",
+            "method": "GET",
+            "url": "{{host}}/admin/Tag",
+            "headers": [
+              {
+                "key": "password",
+                "value": "qokvrtxzsmmqqfeaahbqjcdsvtriozgv"
+              }
+            ]
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Tag:get/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/admin/Tag:post": {
+      "operationId": "/admin/Tag:post",
+      "request": {
+        "operationId": "/admin/Tag:post",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/admin/Tag:post",
+            "method": "POST",
+            "url": "{{host}}/admin/Tag",
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "requestBody": {
+              "mode": "json",
+              "json": {}
+            }
+          }
+        },
+        "defaultResponse": "201",
+        "responses": {
+          "201": {
+            "expectations": {
+              "httpStatus": 201
+            }
+          },
+          "400": {
+            "expectations": {
+              "httpStatus": 400
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1admin~1Tag:post/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/user/init:get": {
+      "operationId": "/user/init:get",
+      "request": {
+        "operationId": "/user/init:get",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/user/init:get",
+            "method": "GET",
+            "url": "{{host}}/user/init"
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1user~1init:get/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    },
+    "/user/segnala:post": {
+      "operationId": "/user/segnala:post",
+      "request": {
+        "operationId": "/user/segnala:post",
+        "request": {
+          "type": "42c",
+          "details": {
+            "operationId": "/user/segnala:post",
+            "method": "POST",
+            "url": "{{host}}/user/segnala",
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "requestBody": {
+              "mode": "json",
+              "json": {}
+            }
+          }
+        },
+        "defaultResponse": "201",
+        "responses": {
+          "201": {
+            "expectations": {
+              "httpStatus": 201
+            }
+          },
+          "400": {
+            "expectations": {
+              "httpStatus": 400
+            }
+          },
+          "500": {
+            "expectations": {
+              "httpStatus": 500
+            }
+          }
+        }
+      },
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "requests": [
+            {
+              "fuzzing": true,
+              "$ref": "#/operations/~1user~1segnala:post/request"
+            }
+          ],
+          "fuzzing": true
+        }
+      ]
+    }
+  },
+  "authenticationDetails": []
+}
