@@ -1,0 +1,611 @@
+openapi: 3.0.0
+info:
+  title: OasiTN API
+  version: 1.0.0
+  description: API documentation for OasiTN backend
+
+servers:
+  - url: http://localhost:5000/api
+
+paths:
+  /admin/Categoria:
+    get:
+      summary: Get all categories
+      tags:
+        - Admin
+      parameters:
+        - in: header
+          name: password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+        '403':
+          description: Invalid password
+        '500':
+          description: Internal server error
+    post:
+      summary: Add a new category
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                descrizione:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Category added successfully
+        '400':
+          description: Bad request
+        '403':
+          description: Invalid password
+        '500':
+          description: Internal server error
+
+  /admin/Categoria/{id}:
+    get:
+      summary: Get category by ID
+      tags:
+        - Admin
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+        '403':
+          description: Invalid password
+        '404':
+          description: Category not found
+        '500':
+          description: Internal server error
+    put:
+      summary: Update category by ID
+      tags:
+        - Admin
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                descrizione:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Category updated successfully
+        '403':
+          description: Invalid password
+        '404':
+          description: Category not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: Delete category by ID
+      tags:
+        - Admin
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Category deleted successfully
+        '403':
+          description: Invalid password
+        '404':
+          description: Category not found
+        '500':
+          description: Internal server error
+
+  /admin/Tag:
+    get:
+      summary: Get all tags
+      tags:
+        - Admin
+      parameters:
+        - in: header
+          name: password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+        '403':
+          description: Invalid password
+        '500':
+          description: Internal server error
+    post:
+      summary: Add a new tag
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                nomeCategoria:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Tag added successfully
+        '400':
+          description: Bad request
+        '403':
+          description: Invalid password
+        '500':
+          description: Internal server error
+
+  /admin/Tag/{id}:
+    get:
+      summary: Get tag by ID
+      tags:
+        - Admin
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+        '403':
+          description: Invalid password
+        '404':
+          description: Tag not found
+        '500':
+          description: Internal server error
+    put:
+      summary: Update tag by ID
+      tags:
+        - Admin
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                nomeCategoria:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Tag updated successfully
+        '403':
+          description: Invalid password
+        '404':
+          description: Tag not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: Delete tag by ID
+      tags:
+        - Admin
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tag deleted successfully
+        '403':
+          description: Invalid password
+        '404':
+          description: Tag not found
+        '500':
+          description: Internal server error
+
+  /admin/Parco:
+    get:
+      summary: Get all parks
+      tags:
+        - Admin
+      parameters:
+        - in: header
+          name: password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+        '403':
+          description: Invalid password
+        '500':
+          description: Internal server error
+    post:
+      summary: Add a new park
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                location:
+                  type: object
+                  properties:
+                    lat:
+                      type: number
+                    long:
+                      type: number
+                tags:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      nome:
+                        type: string
+                      count:
+                        type: number
+                      positions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            lat:
+                              type: number
+                            long:
+                              type: number
+                infoParco:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Park added successfully
+        '400':
+          description: Bad request
+        '403':
+          description: Invalid password
+        '500':
+          description: Internal server error
+
+  /admin/Parco/{id}:
+    get:
+      summary: Get park by ID
+      tags:
+        - Admin
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+        '403':
+          description: Invalid password
+        '404':
+          description: Park not found
+        '500':
+          description: Internal server error
+    put:
+      summary: Update park by ID
+      tags:
+        - Admin
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                location:
+                  type: object
+                  properties:
+                    lat:
+                      type: number
+                    long:
+                      type: number
+                addTags:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      tagId:
+                        type: string
+                      count:
+                        type: number
+                      positions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            lat:
+                              type: number
+                            long:
+                              type: number
+                removeTagIds:
+                  type: array
+                  items:
+                    type: string
+                infoParco:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Park updated successfully
+        '403':
+          description: Invalid password
+        '404':
+          description: Park not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: Delete park by ID
+      tags:
+        - Admin
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Park deleted successfully
+        '403':
+          description: Invalid password
+        '404':
+          description: Park not found
+        '500':
+          description: Internal server error
+
+  /admin/Segnalazioni:
+    get:
+      summary: Get all reports
+      tags:
+        - Admin
+      responses:
+        '200':
+          description: Successful response
+        '500':
+          description: Internal server error
+    put:
+      summary: Update report status
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                stato:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Report status updated successfully
+        '400':
+          description: Invalid status
+        '403':
+          description: Invalid password
+        '404':
+          description: Report not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: Resolve report
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Report resolved successfully
+        '403':
+          description: Invalid password
+        '404':
+          description: Report not found
+        '500':
+          description: Internal server error
+
+  /user/init:
+    get:
+      summary: Initial fetch for user
+      tags:
+        - User
+      responses:
+        '200':
+          description: Successful response
+        '500':
+          description: Internal server error
+
+  /user/segnala:
+    post:
+      summary: Add a new report
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parcoId:
+                  type: string
+                oggetto:
+                  type: string
+                descrizione:
+                  type: string
+                priorita:
+                  type: number
+      responses:
+        '201':
+          description: Report added successfully
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    Categoria:
+      type: object
+      properties:
+        nome:
+          type: string
+        descrizione:
+          type: string
+    Tag:
+      type: object
+      properties:
+        nome:
+          type: string
+        categoria:
+          type: string
+    Parco:
+      type: object
+      properties:
+        nome:
+          type: string
+        location:
+          type: object
+          properties:
+            lat:
+              type: number
+            long:
+              type: number
+        tags:
+          type: array
+          items:
+            type: object
+            properties:
+              tagId:
+                type: string
+              count:
+                type: number
+              positions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    lat:
+                      type: number
+                    long:
+                      type: number
+        infoParco:
+          type: string
+    Segnalazione:
+      type: object
+      properties:
+        parco:
+          type: string
+        oggetto:
+          type: string
+        descrizione:
+          type: string
+        priorita:
+          type: number
+        stato:
+          type: string
+        scadenza:
+          type: string
+          format: date-time

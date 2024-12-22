@@ -1,0 +1,3 @@
+apis:
+  BackEnd/openapi/oas3.yaml:
+    alias: oasitn-api
