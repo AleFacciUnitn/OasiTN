@@ -4,13 +4,14 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import * as proj from 'ol/proj';
+import Overlay from 'ol/Overlay.js';
 import parks from '../../assets/parks.json'
 import newMarker from './Marker';
 import ZoomSlider from 'ol/control/ZoomSlider';
 import newGeolocation from './geolocation';
 
 export default function MapView() {
-    
+
     useEffect(() => {
         const view = new View({
             center: proj.fromLonLat([11.131709, 46.059779]),
@@ -29,15 +30,58 @@ export default function MapView() {
         });
 
         const zoomSlider = new ZoomSlider();
-        console.log("ciao");
-        map.addLayer(newGeolocation(view,map));
+        map.addLayer(newGeolocation(view, map));
         map.addControl(zoomSlider);
-        parks.forEach(park =>{
+        parks.forEach(park => {
             map.addLayer(newMarker(park.name, park.longitude, park.latitude));
         })
 
+        const popup = document.createElement('div');
+        popup.className = 'ol-popup';
+        popup.style.position = 'absolute';
+        popup.style.background = 'white';
+        popup.style.color = 'black';
+        popup.style.padding = '10px';
+        popup.style.border = '1px solid #ccc';
+        popup.style.borderRadius = '5px';
+        popup.style.minWidth = '100px';
+        popup.style.textAlign = 'center';
+
+        const overlay1 = new Overlay({
+            element: popup,
+            autoPan: {
+                animation: {
+                    duration: 250,
+                },
+            },
+        })
+
+        map.addOverlay(overlay1);
+
+        map.on('click', (event) => {
+            
+            overlay1.setPosition(undefined);
+
+            map.forEachFeatureAtPixel(event.pixel, (feature) => {
+                
+                    const coordinates = feature.getGeometry().getCoordinates();
+                    const name = feature.get('name');
+                    //Bisogna usare il nome per recuperare i tag e inserirli nel popup
+                    // Mostra il popup
+                    popup.innerHTML = `<p>${name}</p>`;
+                    overlay1.setPosition(coordinates);
+                
+                return true;
+            });
+
+        })
+        map.on('pointermove', (event) => {
+    const pixel = map.getEventPixel(event.originalEvent);
+    const hit = map.hasFeatureAtPixel(pixel);
+    map.getTargetElement().style.cursor = hit ? 'pointer' : '';
+});
     }, []);
-    
+
     return <div id="map" style={{ width: "100%", height: "100vh" }}>
         <div id="suggerimenti">Suggerimenti</div>
     </div>;

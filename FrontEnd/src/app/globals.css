@@ -56,12 +56,16 @@
   scale: 85%;
   }
 
+  #search-bar {
+    position: relative;
+    left: 15%;
+  }
+
   .search-bar{
-    float: right;
+    position: relative;
     padding-left: 9px;
     color:#0a0a0a;
     font-family: "Ubuntu Sans", sans-serif;
-    margin-right: -100%;
     border-radius: 15px;
   }
   .search-bar::placeholder {
@@ -102,6 +106,11 @@ body {
   border-radius: 10px;
   box-shadow: #505050 0px 0px 10px;
 }
+
+#catList{
+  padding-right: 15%;
+}
+
 
 .categories {
   position: relative;

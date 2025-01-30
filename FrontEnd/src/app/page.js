@@ -16,23 +16,19 @@ export default function Home() {
   const steps = [
     {
       target: '#hotbar',
-      content: 'This is the hotbar where you can navigate through different sections.',
-    },
-    {
-      target: '#logo',
-      content: 'This is the logo of the application.',
+      content: 'Utilizza il menú per navigare i parchi usando i filtri disponibili.',
     },
     {
       target: '#searchbar',
-      content: 'Use this search bar to find content quickly.',
+      content: 'Cerca qui quello che desideri trovare.',
     },
     {
       target: '#help',
-      content: 'Click here to get help or report an issue.',
+      content: 'Puoi utilizzare "segnalazione per segnalare un problema o una inaccuratezza e il pulsante "Help" per riprodurre nuovamente il tutorial.',
     },
     {
       target: '#map',
-      content: 'This is the map view where you can see the locations.',
+      content: 'Cliccando sui pin presenti sulla mappa puoi scoprire tutto sul parco selezionato.',
     },
   ];
   const handleHelpClick = () => {
