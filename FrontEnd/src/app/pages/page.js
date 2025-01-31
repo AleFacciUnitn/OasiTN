@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import Joyride from 'react-joyride';
-import NavItem from "./NavItem";
-import MapView from "./Map";
-import "./globals.css";
+import NavItem from "../NavItem";
+import MapView from "../Map";
+import "../globals.css";
 
 export default function Home() {
   const [run, setRun] = useState(false);
@@ -50,6 +50,9 @@ export default function Home() {
         }}
       />
 )}
+
+<script src="./searchScript.js" defer></script>
+
       <div id="hotbar">
         <div id="logo" style={{ display: "inline-block" }} ></div>
         <NavItem name="Sport">
@@ -61,8 +64,18 @@ export default function Home() {
         </NavItem>
         <NavItem name="Giochi" />
         <NavItem name="Relax" />
-        <NavItem name="Varie" />
-        <div id="searchbar"><input type="text" placeholder="Search..." className='search-bar'/>
+        <NavItem name="Varie" />    
+        <div id="hotbar-right">
+        <div id="searchbar" search-data><input type="text" placeholder="Search..." className='search-bar'/>
+        </div>
+        <div id= "rslist" search-data-template>
+                <div id="result-member">
+                    <div id="result-title"></div>
+                    <div id="result-description"></div>
+                </div>
+        </div>
+        <div id="results" data-results-container>           
+        </div>
         </div>
       </div>
       <MapView/>

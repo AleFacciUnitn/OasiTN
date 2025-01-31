@@ -56,9 +56,16 @@
   scale: 85%;
   }
 
+#hotbar-right {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  left: 30vh;
+
+}
+
   #search-bar {
     position: relative;
-    left: 15%;
   }
 
   .search-bar{
@@ -105,10 +112,6 @@ body {
   padding-left: 5px;
   border-radius: 10px;
   box-shadow: #505050 0px 0px 10px;
-}
-
-#catList{
-  padding-right: 15%;
 }
 
 
