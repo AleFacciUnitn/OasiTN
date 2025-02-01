@@ -64,10 +64,6 @@
 
 }
 
-  #search-bar {
-    position: relative;
-  }
-
   .search-bar{
     position: relative;
     padding-left: 9px;
@@ -83,6 +79,8 @@
   
 
 body {
+  box-sizing: border-box;
+  user-select: none;
   color: var(--foreground);
   background: var(--background);
   font-family: "Quicksand", sans-serif;
@@ -116,23 +114,21 @@ body {
 
 
 .categories {
-  position: relative;
-  display: inline-block;
+  display: block;
   font-size: 2rem;
   width: 12%;
   cursor: pointer;
   z-index: 20;
   height: 100%;
   text-align: center;
+}
+
+.categories div {
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .categories .topdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 23%;
   background-color: limegreen;
   color: white;
   font-size: 1.3rem;
@@ -206,4 +202,32 @@ body {
   background-color: transparent;
   border: none;
   z-index: 4;
+}
+
+#searchSuggest {
+  background: white;
+  color: black;
+  border-radius: 10px;
+  box-shadow: #505050 0px 0px 10px;
+}
+
+.suggestion {
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  background: transparent;
+}
+
+#searchSuggest li:first-child {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+#searchSuggest li:last-child {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.suggestion:hover {
+  border-left: 4px solid rgb(32, 126, 40);
+  background: rgba(0,0,0,0.2);
 }

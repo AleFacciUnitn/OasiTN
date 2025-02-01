@@ -5,14 +5,11 @@ import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import * as proj from 'ol/proj';
 import Overlay from 'ol/Overlay.js';
-import parks from '../../assets/parks.json'
 import newMarker from './Marker';
 import ZoomSlider from 'ol/control/ZoomSlider';
 import newGeolocation from './geolocation';
 
-export default function MapView() {
-
-    useEffect(() => {
+export default function MapView({parchi}) {
         const view = new View({
             center: proj.fromLonLat([11.131709, 46.059779]),
             zoom: 14
@@ -28,13 +25,13 @@ export default function MapView() {
             ],
             view: view,
         });
+        parchi.forEach(parco => {
+          map.addLayer(newMarker(parco.nome, parco.localizzazione.long, parco.localizzazione.lat));
+        })
 
         const zoomSlider = new ZoomSlider();
         map.addLayer(newGeolocation(view, map));
         map.addControl(zoomSlider);
-        parks.forEach(park => {
-            map.addLayer(newMarker(park.name, park.longitude, park.latitude));
-        })
 
         const popup = document.createElement('div');
         popup.className = 'ol-popup';
@@ -76,14 +73,20 @@ export default function MapView() {
 
         })
         map.on('pointermove', (event) => {
-    const pixel = map.getEventPixel(event.originalEvent);
-    const hit = map.hasFeatureAtPixel(pixel);
-    map.getTargetElement().style.cursor = hit ? 'pointer' : '';
-});
-    }, []);
+          const pixel = map.getEventPixel(event.originalEvent);
+          const hit = map.hasFeatureAtPixel(pixel);
+          map.getTargetElement().style.cursor = hit ? 'pointer' : '';
+        });
 
     return <div id="map" style={{ width: "100%", height: "100vh" }}>
-        <div id="suggerimenti">Suggerimenti</div>
+        <div id="suggerimenti">
+          <div>Suggerimenti</div>
+          <ul className="h-full" style={{color: "black"}}>
+          {parchi.slice(0,5).map(parco =>
+             <li className="suggestion p-1i h-1/6" key={parco.nome}>{parco.nome}</li>
+           )}
+          </ul>
+        </div>
     </div>;
 
 }
