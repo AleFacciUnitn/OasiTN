@@ -47,21 +47,15 @@
 
 #logo {
   background: url("../../assets/logo.png");
-  width: 18rem;
+  width: 16rem;
   height: 4rem;
   background-size: cover;
-  padding: 0.5rem;
-  margin-right: 5%;
-  margin-left: -15%;
   scale: 85%;
   }
 
 #hotbar-right {
   display: flex;
   justify-content: flex-end;
-  position: relative;
-  left: 30vh;
-
 }
 
   .search-bar{
@@ -98,16 +92,15 @@ body {
 
 #suggerimenti{
   position: fixed;
+  display: flex;
+  flex-direction: column;
   left: 3%;
   top: 30%;
-  width: 15%;
   height: 45%;
   color: gray;
   background-color: white;
   z-index: 1;
   overflow-x: hidden;
-  padding-top: 8px;
-  padding-left: 5px;
   border-radius: 10px;
   box-shadow: #505050 0px 0px 10px;
 }
@@ -123,7 +116,7 @@ body {
   text-align: center;
 }
 
-.categories div {
+.categories div div{
   display: flex;
   justify-content: center;
 }

@@ -27,6 +27,7 @@ export default function Home() {
           setParchi(JSON.parse(sessionStorage.getItem("parchi")));
         })
         .catch((error) => console.error(error));
+      window.location.reload(false);
     } else {
       setParchi(JSON.parse(storedParks));
     }
@@ -70,10 +71,13 @@ export default function Home() {
           }}
         />
       )}
-      <div id="hotbar">
-        <div id="logo" style={{ display: "inline-block" }} ></div>
+      <div className="gap-4 px-2" id="hotbar">
+        <div className="flex-none" id="hotbar-left">
+          <div id="logo" style={{ display: "inline-block" }} ></div>
+        </div>
+        <div className="flex grow justify-evenly h-full" id="hotbar-center">
         <NavItem name="Sport">
-          <ul className="topdown-menu">
+          <ul className="topdown-menu w-full absolute">
             <li><span className="filter">Calcio</span></li>
             <li><span className="filter">Basket</span></li>
             <li><span className="filter">Ping-Pong</span></li>
@@ -81,8 +85,9 @@ export default function Home() {
         </NavItem>
         <NavItem name="Giochi" />
         <NavItem name="Relax" />
-        <NavItem name="Varie" />    
-        <div id="hotbar-right">
+        <NavItem name="Varie" />
+        </div>    
+        <div className="flex-none" id="hotbar-right">
           <CercaParchi parchi={parchi}/>
         </div>
       </div>

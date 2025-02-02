@@ -16,7 +16,7 @@ export default function CercaParchi({parchi}) {
   }
  
   return (
-    <div id="searchbar">
+    <div className="relative" id="searchbar">
       <input 
         type="text" 
         placeholder="Search..." 
