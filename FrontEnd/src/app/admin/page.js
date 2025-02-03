@@ -1,28 +1,29 @@
 "use client";
-import "./adminpage.css"
-import React, { useState } from 'react';
-
+import "./adminpage.css";
+import React, { useState, useEffect, useRef } from 'react';
+import {useRouter} from 'next/navigation';
+import Dashboard from "./Dashboard";
+import GestioneSegnalazioni from "./GestioneSegnalazioni";
+import Header from "./Header";
 
 export default function Home() {
+  const router = useRouter();
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [token, setToken] = useState(null);
 
+  useEffect(() => {
+    const storedToken = sessionStorage.getItem("token");
+    if(storedToken){
+      setToken(storedToken);
+    }
+  }, []);
 
-const [selectedOption, setSelectedOption] = useState(null);
-
-const handleOptionClick = (option) => {
-    setSelectedOption(option);
-};
-
-return (
-    <div className="container">
-        <div id="sidebar">
-            <div id="admin">Admin</div>
-            <div id="options" onClick={() => handleOptionClick('edit')}>Edit</div>
-            <div id="options" onClick={() => handleOptionClick('segnalazioni')}>Segnalazioni</div>
-        </div>
+  return (
+    <div className="w-full h-full flex flex-col">
+        <Header router={router}/>
         <div id="content">
-            {selectedOption === 'edit' && <div>Edit Content</div>}
-            {selectedOption === 'segnalazioni' && <div>Segnalazioni Content</div>}
+          <Dashboard />
         </div>
     </div>
-);
+  );
 }
