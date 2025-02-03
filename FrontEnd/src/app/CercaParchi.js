@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-export default function CercaParchi({parchi}) {
+export default function CercaParchi({parchi, OnClick}) {
   const [search, setSearch] = useState('');
  
   const searchScript = () => {
@@ -10,7 +10,7 @@ export default function CercaParchi({parchi}) {
     var subset = parchi.filter(parco => parco.nome.toLowerCase().includes(search.toLowerCase()));
     return subset.slice(0,(5 > subset.length ? subset.length : 5)).map(parco => {
             return (
-              <li className="suggestion p-1" key={parco.nome}>{parco.nome}</li>
+              <li onClick={() => OnClick(parco)} className="suggestion p-1" key={parco.nome}>{parco.nome}</li>
             ); 
           });
   }

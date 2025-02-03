@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import Error from 'next/error';
 import Joyride from 'react-joyride';
 import NavItem from "./NavItem";
 import MapView from "./Map";
@@ -10,6 +11,7 @@ export default function Home() {
   const [run, setRun] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [parchi, setParchi] = useState([]);
+  const [parco, setParco] = useState(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -23,11 +25,15 @@ export default function Home() {
       fetch("http://localhost:5000/api/user/init", requestOptions)
         .then((response) => response.text())
         .then((result) => {
-          sessionStorage.setItem("parchi", JSON.stringify(JSON.parse(JSON.stringify(JSON.parse(result).parchi))))
+          sessionStorage.setItem(
+            "parchi",
+            JSON.stringify(
+              JSON.parse(JSON.stringify(JSON.parse(result).parchi))
+            )
+          )
           setParchi(JSON.parse(sessionStorage.getItem("parchi")));
         })
         .catch((error) => console.error(error));
-      window.location.reload(false);
     } else {
       setParchi(JSON.parse(storedParks));
     }
@@ -56,7 +62,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col relative h-full">
       {isClient && (
         <Joyride
           steps={steps}
@@ -71,7 +77,7 @@ export default function Home() {
           }}
         />
       )}
-      <div className="gap-4 px-2" id="hotbar">
+      <div className="gap-4 px-2 sticky" id="hotbar">
         <div className="flex-none" id="hotbar-left">
           <div id="logo" style={{ display: "inline-block" }} ></div>
         </div>
@@ -88,10 +94,10 @@ export default function Home() {
         <NavItem name="Varie" />
         </div>    
         <div className="flex-none" id="hotbar-right">
-          <CercaParchi parchi={parchi}/>
+          <CercaParchi parchi={parchi} OnClick={setParco}/>
         </div>
       </div>
-      <MapView parchi={parchi}/>
+      <MapView parchi={parchi} parco={parco} onClick={setParco} OnClose={setParco}/>
       {/* <div id="track"/> */}
       <div id="help">
         <div id="help-content" onClick={handleHelpClick}>
