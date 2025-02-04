@@ -10,10 +10,10 @@ const generateMD5 = (text) => {
 const validatePassword = (passwordFromRequest) => {
   try {
     if(!passwordFromRequest) return false;
-    const hardcodedPassword = "1234";  // Cambia con una password più sicura
+    const hardcodedPassword = "123456789";  // Cambia con una password più sicura
     return generateMD5(passwordFromRequest) === generateMD5(hardcodedPassword);
   }catch(error){
-    console.error('Errore durante la validazione della password:', error);
+    //console.error('Errore durante la validazione della password:', error);
     return false;
   }
 };

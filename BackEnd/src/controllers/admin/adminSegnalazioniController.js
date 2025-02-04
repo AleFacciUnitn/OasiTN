@@ -48,7 +48,9 @@ const updateSegnalazioneStato = async (req, res) => {
 
 //scrivi resolveSegnalazione, che setta lo stato della segnalazione a 'completata', e aggiunge un tempo di vita alla segnalazione di un mese
 const resolveSegnalazione = async (req, res) => {
-    const { id, password } = req.body;
+  const password = req.headers.password;
+
+  const { id } = req.params;
     
     // Verifica la password
     if (!validatePassword(password)) {

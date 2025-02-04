@@ -481,21 +481,22 @@ paths:
           description: Report not found
         '500':
           description: Internal server error
+  /admin/Segnalazioni/{id}:
     delete:
       summary: Resolve report
       tags:
         - Admin
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: string
-                password:
-                  type: string
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: header
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Report resolved successfully
@@ -505,7 +506,6 @@ paths:
           description: Report not found
         '500':
           description: Internal server error
-
   /user/init:
     get:
       summary: Initial fetch for user
@@ -517,7 +517,7 @@ paths:
         '500':
           description: Internal server error
 
-  /user/segnala:
+  /user/Segnalazioni:
     post:
       summary: Add a new report
       tags:
