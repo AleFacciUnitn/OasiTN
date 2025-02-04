@@ -5,9 +5,6 @@ import "../adminpage.css";
 
 export default function Parchi(){
   return (
-    <>
-      <Header />
-      <GestioneParchi />
-    </>
+    <GestioneParchi />
   );
 } 

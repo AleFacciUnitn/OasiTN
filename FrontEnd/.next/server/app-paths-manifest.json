@@ -1,3 +1,6 @@
 {
-  "/page": "app/page.js"
+  "/admin/parchi/[slug]/page": "app/admin/parchi/[slug]/page.js",
+  "/admin/parchi/page": "app/admin/parchi/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/admin/segnalazioni/page": "app/admin/segnalazioni/page.js"
 }

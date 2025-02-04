@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-export default function CercaParchi({parchi, OnClick}) {
+export default function CercaParchi({parchi, OnClick, className}) {
   const [search, setSearch] = useState('');
  
   const searchScript = () => {
@@ -20,7 +20,7 @@ export default function CercaParchi({parchi, OnClick}) {
   }
  
   return (
-    <div className="relative" id="searchbar">
+    <div className={"relative "+className} id="searchbar">
       <input 
         type="text" 
         placeholder="Search..." 

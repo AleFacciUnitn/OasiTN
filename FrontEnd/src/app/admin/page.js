@@ -1,10 +1,7 @@
 "use client";
-import "./adminpage.css";
 import React, { useState, useEffect, useRef } from 'react';
 import {useRouter} from 'next/navigation';
 import Dashboard from "./Dashboard";
-import GestioneSegnalazioni from "./GestioneSegnalazioni";
-import Header from "./Header";
 
 export default function Home() {
   const router = useRouter();
@@ -20,9 +17,8 @@ export default function Home() {
 
   return (
     <div className="w-full h-full flex flex-col">
-        <Header router={router}/>
         <div id="content">
-          <Dashboard />
+          <Dashboard router={router}/>
         </div>
     </div>
   );

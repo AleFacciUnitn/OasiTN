@@ -1,12 +1,16 @@
 import {useState, useEffect} from 'react';
 import {useRouter} from 'next/navigation';
 import Parco from "./Parco";
+import CercaParchi from "../../CercaParchi";
+import Error from "../../Error";
 
 export default function GestioneParchi(){
   const router = useRouter();
+  var sortFunction = (a,b) => a.nome.localeCompare(b.nome);
+  const [sortType, setSortType] = useState("az");
   const [parchi, setParchi] = useState([]);
 
-  useState(() => {
+  useEffect(() => {
     if(parchi.length != 0) return;
     const storedParchi = sessionStorage.getItem("parchi");
     if(!storedParchi) {
@@ -33,22 +37,54 @@ export default function GestioneParchi(){
     }
   }, [parchi]);
 
+  const toggleSortType = () => {
+    if(sortType === "az") setSortType("za");
+    else setSortType("az");
+  }
+
+  switch(sortType){
+    case "za": 
+      sortFunction = (a,b) => b.nome.localeCompare(a.nome);
+      break;
+    case "az": 
+      sortFunction = (a,b) => a.nome.localeCompare(b.nome);
+      break;
+    default:
+      return <Error error="Sorting method not implemented"/>
+  }
+
+  const modificaParco = (parco) => {
+    sessionStorage.setItem("parco", JSON.stringify(parco));
+    router.push("/admin/parchi/"+parco.nome.toLowerCase().replaceAll(" ", ""));
+  }
+ 
+  const deleteParco = (parco) => {
+    const newArray = parchi.filter((item) => item != parco);
+    setParchi(newArray);
+  }
+
   return (
-    <>
-      <div>Gestione parchi</div>
+    <div className="px-10">
+      <div className="flex justify-between py-4 items-center">
+        <div className="flex w-1/4 justify-between">
+          <div>Gestione parchi</div>
+          <div
+           className="cursor-pointer"
+           onClick={toggleSortType}>{sortType === "az" ? "a->z" : "z->a"}</div>
+        </div>
+        <CercaParchi className="py-4" parchi={parchi} OnClick={modificaParco}/>
+      </div>
       <div>
-        <ul>
-         {parchi.map(parco => 
+        <ul className="flex flex-col gap-3">
+         {parchi.sort(sortFunction).map(parco => 
            <Parco 
              key={parco.nome} 
              parco={parco} 
-             onClick={() => {
-               sessionStorage.setItem("parco", JSON.stringify(parco));
-               router.push("/admin/parchi/"+parco.nome.toLowerCase().replaceAll(" ", ""));
-             }}
+             onClick={() => modificaParco(parco)}
+             onClickX={() => deleteParco(parco)}
            />)}
         </ul>
       </div>
-    </>
+    </div>
   );
 }
