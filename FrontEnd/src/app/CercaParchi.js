@@ -6,11 +6,15 @@ export default function CercaParchi({parchi, OnClick}) {
   const searchScript = () => {
     //una volta visto come arrivano i dati posso fare anche la ricerca per tag
     if(search.trim().length === 0) return;
-    console.log(search);
+    
     var subset = parchi.filter(parco => parco.nome.toLowerCase().includes(search.toLowerCase()));
     return subset.slice(0,(5 > subset.length ? subset.length : 5)).map(parco => {
             return (
-              <li onClick={() => OnClick(parco)} className="suggestion p-1" key={parco.nome}>{parco.nome}</li>
+              <li 
+                onClick={() => OnClick(parco)} 
+                className="suggestion p-1" 
+                key={parco.nome}
+              >{parco.nome}</li>
             ); 
           });
   }

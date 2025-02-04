@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import Error from 'next/error';
 import Joyride from 'react-joyride';
 import NavItem from "./NavItem";
 import MapView from "./Map";
 import CercaParchi from "./CercaParchi";
+import Error from "./Error";
 import "./globals.css";
 
 export default function Home() {
@@ -12,6 +12,7 @@ export default function Home() {
   const [isClient, setIsClient] = useState(false);
   const [parchi, setParchi] = useState([]);
   const [parco, setParco] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -33,7 +34,7 @@ export default function Home() {
           )
           setParchi(JSON.parse(sessionStorage.getItem("parchi")));
         })
-        .catch((error) => console.error(error));
+        .catch((error) => setError(error));
     } else {
       setParchi(JSON.parse(storedParks));
     }
@@ -60,6 +61,10 @@ export default function Home() {
   const handleHelpClick = () => {
     setRun(true);
   };
+
+  if(error != null){
+    return <Error error={error}/>; 
+  }
 
   return (
     <div className="flex flex-col relative h-full">
