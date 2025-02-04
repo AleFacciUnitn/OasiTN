@@ -8,7 +8,7 @@ const validatePassword = require('../../../middleware/auth.js').validatePassword
 async function getParchi(req, res) {
     const password = req.headers.password;
 
-    if (!validatePassword(req)) {
+    if (!validatePassword(password)) {
         return res.status(403).json({ message: 'Password non valida!' });
     }
   try {
