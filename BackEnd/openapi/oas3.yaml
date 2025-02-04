@@ -7,12 +7,50 @@ info:
 servers:
   - url: http://localhost:5000/api
 
+
+tags:
+  - name: Admin - GET
+    description: Operazioni di lettura per l'Admin
+  - name: Admin - POST
+    description: Operazioni di creazione per l'Admin
+  - name: Admin - DELETE
+    description: Operazioni di eliminazione per l'Admin
+  - name: Admin - PUT
+    description: Operazioni di modifica per l'Admin
+  - name: User - GET
+    description: Operazioni di lettura per l'Utente
+  - name: User - POST
+    description: Operazioni di creazione per l'Utente
+
 paths:
+  /admin/Login:
+    post:
+      summary: Admin login
+      tags:
+        - Admin - POST
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login effettuato con successo
+        '400':
+          description: Formato non valido
+        '403':
+          description: Password non valida
+        '500':
+          description: Errore nel server
   /admin/Categoria:
     get:
       summary: Get all categories
       tags:
-        - Admin
+        - Admin - GET
       parameters:
         - in: header
           name: password
@@ -29,7 +67,7 @@ paths:
     post:
       summary: Add a new category
       tags:
-        - Admin
+        - Admin - POST
       requestBody:
         required: true
         content:
@@ -57,7 +95,7 @@ paths:
     get:
       summary: Get category by ID
       tags:
-        - Admin
+        - Admin - GET
       parameters:
         - in: path
           name: id
@@ -81,7 +119,7 @@ paths:
     put:
       summary: Update category by ID
       tags:
-        - Admin
+        - Admin - PUT
       parameters:
         - in: path
           name: id
@@ -113,7 +151,7 @@ paths:
     delete:
       summary: Delete category by ID
       tags:
-        - Admin
+        - Admin - DELETE
       parameters:
         - in: path
           name: id
@@ -139,7 +177,7 @@ paths:
     get:
       summary: Get all tags
       tags:
-        - Admin
+        - Admin - GET
       parameters:
         - in: header
           name: password
@@ -156,7 +194,7 @@ paths:
     post:
       summary: Add a new tag
       tags:
-        - Admin
+        - Admin - POST
       requestBody:
         required: true
         content:
@@ -184,7 +222,7 @@ paths:
     get:
       summary: Get tag by ID
       tags:
-        - Admin
+        - Admin - GET
       parameters:
         - in: path
           name: id
@@ -208,7 +246,7 @@ paths:
     put:
       summary: Update tag by ID
       tags:
-        - Admin
+        - Admin - PUT
       parameters:
         - in: path
           name: id
@@ -240,7 +278,7 @@ paths:
     delete:
       summary: Delete tag by ID
       tags:
-        - Admin
+        - Admin - DELETE
       parameters:
         - in: path
           name: id
@@ -266,7 +304,7 @@ paths:
     get:
       summary: Get all parks
       tags:
-        - Admin
+        - Admin - GET
       parameters:
         - in: header
           name: password
@@ -283,7 +321,7 @@ paths:
     post:
       summary: Add a new park
       tags:
-        - Admin
+        - Admin - POST
       requestBody:
         required: true
         content:
@@ -336,7 +374,7 @@ paths:
     get:
       summary: Get park by ID
       tags:
-        - Admin
+        - Admin - GET
       parameters:
         - in: path
           name: id
@@ -360,7 +398,7 @@ paths:
     put:
       summary: Update park by ID
       tags:
-        - Admin
+        - Admin - PUT
       parameters:
         - in: path
           name: id
@@ -421,7 +459,7 @@ paths:
     delete:
       summary: Delete park by ID
       tags:
-        - Admin
+        - Admin - DELETE
       parameters:
         - in: path
           name: id
@@ -447,7 +485,7 @@ paths:
     get:
       summary: Get all reports
       tags:
-        - Admin
+        - Admin - GET
       responses:
         '200':
           description: Successful response
@@ -456,7 +494,7 @@ paths:
     put:
       summary: Update report status
       tags:
-        - Admin
+        - Admin - PUT
       requestBody:
         required: true
         content:
@@ -485,7 +523,7 @@ paths:
     delete:
       summary: Resolve report
       tags:
-        - Admin
+        - Admin - DELETE
       parameters:
         - name: id
           in: path
@@ -510,7 +548,7 @@ paths:
     get:
       summary: Initial fetch for user
       tags:
-        - User
+        - User - GET
       responses:
         '200':
           description: Successful response
@@ -521,7 +559,7 @@ paths:
     post:
       summary: Add a new report
       tags:
-        - User
+        - User - POST
       requestBody:
         required: true
         content:
@@ -609,3 +647,4 @@ components:
         scadenza:
           type: string
           format: date-time
+  
