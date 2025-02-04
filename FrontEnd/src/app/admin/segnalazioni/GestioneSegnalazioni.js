@@ -1,7 +1,9 @@
 "use client";
 import {useState, useEffect} from 'react';
+import {useRouter} from "next/navigation";
 
 export default function GestioneSegnalazioni(){
+  const router = useRouter();
   const [segnalazioni, setSegnalazioni] = useState(null);
 
   useEffect(() => {
@@ -24,12 +26,38 @@ export default function GestioneSegnalazioni(){
     return "Loading...";
   }
 
+  const getScadenza = (segnalazione) => {
+    if(segnalazione.stato === "completata") return;
+    const createdAt = new Date(segnalazione.createdAt).getTime();
+    const priorita = segnalazione.priorita;
+    const scadenza = new Date(segnalazione.scadenza);
+    switch(priorita){
+      case 4:
+        scadenza.setTime(createdAt + (7 * 24 * 60 * 60 * 1000));
+        break;
+      case 3:
+        scadenza.setTime(createdAt + (3 * 7 * 24 * 60 * 60 * 1000));
+        break;
+      case 2:
+        scadenza.setTime(createdAt + (2 * 3 * 7 * 24 * 60 * 60 * 1000));
+        break;
+      case 1:
+        scadenza.setTime(createdAt + (4 * 3 * 7 * 24 * 60 * 60 * 1000));
+        break;
+    }
+    return scadenza;
+  };
+
   return (
    <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Gestione Segnalazioni</h2>
       <div className="space-y-4">
         {segnalazioni.map((segnalazione) => (
-          <div 
+          <div
+            onClick={() => {
+              sessionStorage.setItem("segnalazione",JSON.stringify(segnalazione));
+              router.push("/admin/segnalazioni/"+segnalazione.oggetto.toLowerCase().replaceAll(" ", ""));
+            }}
             key={segnalazione._id} 
             className="p-4 border rounded-lg shadow-md bg-white"
           >
@@ -51,7 +79,7 @@ export default function GestioneSegnalazioni(){
                 {segnalazione.stato}
               </span>
             </div>
-            <p className="text-sm text-gray-500 mt-2">Scadenza: {segnalazione.scadenza ? new Date(segnalazione.scadenza).toLocaleDateString() : "N/A"}</p>
+            <p className="text-sm text-gray-500 mt-2">Scadenza: {segnalazione.scadenza ? getScadenza(segnalazione).toLocaleDateString() : "N/A"}</p>
             <p className="text-sm text-gray-500">Creato il: {new Date(segnalazione.createdAt).toLocaleDateString()}</p>
           </div>
         ))}

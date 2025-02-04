@@ -89,8 +89,8 @@ export default function GestioneParchi(){
         onClick={() => {
           modificaParco({
             "nome":"Nuovo Parco",
-            "descrizione":"Nessuna descrizione",
-            "localizzazione":{"lat":0.0,"long":0.0},
+            "infoParco":"Nessuna descrizione",
+            "location":{"lat":0.0,"long":0.0},
             "tags":[],
             "categorie":[]
           });
