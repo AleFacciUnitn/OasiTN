@@ -1,7 +1,6 @@
-# Comandi per popolare il database OasiTN2 con mongoimport
+# Comandi per popolare il database OasiTN con mongoimport
 
-mongosh < populate_mongosh.txt
-mongoimport --db OasiTN2 --collection categorie --file ./categorie_data.json --jsonArray
-mongoimport --db OasiTN2 --collection system.views --file ./system.views_data.json --jsonArray
-mongoimport --db OasiTN2 --collection tags --file ./tags_data.json --jsonArray
-mongoimport --db OasiTN2 --collection parchi --file ./parchi_data.json --jsonArray
+mongoimport --db OasiTN --collection segnalazioni --file exported_data/segnalazioni_data.json --jsonArray
+mongoimport --db OasiTN --collection parchi --file exported_data/parchi_data.json --jsonArray
+mongoimport --db OasiTN --collection categorie --file exported_data/categorie_data.json --jsonArray
+mongoimport --db OasiTN --collection tags --file exported_data/tags_data.json --jsonArray

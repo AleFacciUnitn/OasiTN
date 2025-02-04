@@ -5,8 +5,10 @@ import "../../adminpage.css";
 
 export default function Page(){
   const router = useRouter();
-const noDescrizione = "Nessuna descrizione"
+  const noDescrizione = "Nessuna descrizione"
   const [data, setData] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [action, setAction] = useState(() => {});
 
   useEffect(() => {
     const parcoStored = sessionStorage.getItem("parco");
@@ -29,11 +31,32 @@ const noDescrizione = "Nessuna descrizione"
 
   if (data === null) return "Loading...";
 
+  const showDialog = () => {
+    return isVisible ? "visible" : "hidden";
+  }
+
+  const changedSomething = () => {
+    const oldData = sessionStorage.getItem("parco");
+    return JSON.parse(oldData) !== data;
+  }
+
+  const discardChanges = () => {
+    const oldData = sessionStorage.getItem("parco");
+    setData(JSON.parse(oldData));
+  }
+
   return (
-    <div className="p-6">
+    <div className="p-6 flex flex-col justify-center">
       <div 
         className="cursor-pointer pb-4"
-        onClick={() => router.back()}>
+        onClick={() => {
+          if(changedSomething()) {
+            setIsVisible(true);
+            setAction(() => router.back);
+          } else { 
+            router.back()
+          }
+        }}>
         <span>{"< "}</span>
         Go Back
       </div>
@@ -154,14 +177,33 @@ const noDescrizione = "Nessuna descrizione"
         </button>
         <button 
           onClick={() => {
-            const oldData = sessionStorage.getItem("parco");
-            setData(JSON.parse(oldData));
+            setIsVisible(true);
+            setAction(() => discardChanges);
           }} 
           className="mt-4 w-1/2 bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition"
         >
           Discard
         </button>
        </div>
+      </div>
+      <div 
+        className="absolute inset-0 h-full flex items-center justify-center bg-black bg-opacity-50" 
+        style={{visibility: showDialog()}}>
+        <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+          <h2 className="text-lg font-semibold">Are you sure?</h2>
+          <p className="text-gray-600">"This action cannot be undone."</p>
+          <div className="mt-4 flex justify-center gap-4">
+            <button 
+              onClick={() => {
+                action();
+                setIsVisible(false);
+              }}
+              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Conferma</button> 
+            <button
+              onClick={() => setIsVisible(false)}
+              className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Cancella</button>
+          </div>
+        </div>
       </div>
     </div>
   );

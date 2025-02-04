@@ -13,6 +13,7 @@ export default function Dashboard({router}){
         .then((response) => response.text())
         .then((result) => {
           const data = JSON.parse(result);
+          console.log(data)
           sessionStorage.setItem("segnalazioni",result);
           setSegnalazioni(data); 
         })

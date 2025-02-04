@@ -5,7 +5,7 @@ import Header from "./Header";
 
 export default function AdminLayout({ children }) {
   return (
-      <div>
+      <div className="relative" style={{height: "100vh"}}>
         <Header />
         {children}
       </div>

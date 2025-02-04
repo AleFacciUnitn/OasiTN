@@ -1,1 +1,1 @@
-[{"_id":"OasiTN.frequenza_raw","viewOn":"system.buckets.frequenza_raw","pipeline":[{"$_internalUnpackBucket":{"timeField":"data_evento","metaField":"parco","bucketMaxSpanSeconds":2592000}}]}]
+[]

@@ -70,7 +70,7 @@ export default function GestioneParchi(){
           <div>Gestione parchi</div>
           <div
            className="cursor-pointer"
-           onClick={toggleSortType}>{sortType === "az" ? "a->z" : "z->a"}</div>
+           onClick={toggleSortType}>{sortType === "az" ? "az" : "za"}</div>
         </div>
         <CercaParchi className="py-4" parchi={parchi} OnClick={modificaParco}/>
       </div>
@@ -85,6 +85,19 @@ export default function GestioneParchi(){
            />)}
         </ul>
       </div>
+      <button
+        onClick={() => {
+          modificaParco({
+            "nome":"Nuovo Parco",
+            "descrizione":"Nessuna descrizione",
+            "localizzazione":{"lat":0.0,"long":0.0},
+            "tags":[],
+            "categorie":[]
+          });
+          router.push("/admin/parchi/crea")
+        }} 
+        className="fixed bottom-6 right-6 size-14 bg-green-300 hover:bg-green-500 rounded-lg"
+      >+</button>
     </div>
   );
 }

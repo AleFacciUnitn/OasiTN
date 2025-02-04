@@ -1,29 +1,3 @@
 {
-  "create": "categorie",
-  "validator": {
-    "$jsonSchema": {
-      "bsonType": "object",
-      "required": [
-        "nome"
-      ],
-      "properties": {
-        "nome": {
-          "bsonType": "string",
-          "description": "Il nome della categoria è obbligatorio, unico, e deve essere una stringa."
-        },
-        "descrizione": {
-          "bsonType": "string",
-          "description": "La descrizione della categoria, se presente, deve essere una stringa."
-        },
-        "createdAt": {
-          "bsonType": "date",
-          "description": "Data di creazione automatica tramite timestamps."
-        },
-        "updatedAt": {
-          "bsonType": "date",
-          "description": "Data di aggiornamento automatica tramite timestamps."
-        }
-      }
-    }
-  }
+  "create": "categorie"
 }

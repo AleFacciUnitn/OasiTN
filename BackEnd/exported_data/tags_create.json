@@ -1,30 +1,3 @@
 {
-  "create": "tags",
-  "validator": {
-    "$jsonSchema": {
-      "bsonType": "object",
-      "required": [
-        "nome",
-        "categoria"
-      ],
-      "properties": {
-        "nome": {
-          "bsonType": "string",
-          "description": "Il nome del tag è obbligatorio e deve essere una stringa."
-        },
-        "categoria": {
-          "bsonType": "objectId",
-          "description": "Il campo categoria deve essere un ObjectId valido e fa riferimento alla collection 'categorie'."
-        },
-        "createdAt": {
-          "bsonType": "date",
-          "description": "Data di creazione automatica tramite timestamps."
-        },
-        "updatedAt": {
-          "bsonType": "date",
-          "description": "Data di aggiornamento automatica tramite timestamps."
-        }
-      }
-    }
-  }
+  "create": "tags"
 }
