@@ -7,7 +7,6 @@ import geoloc from '../../assets/geoloc.png';
 
 
 export default function newGeolocation(view, map) {
-    console.log("inizio");
     const geolocation = new Geolocation({
         trackingOptions: {
             enableHighAccuracy: true,
@@ -51,5 +50,4 @@ export default function newGeolocation(view, map) {
 
 
       return geoLayer;
-
 }

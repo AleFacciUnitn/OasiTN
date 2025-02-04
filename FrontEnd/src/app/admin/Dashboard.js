@@ -25,7 +25,7 @@ export default function Dashboard({router}){
     const storedParchi = sessionStorage.getItem("parchi");
     if(!storedParchi) {
       const myHeaders = new Headers();
-      myHeaders.append("password", "1234");
+      myHeaders.append("password", "123456789");
 
       const requestOptions = {
         method: "GET",
