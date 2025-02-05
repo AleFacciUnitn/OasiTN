@@ -36,9 +36,49 @@ export default function Page(){
     return oldData !== JSON.stringify(segnalazione);
   }
 
+  const handleResolve = () => {
+    const myHeaders = new Headers();
+    myHeaders.append("password", "123456789");
+
+    const requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      redirect: "follow"
+    };
+
+    fetch("http://localhost:5000/api/admin/Segnalazioni/"+segnalazione._id, requestOptions)
+      .then((response) => {
+        console.log(response);
+        if(!response.ok) throw "Error resolving segnalazione";
+        router.back();
+      })
+      .catch((error) => console.error(error));
+  }
+
   const handleSubmit = () => {
-    //TODO: implementare il cambiamento di stato
-    router.back();
+    if(segnalazione.stato === "completata") return handleResolve();
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      "id": segnalazione._id,
+      "stato": segnalazione.stato,
+      "password": "123456789"
+    });
+
+    const requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+
+    fetch("http://localhost:5000/api/admin/Segnalazioni", requestOptions)
+      .then((response) => {
+        if(!response.ok) throw "Error updating status"
+        router.back();
+      })
+      .catch((error) => console.error(error));
   }
 
   const handleBack = () => {

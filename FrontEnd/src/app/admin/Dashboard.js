@@ -94,27 +94,26 @@ export default function Dashboard({router}){
   
   return (
     <div className="w-full">
-      <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
       <div className="flex gap-6 flex-col">
         <div
-          onClick={() => router.push("/admin/segnalazioni")}
-          className="flex relative justify-between items-center py-4 px-4 rounded-lg bg-white hover:bg-gray-300 cursor-pointer w-full">
-          {notifica ? <><span 
+          className="flex flex-col gap-6 justify-between items-start py-4 px-4 rounded-lg w-full">
+          <div className="flex justify-between w-full items-center">
+            <h1 
+              onClick={() => router.push("/admin/segnalazioni")}
+              className="font-semibold cursor-pointer text-4xl">Segnalazioni</h1>
+          <span className="text-4xl relative pr-3">{segnalazioni.length}{notifica ? <><span 
             className="absolute inline-flex size-3 animate-ping rounded-full bg-red-400 opacity-75" 
             style={{top: "-2px",right: "-2px"}}></span>
           <span 
             className="absolute inline-flex size-3 rounded-full bg-red-500" 
-            style={{top: "-2px",right: "-2px"}}></span></> : ""}
-          <div>
-            <h1>Segnalazioni</h1>
-            <span className="text-gray-500 text-sm">{message}</span>
+            style={{top: "-2px",right: "-2px"}}></span></> : ""}</span>
           </div>
-          {segnalazioni.length}
+            <span className="text-gray-500 text-md">{message}</span>
         </div>
         <div 
           onClick={() => router.push("/admin/parchi")}
-          className="flex justify-between py-4 px-4 rounded-lg bg-white hover:bg-gray-300 cursor-pointer w-full">
-          <h1>Parchi</h1>
+          className="flex text-4xl justify-between py-4 px-4 cursor-pointer w-full">
+          <h1 className="font-semibold">Parchi</h1>
           {parchi.length}
         </div>
       </div>

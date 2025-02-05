@@ -2,6 +2,7 @@
 import {useState, useEffect} from 'react';
 import {useRouter} from 'next/navigation';
 import GoBack from "../../GoBack";
+import { MdAdd, MdRemove } from "react-icons/md";
 
 export default function Page(){
   const router = useRouter();
@@ -119,22 +120,22 @@ export default function Page(){
             })}
             <div className="flex gap-6">
               <button 
-                className="w-full border rounded-md px-3 py-2 bg-white"
+                className="w-full flex items-center justify-center border rounded-md px-3 py-2 bg-white"
                 onClick={() => {
                   const tags = data.tags;
                   tags.push({nome: "",count: 0});
                   handleChange("tags",tags);
                 }}
-              >+</button>
+              ><MdAdd /></button>
               <button 
-                className="w-full border rounded-md px-3 py-2 bg-white disabled:bg-gray-300"
+                className="w-full flex justify-center items-center border rounded-md px-3 py-2 bg-white disabled:bg-gray-300"
                 disabled={data.tags.length === 0 ? true : false}
                 onClick={() => {
                   const tags = data.tags;
                   tags.pop();
                   handleChange("tags",tags);
                 }}
-              >-</button>
+              ><MdRemove /></button>
             </div>
           </div>
         </div>
@@ -161,23 +162,23 @@ export default function Page(){
           }) : "Nessuna Categoria"}
             <div className="flex gap-6">
               <button 
-                className="w-full border rounded-md px-3 py-2 bg-white disabled:bg-gray-300"
+                className="w-full flex justify-center items-center border rounded-md px-3 py-2 bg-white disabled:bg-gray-300"
                 disabled={data.categorie.length < categorie.length ? false : true}
                 onClick={() => {
                   const categorieParco = data.categorie;
                   categorieParco.push(categorie[0].nome); 
                   handleChange("categorie",categorieParco);
                 }}
-              >+</button>
+              ><MdAdd/></button>
               <button 
-                className="w-full border rounded-md px-3 py-2 bg-white disabled:bg-gray-300"
+                className="w-full flex justify-center items-center border rounded-md px-3 py-2 bg-white disabled:bg-gray-300"
                 disabled={data.categorie.length === 0 ? true : false}
                 onClick={() => {
                   const categorieParco = data.categorie;
                   categorieParco.pop();
                   handleChange("categorie",categorieParco);
                 }}
-              >-</button>
+              ><MdRemove/></button>
             </div>
         </div>
         <div>

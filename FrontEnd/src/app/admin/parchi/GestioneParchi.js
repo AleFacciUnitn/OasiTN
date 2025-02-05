@@ -3,7 +3,7 @@ import {useRouter} from 'next/navigation';
 import Parco from "./Parco";
 import CercaParchi from "../../CercaParchi";
 import Error from "../../Error";
-import { MdSortByAlpha, MdSouth, MdNorth } from "react-icons/md";
+import { MdSortByAlpha, MdSouth, MdNorth, MdAdd } from "react-icons/md";
 
 export default function GestioneParchi(){
   const router = useRouter();
@@ -100,8 +100,8 @@ export default function GestioneParchi(){
           });
           router.push("/admin/parchi/crea")
         }} 
-        className="fixed bottom-6 right-6 size-14 bg-green-300 hover:bg-green-500 rounded-lg"
-      >+</button>
+        className="fixed bottom-6 right-6 flex justify-center items-center size-14 bg-green-300 hover:bg-green-500 rounded-lg"
+      ><MdAdd /></button>
     </div>
   );
 }

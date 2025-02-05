@@ -2,17 +2,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {useRouter} from 'next/navigation';
 import Dashboard from "./Dashboard";
+import {isAuthenticated} from "./utils.js";
 
 export default function Home() {
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState(null);
-  const [token, setToken] = useState(null);
 
   useEffect(() => {
-    const storedToken = sessionStorage.getItem("token");
-    if(storedToken){
-      setToken(storedToken);
-    }
+    isAuthenticated(router); 
   }, []);
 
   return (

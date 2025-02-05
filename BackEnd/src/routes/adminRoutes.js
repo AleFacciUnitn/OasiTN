@@ -37,7 +37,7 @@ router.delete('/Parco/:id', deleteParco);
 // Route per azioni su segnalazioni
 router.get('/Segnalazioni', getSegnalazioni);
 router.put('/Segnalazioni', updateSegnalazioneStato);
-router.delete('/Segnalazioni/', resolveSegnalazione);
+router.delete('/Segnalazioni/:id', resolveSegnalazione);
 
 router.post('/Login', adminLogin);
 module.exports = router;
