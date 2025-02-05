@@ -5,8 +5,8 @@ const { getCategorie, getTags, getParchi } = require('../controllers/admin/admin
 const { updateCategoria, updateTag, updateParco } = require('../controllers/admin/adminMainControllers/adminPutController');
 const { deleteCategoria, deleteTag, deleteParco } = require('../controllers/admin/adminMainControllers/adminDeleteController');
 const { resolveSegnalazione, updateSegnalazioneStato, getSegnalazioni } = require('../controllers/admin/adminSegnalazioniController');
-const { get } = require('mongoose');
 const { adminLogin } = require('../controllers/admin/Authentication/loginController');
+const { getCrowdingReport } = require('../controllers/admin/crowdingAdminController');
 
 const router = express.Router();
 
@@ -38,6 +38,8 @@ router.delete('/Parco/:id', deleteParco);
 router.get('/Segnalazioni', getSegnalazioni);
 router.put('/Segnalazioni', updateSegnalazioneStato);
 router.delete('/Segnalazioni/:id', resolveSegnalazione);
+
+router.get('/Crowding', getCrowdingReport);   
 
 router.post('/Login', adminLogin);
 module.exports = router;

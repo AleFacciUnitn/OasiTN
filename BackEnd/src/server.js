@@ -9,7 +9,7 @@ const adminRoutes = require('./routes/adminRoutes'); // Modifica con il percorso
 const userRoutes = require('./routes/userRoutes'); // Modifica con il percorso corretto
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT_POOL = [5000, 8888]; 
 
 // Middleware
 app.use(cors());
@@ -25,6 +25,16 @@ app.use('/api/user', userRoutes);
 app.use('/api/admin', adminRoutes);
 
 // Avvio del server
-app.listen(PORT, () => {
-  console.log(`Server in ascolto sulla porta ${PORT}`);
+PORT_POOL.forEach((port) => {
+  const server = app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
+  });
+
+  server.on("error", (err) => {
+      if (err.code === "EADDRINUSE") {
+          console.log(`Port ${port} is already in use.`);
+      } else {
+          console.error(`Error on port ${port}:`, err);
+      }
+  });
 });

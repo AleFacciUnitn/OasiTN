@@ -1,5 +1,6 @@
 # Comandi per popolare il database OasiTN con mongoimport
 
+
 mongoimport --db OasiTN --collection segnalazioni --file exported_data/segnalazioni_data.json --jsonArray
 mongoimport --db OasiTN --collection parchi --file exported_data/parchi_data.json --jsonArray
 mongoimport --db OasiTN --collection categorie --file exported_data/categorie_data.json --jsonArray
