@@ -1,6 +1,7 @@
 "use client";
 import {useState, useEffect} from 'react';
 import {useRouter} from 'next/navigation';
+import GoBack from "../../GoBack";
 
 export default function Page(){
   const router = useRouter();
@@ -28,30 +29,30 @@ export default function Page(){
     return isVisible ? "visible" : "hidden";
   }
 
-  const statiPossibili = ["in attesa", "in lavorazione", "completata", "annullata"];
+  const statiPossibili = ["in attesa", "in lavorazione", "completata"];
 
   const changedSomething = () => {
     const oldData = sessionStorage.getItem("segnalazione");
-    return JSON.parse(oldData) !== segnalazione;
+    return oldData !== JSON.stringify(segnalazione);
   }
 
-  const handleSubmit = () => {}
+  const handleSubmit = () => {
+    //TODO: implementare il cambiamento di stato
+    router.back();
+  }
+
+  const handleBack = () => {
+    if(changedSomething()) {
+      setIsVisible(true);
+      setAction(() => router.back);
+    } else { 
+      router.back()
+    }
+  }
 
   return (
     <div className="h-full">
-      <div 
-        className="cursor-pointer pb-4"
-        onClick={() => {
-          if(changedSomething()) {
-            setIsVisible(true);
-            setAction(() => router.back);
-          } else { 
-            router.back()
-          }
-        }}>
-        <span>{"< "}</span>
-        Go Back
-      </div>
+      <GoBack onClick={handleBack}/> 
       <div className="p-4 my-12 border rounded-lg shadow-md bg-white flex flex-col w-1/2 m-auto h-1/3 justify-between">
         <div>
           <h2 className="text-lg font-semibold">Modifica Stato Segnalazione</h2>
@@ -68,7 +69,8 @@ export default function Page(){
           ))}
         </select>
         <button
-          className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          disabled={changedSomething() ? false : true}
+          className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-blue-300"
           onClick={() => {
             setIsVisible(true);
             setAction(() => handleSubmit);

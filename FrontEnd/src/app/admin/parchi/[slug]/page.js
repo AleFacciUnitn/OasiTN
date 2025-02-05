@@ -1,18 +1,21 @@
 "use client";
 import {useState, useEffect} from 'react';
 import {useRouter} from 'next/navigation';
-import "../../adminpage.css";
+import GoBack from "../../GoBack";
 
 export default function Page(){
   const router = useRouter();
-  const noDescrizione = "Nessuna descrizione"
+  const noDescrizione = "Nessuna descrizione";
   const [data, setData] = useState(null);
+  const [categorie, setCategorie] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const [action, setAction] = useState(() => {});
 
   useEffect(() => {
     const parcoStored = sessionStorage.getItem("parco");
     setData(JSON.parse(parcoStored));
+    const categorieStored = sessionStorage.getItem("categorie");
+    setCategorie(JSON.parse(categorieStored));
   }, []);
   
   const handleChange = (key, value) => {
@@ -29,7 +32,7 @@ export default function Page(){
     }));
   };
 
-  if (data === null) return "Loading...";
+  if (data === null || categorie === null) return "Loading...";
 
   const showDialog = () => {
     return isVisible ? "visible" : "hidden";
@@ -37,7 +40,7 @@ export default function Page(){
 
   const changedSomething = () => {
     const oldData = sessionStorage.getItem("parco");
-    return JSON.parse(oldData) !== data;
+    return oldData !== JSON.stringify(data);
   }
 
   const discardChanges = () => {
@@ -45,23 +48,27 @@ export default function Page(){
     setData(JSON.parse(oldData));
   }
 
+  const saveChanges = () => {
+    sessionStorage.setItem("parco",null);
+    //TODO: implement api save changes
+    router.back();
+  }
+  
+  const handleBack = () => {
+  if(changedSomething()) {
+      setIsVisible(true);
+      setAction(() => router.back);
+    } else { 
+      router.back()
+    }
+  }
 
   return (
-    <div className="p-6 flex flex-col justify-center">
-      <div 
-        className="cursor-pointer pb-4"
-        onClick={() => {
-          if(changedSomething()) {
-            setIsVisible(true);
-            setAction(() => router.back);
-          } else { 
-            router.back()
-          }
-        }}>
-        <span>{"< "}</span>
-        Go Back
+    <div className="px-6 flex flex-col justify-center">
+      <div className="flex items-center">
+        <GoBack onClick={handleBack} />
+        <h2 className="text-xl font-bold">Edit Parco</h2>
       </div>
-      <h2 className="text-xl font-bold mb-4">Edit Parco</h2>
       <div className="flex flex-col md:w-1/2">
         <div>
           <label className="block text-sm font-medium">Nome</label>
@@ -120,7 +127,8 @@ export default function Page(){
                 }}
               >+</button>
               <button 
-                className="w-full border rounded-md px-3 py-2 bg-white"
+                className="w-full border rounded-md px-3 py-2 bg-white disabled:bg-gray-300"
+                disabled={data.tags.length === 0 ? true : false}
                 onClick={() => {
                   const tags = data.tags;
                   tags.pop();
@@ -133,29 +141,41 @@ export default function Page(){
         <div className="flex flex-col gap-3">
           <label className="block text-sm font-medium">Categorie</label>
           {data.categorie ? data.categorie.map((cat, index) => {
-            return (<input
-                  type="text"
-                  value={cat}
-                  key={index}
-                  onChange={(e) => handleChange("tags", e.target.value.split(", "))}
-                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-                />);
+            return (
+              <select
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                value={cat}
+                key={index}
+                onChange={(e) => {
+                  console.log(data.categorie)
+                  const categorieParco = data.categorie;
+                  categorieParco[index] = categorie.filter((cat) => cat.nome === e.target.value)[0].nome;
+                  console.log(data.categorie)
+                  handleChange("categorie",categorieParco)
+                }}
+             >
+               {categorie.map((s) => (
+                 <option key={s._id} value={s.nome}>{s.nome}</option>
+               ))}
+             </select>);
           }) : "Nessuna Categoria"}
             <div className="flex gap-6">
               <button 
-                className="w-full border rounded-md px-3 py-2 bg-white"
+                className="w-full border rounded-md px-3 py-2 bg-white disabled:bg-gray-300"
+                disabled={data.categorie.length < categorie.length ? false : true}
                 onClick={() => {
-                  const categorie = data.categorie;
-                  categorie.push("");
-                  handleChange("categorie",categorie);
+                  const categorieParco = data.categorie;
+                  categorieParco.push(categorie[0].nome); 
+                  handleChange("categorie",categorieParco);
                 }}
               >+</button>
               <button 
-                className="w-full border rounded-md px-3 py-2 bg-white"
+                className="w-full border rounded-md px-3 py-2 bg-white disabled:bg-gray-300"
+                disabled={data.categorie.length === 0 ? true : false}
                 onClick={() => {
-                  const categorie = data.categorie;
-                  categorie.pop();
-                  handleChange("categorie",categorie);
+                  const categorieParco = data.categorie;
+                  categorieParco.pop();
+                  handleChange("categorie",categorieParco);
                 }}
               >-</button>
             </div>
@@ -171,17 +191,26 @@ export default function Page(){
         </div>
         <div className="flex flex-row gap-6">
         <button 
-          onClick={() => console.log(data)} 
+          onClick={() => {
+            if(changedSomething()){
+              setIsVisible(true);
+              setAction(() => saveChanges);
+            } else {
+              router.back();
+            }
+            console.log(data);
+          }} 
           className="mt-4 w-1/2 bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition"
         >
           Save
         </button>
         <button 
+          disabled={changedSomething() ? false : true}
           onClick={() => {
             setIsVisible(true);
             setAction(() => discardChanges);
           }} 
-          className="mt-4 w-1/2 bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition"
+          className="mt-4 w-1/2 bg-red-500 text-white py-2 rounded-md hover:bg-red-600 disabled:bg-red-300 transition"
         >
           Discard
         </button>

@@ -1,22 +1,27 @@
 "use client";
 import {useState, useEffect} from 'react';
 import {useRouter} from "next/navigation";
+import { MdRefresh } from "react-icons/md";
 
 export default function GestioneSegnalazioni(){
   const router = useRouter();
   const [segnalazioni, setSegnalazioni] = useState(null);
 
+  const fetchSegnalazioni = () => {
+    fetch("http://localhost:5000/api/admin/Segnalazioni")
+      .then((response) => response.text())
+      .then((result) => {
+        const data = JSON.parse(result);
+        sessionStorage.setItem("segnalazioni",result);
+        setSegnalazioni(data); 
+      })
+      .catch((error) => setError(error));
+  }
+
   useEffect(() => {
     const storedSegnalazioni = sessionStorage.getItem("segnalazioni");
     if(!storedSegnalazioni){
-      fetch("http://localhost:5000/api/admin/Segnalazioni")
-        .then((response) => response.text())
-        .then((result) => {
-          const data = JSON.parse(result);
-          sessionStorage.setItem("segnalazioni",result);
-          setSegnalazioni(data); 
-        })
-        .catch((error) => setError(error));
+      fetchSegnalazioni();
     }else{
       setSegnalazioni(JSON.parse(storedSegnalazioni));
     }
@@ -27,7 +32,7 @@ export default function GestioneSegnalazioni(){
   }
 
   const getScadenza = (segnalazione) => {
-    if(segnalazione.stato === "completata") return;
+    if(segnalazione.stato === "completata") return new Date(segnalazione.scadenza);
     const createdAt = new Date(segnalazione.createdAt).getTime();
     const priorita = segnalazione.priorita;
     const scadenza = new Date(segnalazione.scadenza);
@@ -50,7 +55,12 @@ export default function GestioneSegnalazioni(){
 
   return (
    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Gestione Segnalazioni</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">Gestione Segnalazioni</h2>
+        <MdRefresh
+          className="cursor-pointer"
+          onClick={fetchSegnalazioni}/>
+      </div>
       <div className="space-y-4">
         {segnalazioni.map((segnalazione) => (
           <div
@@ -79,8 +89,15 @@ export default function GestioneSegnalazioni(){
                 {segnalazione.stato}
               </span>
             </div>
-            <p className="text-sm text-gray-500 mt-2">Scadenza: {segnalazione.scadenza ? getScadenza(segnalazione).toLocaleDateString() : "N/A"}</p>
-            <p className="text-sm text-gray-500">Creato il: {new Date(segnalazione.createdAt).toLocaleDateString()}</p>
+            {segnalazione.stato === "completata" ? <p 
+              className="text-sm text-gray-500 mt-2"
+              >Visibile fino a: {getScadenza(segnalazione).toLocaleDateString()}</p> :
+            <><p 
+              className="text-sm text-gray-500 mt-2"
+              >Scadenza: {getScadenza(segnalazione).toLocaleDateString()}</p>
+            <p 
+              className="text-sm text-gray-500"
+              >Creato il: {new Date(segnalazione.createdAt).toLocaleDateString()}</p></>}
           </div>
         ))}
       </div>

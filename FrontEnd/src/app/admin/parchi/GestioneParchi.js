@@ -3,6 +3,7 @@ import {useRouter} from 'next/navigation';
 import Parco from "./Parco";
 import CercaParchi from "../../CercaParchi";
 import Error from "../../Error";
+import { MdSortByAlpha, MdSouth, MdNorth } from "react-icons/md";
 
 export default function GestioneParchi(){
   const router = useRouter();
@@ -66,11 +67,14 @@ export default function GestioneParchi(){
   return (
     <div className="px-10">
       <div className="flex justify-between py-4 items-center">
-        <div className="flex w-1/4 justify-between">
-          <div>Gestione parchi</div>
+        <div className="flex lg:w-1/5 w-1/3 justify-between items-center">
+          <h2 className="text-2xl font-bold">Gestione parchi</h2>
           <div
-           className="cursor-pointer"
-           onClick={toggleSortType}>{sortType === "az" ? "az" : "za"}</div>
+            className="cursor-pointer flex"
+            onClick={toggleSortType}>
+            {sortType === "az" ? <MdSouth/> : <MdNorth/>}
+            <MdSortByAlpha />
+          </div>
         </div>
         <CercaParchi className="py-4" parchi={parchi} OnClick={modificaParco}/>
       </div>
