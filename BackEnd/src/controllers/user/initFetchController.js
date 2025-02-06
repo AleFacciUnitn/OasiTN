@@ -15,7 +15,7 @@ const getParchiInit = async (req, res) => {
         }
       });
 
-    // Mappa i parchi per ottenere tag unici e categorie uniche
+    /*// Mappa i parchi per ottenere tag unici e categorie uniche
     const risultato = parchi.map(parco => {
       // Estrai i tag unici
       const tagsUnici = [
@@ -42,9 +42,9 @@ const getParchiInit = async (req, res) => {
         tags: tagsUnici, // Array di tag unici con count
         categorie: categorieUniche // Array di categorie uniche
       };
-    });
+    });*/
 
-    return risultato; // Risultato finale
+    return parchi; // Risultato finale
   } catch (error) {
     console.error('Errore nel recupero dei parchi:', error);
     res.status(500).send('Errore nel recupero dei parchi');

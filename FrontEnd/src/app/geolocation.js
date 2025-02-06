@@ -43,7 +43,7 @@ export default function newGeolocation(view, map) {
         }),
     );
 
-    const vectorSource = new source.Vector({
+   const  vectorSource = new source.Vector({
         features: [accuracyFeature, positionFeature]
       });
 
@@ -51,11 +51,20 @@ export default function newGeolocation(view, map) {
       (position)=>{
         const coordinates = fromLonLat([position.coords.longitude, position.coords.latitude]);
         const accuracy = position.coords.accuracy;
-        console.log(position);
 
         if (coordinates) {
-          positionFeature.setGeometry(new geom.Point(coordinates,accuracy*10));
-          accuracyFeature.setGeometry(new geom.Circle(coordinates,accuracy*10));
+          positionFeature.setGeometry(
+            new geom.Point(coordinates)
+          );
+          accuracyFeature.setGeometry(
+            new geom.Circle(coordinates,accuracy)
+          );
+          accuracyFeature.setStyle(
+            new style.Style({stroke: new style.Stroke({color: [30,90,125,0.3],}),fill: new style.Fill({color: [30,110,125,0.1],})})
+          );
+           
+          console.log("updating source");
+          vectorSource.features = [accuracyFeature,positionFeature]
           vectorSource.changed();
         }
       },

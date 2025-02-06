@@ -10,7 +10,7 @@ import Parco from "./Parco";
 import ZoomSlider from 'ol/control/ZoomSlider';
 import newGeolocation from './geolocation';
 
-export default function MapView({parchi, parco, onClick, OnClose}) {
+export default function MapView({parchi, parco, onClick, OnClose, admin, setClickPos}) {
   const ref = useRef(null);
   const mapRef = useRef(null);
   const viewRef = useRef(null);
@@ -37,6 +37,18 @@ export default function MapView({parchi, parco, onClick, OnClose}) {
       const map = mapRef.current;
 
       const zoomSlider = new ZoomSlider();
+      navigator.permissions.query({ name: 'geolocation' }).then((result) => {
+        if (result.state === 'granted') {
+          map.addLayer(newGeolocation(view, map));
+        } else if (result.state === 'prompt') {
+          navigator.geolocation.getCurrentPosition(
+            () => map.addLayer(newGeolocation(view, map)), // If user allows, start tracking
+            (error) => console.error(error.message)
+          );
+        } else {
+          console.warn('Location access denied.');
+        }
+      });
       map.addLayer(newGeolocation(view, map));
       map.addControl(zoomSlider);
 
@@ -63,12 +75,20 @@ export default function MapView({parchi, parco, onClick, OnClose}) {
       map.addOverlay(overlay1);
   
       const displayPopup = (feature) => {
+        if(!feature.get('name')) return;
         const coordinates = feature.getGeometry().getCoordinates();
         const name = feature.get('name');
         //Bisogna usare il nome per recuperare i tag e inserirli nel popup
         // Mostra il popup
         popup.innerHTML = `<p>${name}</p>`;
         overlay1.setPosition(coordinates);
+      }
+      
+      if(admin){
+        map.on('click', (event) => {
+          const pixel = map.getEventPixel(event.originalEvent);
+          console.log(map.getTargetElement())
+        });
       }
 
       map.on('pointermove', (event) => {
@@ -80,6 +100,10 @@ export default function MapView({parchi, parco, onClick, OnClose}) {
           const feature = map.forEachFeatureAtPixel(event.pixel, (feature) => {
             return feature;
           });
+          if(!feature.get('name')) {
+            map.getTargetElement().style.cursor = "";
+            popup.style.visibility = "hidden";
+          }
           displayPopup(feature);
         }
       })
@@ -88,9 +112,10 @@ export default function MapView({parchi, parco, onClick, OnClose}) {
 
   useEffect(() => parchi.forEach(parco => {
     mapRef.current?.addLayer(
-      newMarker(parco.nome, parco.localizzazione.long, parco.localizzazione.lat)
+      newMarker(parco.nome, parco.location.long, parco.location.lat)
     );
     mapRef.current?.on('click', (event) => {
+      if(admin) return;
       if(!mapRef.current?.hasFeatureAtPixel(event.pixel)) {
         onClick(null);
         return;
@@ -108,7 +133,7 @@ export default function MapView({parchi, parco, onClick, OnClose}) {
   useEffect(() => {
     if(parco != null) {
       viewRef.current?.animate({
-        center: proj.fromLonLat([parco.localizzazione.long,parco.localizzazione.lat]),
+        center: proj.fromLonLat([parco.location.long,parco.location.lat]),
         zoom: 18,
         duration: 2000,
       });
@@ -116,14 +141,15 @@ export default function MapView({parchi, parco, onClick, OnClose}) {
   },[viewRef, parco])
   
   return <div className="w-full h-full flex flex-col md:flex-row">
-    { parco === null ? <div id="suggerimenti">
+    <div className={"flex "+(parco === null ? "visible" : "hidden")} id="suggerimenti">
       <div className="p-2">Suggerimenti</div>
       <ul className="h-full" style={{color: "black"}}>
           {parchi.slice(0,5).map(parco =>
             <li onClick={() => onClick(parco)} className="suggestion p-1 h-1/6" key={parco.nome}>{parco.nome}</li>
           )}
         </ul>
-      </div> : <Parco parco={parco} />}
+    </div>
+    <Parco parco={admin ? null : parco} />
     <div ref={ref} id="map" className="h-full grow">
     </div>
   </div>;

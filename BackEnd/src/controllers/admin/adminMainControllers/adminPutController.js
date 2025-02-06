@@ -13,8 +13,8 @@ const updateParco = async (req, res) => {
       const parcoId = req.params.id; // ID del parco dalla URL
       const {
         nome,
-        location,
-        infoParco,
+        localizzazione,
+        descrizione,
         addTags,
         removeTagIds,
         password
@@ -32,13 +32,13 @@ const updateParco = async (req, res) => {
   
       // Aggiornamento delle informazioni esistenti
       if (nome) parco.nome = nome;
-      if (location) {
+      if (localizzazione) {
         parco.location = {
-          lat: location.lat || parco.location.lat,
-          long: location.long || parco.location.long,
+          lat: localizzazione.lat || parco.location.lat,
+          long: localizzazione.long || parco.location.long,
         };
       }
-      if (infoParco) parco.infoParco = infoParco;
+      if (descrizione) parco.infoParco = descrizione;
   
       // Aggiunta di nuovi tag
       if (addTags && Array.isArray(addTags)) {

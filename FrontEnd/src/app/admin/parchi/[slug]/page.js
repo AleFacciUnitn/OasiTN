@@ -2,27 +2,56 @@
 import {useState, useEffect} from 'react';
 import {useRouter} from 'next/navigation';
 import GoBack from "../../GoBack";
-import { MdAdd, MdRemove } from "react-icons/md";
+import MapView from "../../../Map"
+import { MdAdd, MdRemove, MdExpandMore, MdExpandLess, MdClose } from "react-icons/md";
 
 export default function Page(){
   const router = useRouter();
-  const noDescrizione = "Nessuna descrizione";
   const [data, setData] = useState(null);
   const [categorie, setCategorie] = useState(null);
+  const [tags, setTags] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [expand, setExpand] = useState(-1);
   const [action, setAction] = useState(() => {});
+  const [clickPos, setClickPos] = useState([0,0]);
 
   useEffect(() => {
     const parcoStored = sessionStorage.getItem("parco");
+    console.log(parcoStored);
     setData(JSON.parse(parcoStored));
     const categorieStored = sessionStorage.getItem("categorie");
     setCategorie(JSON.parse(categorieStored));
+    const tagsStored = sessionStorage.getItem("tags");
+    setTags(JSON.parse(tagsStored));
   }, []);
-  
+ 
   const handleChange = (key, value) => {
     setData((prev) => ({
       ...prev,
       [key]: value,
+    }));
+  };
+
+  const handleTagChange = (id, field, value) => {
+    console.log(data.tags);
+    const newTags = data.tags.map((tag,index) => {
+      if(id != index) return tag;
+      if(field === "nome") {
+        return {
+          ...tag,
+          ["tagId"]: {...tag.tagId, [field]: value}
+        };
+      }
+      if(field === "count") {
+        return {
+          ...tag,
+          [field]: parseInt(value) || 0
+        };
+      }
+    });
+    setData((prev) => ({
+      ...prev,
+      ["tags"]: newTags,
     }));
   };
 
@@ -33,7 +62,7 @@ export default function Page(){
     }));
   };
 
-  if (data === null || categorie === null) return "Loading...";
+  if (data === null || categorie === null || tags === null) return "Loading...";
 
   const showDialog = () => {
     return isVisible ? "visible" : "hidden";
@@ -64,13 +93,20 @@ export default function Page(){
     }
   }
 
+  const toggleIndex = (index) => {
+    if(index == expand) setExpand(-1);
+    else setExpand(index);
+    console.log(expand);
+  } 
+
   return (
-    <div className="px-6 flex flex-col justify-center">
+    <div className="px-6 h-full flex items-center">
+      <div className="flex flex-col w-1/3">
       <div className="flex items-center">
         <GoBack onClick={handleBack} />
         <h2 className="text-xl font-bold">Edit Parco</h2>
       </div>
-      <div className="flex flex-col md:w-1/2">
+      <div className="flex flex-col w-full pr-3">
         <div>
           <label className="block text-sm font-medium">Nome</label>
           <input
@@ -84,7 +120,7 @@ export default function Page(){
           <label className="block text-sm font-medium">Latitude</label>
           <input
             type="number"
-            value={data.localizzazione.lat}
+            value={data.location.lat}
             onChange={(e) => handleLocationChange("lat", e.target.value)}
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
           />
@@ -93,7 +129,7 @@ export default function Page(){
           <label className="block text-sm font-medium">Longitude</label>
           <input
             type="number"
-            value={data.localizzazione.long}
+            value={data.location.long}
             onChange={(e) => handleLocationChange("long", e.target.value)}
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
           />
@@ -102,29 +138,62 @@ export default function Page(){
           <label className="block text-sm font-medium">Tags</label>
           <div className="flex flex-col gap-3">
             {data.tags.map((tag,index) => {
-              return (<div className="flex gap-6" key={index}>
-                <input
+              return (<><div className="flex gap-6" key={index}>
+                <select
                   type="text"
-                  value={tag.nome}
-                  onChange={(e) => handleChange("tags", e.target.value.split(", "))}
+                  value={tag.tagId.nome}
+                  onChange={(e) => handleTagChange(index,"nome", e.target.value)}
                   className="px-3 py-2 border w-4/5 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-                />
+                >{tags.map((tag)=>{
+                   console.log(tag);
+                   return (<option key={tag._id} value={tag.nome}>{tag.nome}</option>);
+                  })}</select>
                 <input
                   type="number"
                   value={tag.count}
-                  onChange={(e) => handleChange("tags", e.target.value.split(", "))}
+                  onChange={(e) => handleTagChange(index, "count", e.target.value)}
                   style={{minWidth: "0"}}
                   className="px-3 py-2 w-1/5 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-                />
-              </div>);
+                /></div>
+                <div>
+                  <div className="flex gap-6 items-center">
+                    <label className="block text-sm font-medium">Localizzazioni</label>
+                    <div className="cursor-pointer" onClick={() => toggleIndex(index)}>{expand === index ? <MdExpandLess /> : <MdExpandMore />}</div>
+                  </div>
+                  <div className={expand === index ? "visible" : "hidden"}>
+                    {tag.positions.map((p,i) => {return (
+                    <div className="flex justify-between items-center" key={"p"+i}>
+                      <MdClose/>
+                      <div>
+                        <label className="block text-sm font-medium">Latitude</label>
+                        <input
+                          type="number"
+                          value={p.lat}
+                          onChange={(e) => handleLocationChange("long", e.target.value)}
+                          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium">Longitude</label>
+                        <input
+                          type="number"
+                          value={p.long}
+                          onChange={(e) => handleLocationChange("long", e.target.value)}
+                          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                        />
+                      </div>
+                    </div>);})}
+                  </div>
+                </div></>
+              );
             })}
             <div className="flex gap-6">
               <button 
                 className="w-full flex items-center justify-center border rounded-md px-3 py-2 bg-white"
                 onClick={() => {
-                  const tags = data.tags;
-                  tags.push({nome: "",count: 0});
-                  handleChange("tags",tags);
+                  const dataTags = data.tags;
+                  dataTags.push({"tagId":tags[0],"count":0,"positions":[]});
+                  handleChange("tags",dataTags);
                 }}
               ><MdAdd /></button>
               <button 
@@ -139,53 +208,11 @@ export default function Page(){
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-3">
-          <label className="block text-sm font-medium">Categorie</label>
-          {data.categorie ? data.categorie.map((cat, index) => {
-            return (
-              <select
-                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-                value={cat}
-                key={index}
-                onChange={(e) => {
-                  console.log(data.categorie)
-                  const categorieParco = data.categorie;
-                  categorieParco[index] = categorie.filter((cat) => cat.nome === e.target.value)[0].nome;
-                  console.log(data.categorie)
-                  handleChange("categorie",categorieParco)
-                }}
-             >
-               {categorie.map((s) => (
-                 <option key={s._id} value={s.nome}>{s.nome}</option>
-               ))}
-             </select>);
-          }) : "Nessuna Categoria"}
-            <div className="flex gap-6">
-              <button 
-                className="w-full flex justify-center items-center border rounded-md px-3 py-2 bg-white disabled:bg-gray-300"
-                disabled={data.categorie.length < categorie.length ? false : true}
-                onClick={() => {
-                  const categorieParco = data.categorie;
-                  categorieParco.push(categorie[0].nome); 
-                  handleChange("categorie",categorieParco);
-                }}
-              ><MdAdd/></button>
-              <button 
-                className="w-full flex justify-center items-center border rounded-md px-3 py-2 bg-white disabled:bg-gray-300"
-                disabled={data.categorie.length === 0 ? true : false}
-                onClick={() => {
-                  const categorieParco = data.categorie;
-                  categorieParco.pop();
-                  handleChange("categorie",categorieParco);
-                }}
-              ><MdRemove/></button>
-            </div>
-        </div>
         <div>
           <label className="block text-sm font-medium">Info Parco</label>
           <input
             type="text"
-            value={data.descrizione === noDescrizione ? "" : data.descrizione}
+            value={data.infoParco}
             onChange={(e) => handleChange("infoParco", e.target.value || null)}
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
           />
@@ -235,6 +262,10 @@ export default function Page(){
               className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Cancella</button>
           </div>
         </div>
+      </div>
+      </div>
+      <div className="h-full grow">
+        <MapView parchi={JSON.parse(sessionStorage.getItem("parchi"))} parco={data} admin={true} setClickPos={setClickPos}/>
       </div>
     </div>
   );

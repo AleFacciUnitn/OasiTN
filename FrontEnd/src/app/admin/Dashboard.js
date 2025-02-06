@@ -65,6 +65,25 @@ export default function Dashboard({router}){
         })
         .catch((error) => setError(error));
     }
+    
+    const storedTags = sessionStorage.getItem("tags");
+    if(!storedCategorie){
+      const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+      };
+
+      fetch("http://localhost:5000/api/admin/Tag", requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+          const resultJSON = JSON.parse(result);
+          if(!resultJSON.success) throw "Error fetching data";
+          const tags = resultJSON.data;
+          sessionStorage.setItem("tags",JSON.stringify(tags));
+        })
+        .catch((error) => setError(error));
+    }
   },[]);
 
   useEffect(() => {

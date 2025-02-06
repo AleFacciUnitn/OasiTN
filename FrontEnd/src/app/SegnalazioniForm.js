@@ -1,5 +1,5 @@
 "use client";
-import {useState} from 'react';
+import { useState, useEffect } from 'react';
 import { MdClose } from "react-icons/md";
 
 export default function RequestForm({close, parchi}) {
@@ -9,13 +9,14 @@ export default function RequestForm({close, parchi}) {
     descrizione: "",
     priorita: 1,
   });
-
+ 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formData);
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     const requestOptions = {
@@ -53,7 +54,8 @@ export default function RequestForm({close, parchi}) {
             onChange={handleChange}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
           >
-            {parchi.map((parco) => <option key={parco.id} value={parco.id}>{wrapString(parco.nome)}</option>)}
+            <option value="">Seleziona il parco</option>
+            {parchi.map((parco) => <option key={parco._id} value={parco._id}>{wrapString(parco.nome)}</option>)}
           </select>
         </div>
         <div>

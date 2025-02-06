@@ -9,7 +9,7 @@ export default function Parco({parco, onClick, onClickX}){
         className="grow cursor-pointer"
       onClick={onClick}>
         <h1 style={{fontWeight: "bold"}}>{parco.nome}</h1>
-        <p>{parco.descrizione}</p>
+        <p>{parco.infoParco}</p>
       </div>
       <MdDelete
        className="cursor-pointer hover:text-red-600"
