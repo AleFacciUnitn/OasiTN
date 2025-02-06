@@ -5,7 +5,6 @@ const { updateMany } = require('../../models/Tag');
 // Aggiungi una segnalazione
 const addSegnalazione = async (req, res) => {
   const { parcoId, oggetto, descrizione, priorita } = req.body;
-
   // Controllo validità della password
 
   // Verifica se il parco esiste

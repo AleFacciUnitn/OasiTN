@@ -153,17 +153,9 @@ body {
   color: white;
   box-shadow: #505050 0px 0px 8px;
   border-radius: 5px;
-  padding-left: 3px;
   z-index: 26;
   display: flex;
   align-items: center;
-}
-
-#help-content {
-  position: relative;
-  left: 0.5rem;
-  display: flex;
-  gap: 20%; /* Adjust the gap as needed */
 }
 
 .ol-zoom {

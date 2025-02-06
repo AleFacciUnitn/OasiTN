@@ -4,12 +4,14 @@ import Joyride from 'react-joyride';
 import NavItem from "./NavItem";
 import MapView from "./Map";
 import CercaParchi from "./CercaParchi";
+import SegnalazioniForm from "./SegnalazioniForm";
 import Error from "./Error";
 import "./globals.css";
 
 export default function Home() {
   const [run, setRun] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [isSegnalazioniVisible, setIsSegnalazioniVisible] = useState(false);
   const [parchi, setParchi] = useState([]);
   const [parco, setParco] = useState(null);
   const [error, setError] = useState(null);
@@ -23,7 +25,7 @@ export default function Home() {
         redirect: "follow"
       };
   
-      fetch("http://localhost:5000/api/user/init", requestOptions)
+      fetch("http://192.168.1.211:5000/api/user/init", requestOptions)
         .then((response) => response.text())
         .then((result) => {
           sessionStorage.setItem(
@@ -58,6 +60,8 @@ export default function Home() {
       content: 'Cliccando sui pin presenti sulla mappa puoi scoprire tutto sul parco selezionato.',
     },
   ];
+  const segnalazioniVisibility = () => isSegnalazioniVisible ? "visible" : "hidden"; 
+
   const handleHelpClick = () => {
     setRun(true);
   };
@@ -105,11 +109,16 @@ export default function Home() {
       <MapView parchi={parchi} parco={parco} onClick={setParco} OnClose={setParco}/>
       {/* <div id="track"/> */}
       <div id="help">
-        <div id="help-content" onClick={handleHelpClick}>
-          <h1><a href="#">Segnalazione</a></h1>
+        <div className="flex grow justify-center gap-6" id="help-content">
+          <div className="cursor-pointer" onClick={() => setIsSegnalazioniVisible(!isSegnalazioniVisible)}>Segnalazione</div>
           <h2>|</h2>
-          <h3><a href="#">Help</a></h3>
+          <div className="cursor-pointer" onClick={handleHelpClick}>Help</div>
       </div>
+      </div>
+      <div
+        style={{visibility: segnalazioniVisibility()}}
+        className="absolute w-full h-full flex justify-center items-center bg-gray-700 bg-opacity-50 z-50">
+        <SegnalazioniForm parchi={parchi} close={() => setIsSegnalazioniVisible(!isSegnalazioniVisible)}/>
       </div>
     </div>
   );
