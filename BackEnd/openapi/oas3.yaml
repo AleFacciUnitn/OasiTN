@@ -23,6 +23,16 @@ tags:
     description: Operazioni di creazione per l'Utente
 
 paths:
+  /admin/Crowding:
+    get:
+      summary: Get all crowding data
+      tags:
+        - Admin - GET
+      responses:
+        '200':
+          description: Successful response
+        '500':
+          description: Internal server error
   /admin/Login:
     post:
       summary: Admin login
@@ -554,7 +564,29 @@ paths:
           description: Successful response
         '500':
           description: Internal server error
-
+  /user/Crowding:
+    post:
+      summary: Add a new crowding data
+      tags:
+        - User - POST
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parcoId:
+                  type: string
+                crowding:
+                  type: number
+      responses:
+        '201':
+          description: Crowding data added successfully
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
   /user/Segnalazioni:
     post:
       summary: Add a new report
