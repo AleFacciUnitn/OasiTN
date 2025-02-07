@@ -3,7 +3,6 @@ const computeCrowdings = require('../../middleware/computeCrowdings');
 // Aggiungi una segnalazione
 const getCrowdingReport = async (req, res) => {
   // Controllo validità della password
-
   // Verifica se il parco esiste
   
   try {

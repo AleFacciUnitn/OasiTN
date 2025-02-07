@@ -137,7 +137,15 @@ async function updateTag(req, res) {
     if (!validatePassword(password)) {
         return res.status(403).json({ message: 'Password non valida!' });
     }
-    const updateData = { nome: reformatName(nome), categoria: nomeCategoria }; // Crea un oggetto con i dati aggiornati
+    const categoria = await Categoria.findOne({ nome: reformatNome(nomeCategoria) }); // Trova la categoria
+    if(!categoria){
+        return res.status(400).json({
+            success: false,
+            message: 'Categoria non valida',
+        });
+    }
+    const idCategoria = categoria._id;
+    const updateData = { nome: reformatNome(nome), categoria: idCategoria}; // Crea un oggetto con i dati aggiornati
     const updatedTag = await Tag.findByIdAndUpdate(id, updateData, { new: true });
 
     if (!updatedTag) {
