@@ -2,8 +2,9 @@
 import {useState, useEffect} from 'react';
 import {useRouter} from 'next/navigation';
 import GoBack from "../../GoBack";
-import MapView from "../../../Map"
-import { MdAdd, MdRemove, MdExpandMore, MdExpandLess, MdClose } from "react-icons/md";
+import MapView from "../../../Map";
+import Loading from "../../../Loading";
+import { MdAdd, MdRemove, MdExpandMore, MdExpandLess, MdClose, MdEdit } from "react-icons/md";
 
 export default function Page(){
   const router = useRouter();
@@ -13,7 +14,7 @@ export default function Page(){
   const [isVisible, setIsVisible] = useState(false);
   const [expand, setExpand] = useState(-1);
   const [action, setAction] = useState(() => {});
-  const [clickPos, setClickPos] = useState([0,0]);
+  const [clickId, setClickId] = useState("");
 
   useEffect(() => {
     const parcoStored = sessionStorage.getItem("parco");
@@ -55,6 +56,11 @@ export default function Page(){
     }));
   };
 
+  const handleClickActionLocation = (coord) => {
+    handleLocationChange("lat",coord[1]);
+    handleLocationChange("long",coord[0]);
+  }
+
   const handleLocationChange = (field, value) => {
     setData((prev) => ({
       ...prev,
@@ -62,7 +68,7 @@ export default function Page(){
     }));
   };
 
-  if (data === null || categorie === null || tags === null) return "Loading...";
+  if (data === null || categorie === null || tags === null) return <Loading message="Recuperando i dati del parco..."/>;
 
   const showDialog = () => {
     return isVisible ? "visible" : "hidden";
@@ -79,9 +85,10 @@ export default function Page(){
   }
 
   const saveChanges = () => {
-    sessionStorage.setItem("parco",null);
+    //sessionStorage.setItem("parco",null);
     //TODO: implement api save changes
-    router.back();
+    //router.back();
+    console.log(data);
   }
   
   const handleBack = () => {
@@ -100,13 +107,13 @@ export default function Page(){
   } 
 
   return (
-    <div className="px-6 h-full flex items-center">
+    <div className="pl-6 h-full flex items-center">
       <div className="flex flex-col w-1/3">
       <div className="flex items-center">
         <GoBack onClick={handleBack} />
         <h2 className="text-xl font-bold">Edit Parco</h2>
       </div>
-      <div className="flex flex-col w-full pr-3">
+      <div className="flex flex-col w-full gap-6 pr-3">
         <div>
           <label className="block text-sm font-medium">Nome</label>
           <input
@@ -116,12 +123,13 @@ export default function Page(){
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
           />
         </div>
+        <div className="flex justify-between items-center">
         <div>
           <label className="block text-sm font-medium">Latitude</label>
           <input
             type="number"
+            disabled={clickId === "location" ? false : true}
             value={data.location.lat}
-            onChange={(e) => handleLocationChange("lat", e.target.value)}
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
           />
         </div>
@@ -129,16 +137,18 @@ export default function Page(){
           <label className="block text-sm font-medium">Longitude</label>
           <input
             type="number"
+            disabled={clickId === "location" ? false : true}
             value={data.location.long}
-            onChange={(e) => handleLocationChange("long", e.target.value)}
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
           />
+        </div>
+        <MdEdit className="cursor-pointer self-center size-8" onClick={() => setClickId("location")}/>
         </div>
         <div>
           <label className="block text-sm font-medium">Tags</label>
           <div className="flex flex-col gap-3">
             {data.tags.map((tag,index) => {
-              return (<><div className="flex gap-6" key={index}>
+              return (<div key={index}><div className="flex gap-6">
                 <select
                   type="text"
                   value={tag.tagId.nome}
@@ -163,11 +173,12 @@ export default function Page(){
                   <div className={expand === index ? "visible" : "hidden"}>
                     {tag.positions.map((p,i) => {return (
                     <div className="flex justify-between items-center" key={"p"+i}>
-                      <MdClose/>
+                      <MdClose className="cursor-pointer"/>
                       <div>
                         <label className="block text-sm font-medium">Latitude</label>
                         <input
                           type="number"
+                          disabled={true}
                           value={p.lat}
                           onChange={(e) => handleLocationChange("long", e.target.value)}
                           className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
@@ -177,14 +188,16 @@ export default function Page(){
                         <label className="block text-sm font-medium">Longitude</label>
                         <input
                           type="number"
+                          disabled={true}
                           value={p.long}
                           onChange={(e) => handleLocationChange("long", e.target.value)}
                           className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
                         />
                       </div>
+                      <MdEdit className="cursor-pointer self-center size-8"/>
                     </div>);})}
                   </div>
-                </div></>
+                </div></div>
               );
             })}
             <div className="flex gap-6">
@@ -210,9 +223,9 @@ export default function Page(){
         </div>
         <div>
           <label className="block text-sm font-medium">Info Parco</label>
-          <input
+          <textarea
             type="text"
-            value={data.infoParco}
+            value={data.infoParco || ""}
             onChange={(e) => handleChange("infoParco", e.target.value || null)}
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
           />
@@ -224,7 +237,8 @@ export default function Page(){
               setIsVisible(true);
               setAction(() => saveChanges);
             } else {
-              router.back();
+              //router.back();
+              saveChanges();
             }
             console.log(data);
           }} 
@@ -244,6 +258,10 @@ export default function Page(){
         </button>
        </div>
       </div>
+      </div>
+      <div className="h-full grow">
+        <MapView parco={data} admin={true} handleLocationChange={handleClickActionLocation} clickId={clickId}/>
+      </div>
       <div 
         className="absolute inset-0 h-full flex items-center justify-center bg-black bg-opacity-50" 
         style={{visibility: showDialog()}}>
@@ -262,10 +280,6 @@ export default function Page(){
               className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Cancella</button>
           </div>
         </div>
-      </div>
-      </div>
-      <div className="h-full grow">
-        <MapView parchi={JSON.parse(sessionStorage.getItem("parchi"))} parco={data} admin={true} setClickPos={setClickPos}/>
       </div>
     </div>
   );

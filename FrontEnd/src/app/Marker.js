@@ -30,5 +30,7 @@ export default function newMarker(parkName ,long, lat) {
     source: vectorSource
   });
 
+  markerLayer.set("name","marker");
+
   return markerLayer;
 }

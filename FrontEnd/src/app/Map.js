@@ -10,7 +10,7 @@ import Parco from "./Parco";
 import ZoomSlider from 'ol/control/ZoomSlider';
 import newGeolocation from './geolocation';
 
-export default function MapView({parchi, parco, onClick, OnClose, admin, setClickPos}) {
+export default function MapView({parchi, parco, onClick, OnClose, admin, handleLocationChange, clickId}) {
   const ref = useRef(null);
   const mapRef = useRef(null);
   const viewRef = useRef(null);
@@ -86,8 +86,7 @@ export default function MapView({parchi, parco, onClick, OnClose, admin, setClic
       
       if(admin){
         map.on('click', (event) => {
-          const pixel = map.getEventPixel(event.originalEvent);
-          console.log(map.getTargetElement())
+          handleLocationChange(proj.transform(event.coordinate,'EPSG:3857','EPSG:4326'));
         });
       }
 
@@ -110,25 +109,51 @@ export default function MapView({parchi, parco, onClick, OnClose, admin, setClic
     }
   }, [ref, mapRef]);
 
-  useEffect(() => parchi.forEach(parco => {
-    mapRef.current?.addLayer(
-      newMarker(parco.nome, parco.location.long, parco.location.lat)
-    );
-    mapRef.current?.on('click', (event) => {
-      if(admin) return;
-      if(!mapRef.current?.hasFeatureAtPixel(event.pixel)) {
-        onClick(null);
-        return;
-      }
-      mapRef.current?.forEachFeatureAtPixel(event.pixel, (feature) => {
-        parchi.forEach(parco => {
-          if (parco.nome == feature.get("name")) {
-            onClick(parco);
-          }
+  useEffect(() => {
+    if(!parchi){
+      mapRef.current?.getLayers().forEach(layer => {
+        if(!layer || layer.get('name') !== 'marker') return;
+        mapRef.current?.removeLayer(layer);
+      });
+      mapRef.current?.addLayer(
+        newMarker(parco.nome, parco.location.long, parco.location.lat)
+      );
+      mapRef.current?.on('click', (event) => {
+        if(admin) return;
+        if(!mapRef.current?.hasFeatureAtPixel(event.pixel)) {
+          onClick(null);
+          return;
+        }
+        mapRef.current?.forEachFeatureAtPixel(event.pixel, (feature) => {
+          parchi.forEach(parco => {
+            if (parco.nome == feature.get("name")) {
+              onClick(parco);
+            }
+          })
         })
-      })
-    });
-  }),[mapRef, parchi])
+      });
+      return;
+    }
+    parchi.forEach(parco => {
+      mapRef.current?.addLayer(
+        newMarker(parco.nome, parco.location.long, parco.location.lat)
+      );
+      mapRef.current?.on('click', (event) => {
+        if(admin) return;
+        if(!mapRef.current?.hasFeatureAtPixel(event.pixel)) {
+          onClick(null);
+          return;
+        }
+        mapRef.current?.forEachFeatureAtPixel(event.pixel, (feature) => {
+          parchi.forEach(parco => {
+            if (parco.nome == feature.get("name")) {
+              onClick(parco);
+            }
+          })
+        })
+      });
+    })
+  },[mapRef, parchi, parco])
 
   useEffect(() => {
     if(parco != null) {
@@ -144,7 +169,7 @@ export default function MapView({parchi, parco, onClick, OnClose, admin, setClic
     <div className={"flex "+(parco === null ? "visible" : "hidden")} id="suggerimenti">
       <div className="p-2">Suggerimenti</div>
       <ul className="h-full" style={{color: "black"}}>
-          {parchi.slice(0,5).map(parco =>
+          {!parchi ? "" : parchi.slice(0,5).map(parco =>
             <li onClick={() => onClick(parco)} className="suggestion p-1 h-1/6" key={parco.nome}>{parco.nome}</li>
           )}
         </ul>

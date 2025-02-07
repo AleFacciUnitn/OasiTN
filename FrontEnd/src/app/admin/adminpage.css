@@ -12,7 +12,7 @@ body {
 #sidebar {
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 40;
     background-color: #f0f0f0;
 }
 

@@ -5,6 +5,7 @@ import NavItem from "./NavItem";
 import MapView from "./Map";
 import CercaParchi from "./CercaParchi";
 import SegnalazioniForm from "./SegnalazioniForm";
+import Loading from "./Loading";
 import Error from "./Error";
 import "./globals.css";
 
@@ -68,6 +69,10 @@ export default function Home() {
 
   if(error != null){
     return <Error error={error}/>; 
+  }
+
+  if(parchi.length === 0) {
+    return <Loading message="Caricamento mappa..."/>;
   }
 
   return (

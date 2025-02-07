@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import Error from "../Error";
+import Loading from "../Loading";
 
 export default function Dashboard({router}){
   const [segnalazioni, setSegnalazioni] = useState(null);
@@ -100,7 +101,7 @@ export default function Dashboard({router}){
   }
 
   if(segnalazioni === null || parchi === null){
-    return "Loading...";
+    return <Loading message="Recuperando i dati..." />;
   }
 
   const notificheSegnalazioni = () => {
