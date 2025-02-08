@@ -26,7 +26,7 @@ export default function Home() {
         redirect: "follow"
       };
   
-      fetch("http://192.168.1.211:5000/api/user/init", requestOptions)
+      fetch("http://localhost:5000/api/user/init", requestOptions)
         .then((response) => response.text())
         .then((result) => {
           sessionStorage.setItem(

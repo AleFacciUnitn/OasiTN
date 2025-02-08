@@ -16,6 +16,12 @@ export default function Header(){
        <div 
          className="options" 
          onClick={() => router.push("/admin/segnalazioni")}>Gestione Segnalazioni</div>
+       <div 
+         className="options" 
+         onClick={() => router.push("/admin/tags")}>Gestione Tags</div>
+       <div 
+         className="options" 
+         onClick={() => router.push("/admin/categorie")}>Gestione Categorie</div>
     </div>  
   );
 }

@@ -11,10 +11,7 @@ export default function GestioneParchi(){
   const [sortType, setSortType] = useState("az");
   const [parchi, setParchi] = useState([]);
 
-  useEffect(() => {
-    if(parchi.length != 0) return;
-    const storedParchi = sessionStorage.getItem("parchi");
-    if(!storedParchi) {
+  const refresh = () => {
       const myHeaders = new Headers();
       myHeaders.append("password", "123456789");
 
@@ -33,9 +30,13 @@ export default function GestioneParchi(){
           setParchi(data.data);
         })
         .catch((error) => console.error(error));
-    } else {
-      setParchi(JSON.parse(storedParchi));
-    }
+  }
+
+  useEffect(() => {
+    if(parchi.length != 0) return;
+    const storedParchi = sessionStorage.getItem("parchi");
+    if(!storedParchi) refresh();
+    else setParchi(JSON.parse(storedParchi));
   }, [parchi]);
 
   const toggleSortType = () => {
@@ -60,8 +61,21 @@ export default function GestioneParchi(){
   }
  
   const deleteParco = (parco) => {
-    const newArray = parchi.filter((item) => item != parco);
-    setParchi(newArray);
+    const myHeaders = new Headers();
+    myHeaders.append("password", "123456789");
+
+    const requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      redirect: "follow"
+    };
+
+    fetch(`http://localhost:5000/api/admin/Parco/${parco._id}`, requestOptions)
+      .then((response) => {
+         if(!response.ok) throw `Error ${response.status}`;
+         refresh();
+       })
+      .catch((error) => console.error(error));
   }
 
   return (
@@ -93,8 +107,8 @@ export default function GestioneParchi(){
         onClick={() => {
           modificaParco({
             "nome":"Nuovo Parco",
-            "infoParco":"Nessuna descrizione",
-            "location":{"lat":0.0,"long":0.0},
+            "infoParco":null,
+            "location":{"lat":46.067615,"long":11.123598},
             "tags":[],
             "categorie":[]
           });

@@ -10,7 +10,7 @@ import Parco from "./Parco";
 import ZoomSlider from 'ol/control/ZoomSlider';
 import newGeolocation from './geolocation';
 
-export default function MapView({parchi, parco, onClick, OnClose, admin, handleLocationChange, clickId}) {
+export default function MapView({parchi, parco, onClick, OnClose, admin, handleLocationChange, isClicked}) {
   const ref = useRef(null);
   const mapRef = useRef(null);
   const viewRef = useRef(null);
