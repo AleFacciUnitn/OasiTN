@@ -33,9 +33,9 @@ const updateParco = async (req, res) => {
         }
   
         // Trova l'ID del tag corrispondente al nome
-        const tagFromDb = await Tag.findById(tagId);
+        const tagFromDb = await Tag.findById(tagId._id);
         if (!tagFromDb) {
-          throw new Error(`Il tag con id '${tagId}' non esiste`);
+          throw new Error(`Il tag con id '${_id}' non esiste`);
         }
   
         // Verifica il numero delle posizioni
@@ -53,12 +53,11 @@ const updateParco = async (req, res) => {
   
         // Ritorna il dettaglio del tag con l'ID
         return {
-          tagId: tagId, // Assicura che sia un ObjectId
-          count,
+          tagId: tagId._id, // Assicura che sia un ObjectId
+          count: count,
           positions: validPositions
         };
       }));
-  
       // Creazione del nuovo parco
       const updatedInfoParco = {
         nome,

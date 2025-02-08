@@ -51,21 +51,13 @@ export default function Page(){
       .catch((error) => console.error(error));
   }
 
-  const handleTagChange = (id, field, value) => {
+  const handleTagChange = (id, value) => {
     const newTags = data.tags.map((tag,index) => {
       if(id != index) return tag;
-      if(field === "nome") {
-        return {
-          ...tag,
-          ["tagId"]: {...tag.tagId, [field]: value}
-        };
-      }
-      if(field === "count") {
-        return {
-          ...tag,
-          [field]: parseInt(value) || 0
-        };
-      }
+      return {
+        ...tag,
+        tagId: tags.filter((t)=>t.nome===value)[0]
+      };
     });
     setData((prev) => ({
       ...prev,
@@ -76,8 +68,6 @@ export default function Page(){
   useEffect(()=>{
     if(data === null) return;
     const parcoTmp = structuredClone(data);
-    parcoTmp.addTags = [];
-    parcoTmp.removeTag = [];
     setParco(parcoTmp);
   }, [data]);
 
@@ -120,7 +110,7 @@ export default function Page(){
       body: raw,
       redirect: "follow"
     };
-      // Change the URL to match the URL of the API you are using: .../api/admin/Parco/<id>
+
     fetch(`http://localhost:5000/api/admin/Parco/${parco._id}`, requestOptions)
       .then((response) => {
         if(!response.ok) throw `Error ${response.status}`;
@@ -147,7 +137,7 @@ export default function Page(){
   }
 
   const saveChanges = () => {
-    //TODO: implement api save changes
+    console.log(parco);
     parco.password = "123456789";
     const raw = JSON.stringify(parco);
     if(parco._id) update(raw);
@@ -214,12 +204,11 @@ export default function Page(){
               return (
                 <div key={index}><div className="flex gap-6">
                   <select
-                    type="text"
                     value={tag.tagId.nome}
-                    onChange={(e) => handleTagChange(index,"nome", e.target.value)}
+                    onChange={(e) => handleTagChange(index, e.target.value)}
                     className="px-3 py-2 border w-4/5 rounded-md bg-white focus:outline-none focus:ring focus:ring-blue-300"
-                  >{tags.map((tag)=>{
-                    return (<option key={tag._id} value={tag.nome}>{tag.nome}</option>);
+                  >{tags.map((t)=>{
+                    return (<option key={t._id} value={t.nome}>{t.nome}</option>);
                     })}
                   </select>
                   <div className="flex w-1/5 items-center">
@@ -257,9 +246,6 @@ export default function Page(){
                 onClick={() => {
                   const dataTags = [...data.tags];
                   dataTags.push({"tagId":tags[0],"count":1,"positions":[{"lat":0,"long":0}]});
-                  const parcoTmp = {...parco};
-                  parcoTmp.addTags.push(dataTags[dataTags.length-1]);
-                  setParco(parcoTmp);
                   handleChange("tags",dataTags);
                 }}
               ><MdAdd /></button>
