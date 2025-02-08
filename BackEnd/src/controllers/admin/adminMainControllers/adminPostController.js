@@ -104,16 +104,19 @@ const addParco = async (req, res) => {
 
     // Mappatura e verifica dei tag
     const tagDetails = await Promise.all(tags.map(async (tag) => {
-      const { nome, count, positions } = tag;
+      //TODO: cambia nome in tagId
+      const { tagId, count, positions } = tag;
+      
+      //TODO: cambia tutte le occorrenze di nome in tagId.nome
       // Verifica che i campi siano presenti
-      if (!nome || !count || !positions || !Array.isArray(positions)) {
+      if (!tagId || !count || !positions || !Array.isArray(positions)) {
         throw new Error("Dati tag mancanti o non validi");
       }
 
       // Trova l'ID del tag corrispondente al nome
-      const tagFromDb = await Tag.findOne({ nome });
+      const tagFromDb = await Tag.findById(tagId);
       if (!tagFromDb) {
-        throw new Error(`Il tag con nome '${nome}' non esiste`);
+        throw new Error(`Il tag con id '${tagId}' non esiste`);
       }
 
       // Verifica il numero delle posizioni
@@ -124,14 +127,14 @@ const addParco = async (req, res) => {
       // Verifica ogni posizione
       const validPositions = positions.map(pos => {
         if (typeof pos.lat !== 'number' || typeof pos.long !== 'number') {
-          throw new Error(`Le posizioni del tag '${nome}' non sono valide`);
+          throw new Error(`Le posizioni del tag '${tagFromDb.nome}' non sono valide`);
         }
         return { lat: pos.lat, long: pos.long }; // Conformità alla validation
       });
 
       // Ritorna il dettaglio del tag con l'ID
       return {
-        tagId: tagFromDb._id, // Assicura che sia un ObjectId
+        tagId: tagId, // Assicura che sia un ObjectId
         count,
         positions: validPositions
       };
