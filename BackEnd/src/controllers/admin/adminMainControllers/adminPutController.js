@@ -11,82 +11,128 @@ const reformatNome = (nome) => {
 const updateParco = async (req, res) => {
     try {
       const parcoId = req.params.id; // ID del parco dalla URL
-      const {
-        nome,
-        location,
-        infoParco,
-        addTags,
-        removeTagIds,
-        password
-      } = req.body; // Dati dal corpo della richiesta
+      const { nome, location, tags, infoParco, password } = req.body; // Dati dal corpo della richiesta
       console.log(password);
     if (!validatePassword(password)) {
         return res.status(403).json({ message: 'Password non valida!' });
       }
+
+      if (!nome || !location || typeof location.lat !== 'number' || typeof location.long !== 'number') {
+        return res.status(400).json({ error: "Dati mancanti o non validi (nome o location)" });
+      }
+  
+      // Mappatura e verifica dei tag
+      const tagDetails = await Promise.all(tags.map(async (tag) => {
+        //TODO: cambia nome in tagId
+        const { tagId, count, positions } = tag;
+        
+        //TODO: cambia tutte le occorrenze di nome in tagId.nome
+        // Verifica che i campi siano presenti
+        if (!tagId || !count || !positions || !Array.isArray(positions)) {
+          throw new Error("Dati tag mancanti o non validi");
+        }
+  
+        // Trova l'ID del tag corrispondente al nome
+        const tagFromDb = await Tag.findById(tagId);
+        if (!tagFromDb) {
+          throw new Error(`Il tag con id '${tagId}' non esiste`);
+        }
+  
+        // Verifica il numero delle posizioni
+        if (positions.length !== count) {
+          throw new Error(`Il numero di posizioni non corrisponde a 'count' per il tag '${nome}'`);
+        }
+  
+        // Verifica ogni posizione
+        const validPositions = positions.map(pos => {
+          if (typeof pos.lat !== 'number' || typeof pos.long !== 'number') {
+            throw new Error(`Le posizioni del tag '${tagFromDb.nome}' non sono valide`);
+          }
+          return { lat: pos.lat, long: pos.long }; // Conformità alla validation
+        });
+  
+        // Ritorna il dettaglio del tag con l'ID
+        return {
+          tagId: tagId, // Assicura che sia un ObjectId
+          count,
+          positions: validPositions
+        };
+      }));
+  
+      // Creazione del nuovo parco
+      const updatedInfoParco = {
+        nome,
+        location: {
+          lat: location.lat,
+          long: location.long
+        },
+        tags: tagDetails,
+        infoParco
+      };
       // Trova il parco
-      const parco = await Parco.findById(parcoId);
+      const parco = await Parco.findByIdAndUpdate(parcoId, updatedInfoParco, { new: true });
   
       if (!parco) {
         return res.status(404).json({ message: 'Parco non trovato' });
       }
   
       // Aggiornamento delle informazioni esistenti
-      if (nome) parco.nome = nome;
-      if (location) {
-        parco.location = {
-          lat: location.lat || parco.location.lat,
-          long: location.long || parco.location.long,
-        };
-      }
-      if (infoParco) parco.infoParco = infoParco;
+      // if (nome) parco.nome = nome;
+      // if (localizzazione) {
+      //   parco.location = {
+      //     lat: localizzazione.lat || parco.location.lat,
+      //     long: localizzazione.long || parco.location.long,
+      //   };
+      // }
+      // if (descrizione) parco.infoParco = descrizione;
   
-      // Aggiunta di nuovi tag
-      if (addTags && Array.isArray(addTags)) {
-        for (const tag of addTags) {
-          // Verifica se il count corrisponde alla lunghezza dell'array positions
-          if (tag.count !== (tag.positions?.length || 0)) {
-            return res.status(400).json({
-              message: `Il tag con ID ${tag.tagId} ha un count (${tag.count}) incoerente con il numero di posizioni (${tag.positions?.length || 0}).`,
-            });
-          }
+      // // Aggiunta di nuovi tag
+      // if (addTags && Array.isArray(addTags)) {
+      //   for (const tag of addTags) {
+      //     // Verifica se il count corrisponde alla lunghezza dell'array positions
+      //     if (tag.count !== (tag.positions?.length || 0)) {
+      //       return res.status(400).json({
+      //         message: `Il tag con ID ${tag.tagId} ha un count (${tag.count}) incoerente con il numero di posizioni (${tag.positions?.length || 0}).`,
+      //       });
+      //     }
   
-          // Verifica se il tagId è già presente
-          const existingTag = parco.tags.find(
-            (existing) => existing.tagId.toString() === tag.tagId
-          );
+      //     // Verifica se il tagId è già presente
+      //     const existingTag = parco.tags.find(
+      //       (existing) => existing.tagId.toString() === tag.tagId
+      //     );
   
-          if (existingTag) {
-            // Aggiorna il conteggio e aggiungi posizioni
-            existingTag.count += tag.count || 0;
-            existingTag.positions.push(...(tag.positions || []));
-          } else {
-            // Aggiungi il nuovo tag
-            parco.tags.push({
-              tagId: tag.tagId,
-              count: tag.count || 0,
-              positions: tag.positions || [],
-            });
-          }
-        }
-      }
+      //     if (existingTag) {
+      //       // Aggiorna il conteggio e aggiungi posizioni
+      //       existingTag.count += tag.count || 0;
+      //       existingTag.positions.push(...(tag.positions || []));
+      //     } else {
+      //       // Aggiungi il nuovo tag
+      //       parco.tags.push({
+      //         tagId: tag.tagId,
+      //         count: tag.count || 0,
+      //         positions: tag.positions || [],
+      //       });
+      //     }
+      //   }
+      // }
   
-      // Eliminazione di tag
-      if (removeTagIds && Array.isArray(removeTagIds)) {
-        parco.tags = parco.tags.filter(
-          (tag) => !removeTagIds.includes(tag.tagId.toString())
-        );
-      }
+      // // Eliminazione di tag
+      // if (removeTagIds && Array.isArray(removeTagIds)) {
+      //   parco.tags = parco.tags.filter(
+      //     (tag) => !removeTagIds.includes(tag.tagId.toString())
+      //   );
+      // }
   
-      // Verifica la coerenza del count e della lunghezza di positions nei tag esistenti
-      for (const tag of parco.tags) {
-        if (tag.count !== tag.positions.length) {
-          return res.status(400).json({
-            message: `Il tag con ID ${tag.tagId} ha un count (${tag.count}) incoerente con il numero di posizioni (${tag.positions.length}).`,
-          });
-        }
-      }
+      // // Verifica la coerenza del count e della lunghezza di positions nei tag esistenti
+      // for (const tag of parco.tags) {
+      //   if (tag.count !== tag.positions.length) {
+      //     return res.status(400).json({
+      //       message: `Il tag con ID ${tag.tagId} ha un count (${tag.count}) incoerente con il numero di posizioni (${tag.positions.length}).`,
+      //     });
+      //   }
+      // }
   
-      // Salva il parco aggiornato
+      // // Salva il parco aggiornato
       await parco.save();
   
       res.json({ message: 'Parco aggiornato con successo', parco });
