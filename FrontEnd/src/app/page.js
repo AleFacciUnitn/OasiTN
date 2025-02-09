@@ -82,7 +82,12 @@ export default function Home() {
     return res[0].toUpperCase()+res.slice(1,res.length);
   }
 
-  console.log(Object.keys(tags));
+  const removeTag = (tag) => {
+    console.log(tag);
+    const newtags = selectedTags.filter(t => t!==tag);
+    console.log(newtags);
+    setSelectedTags(newtags);
+  }
 
   return (
     <div className="flex flex-col relative h-full">
@@ -124,7 +129,7 @@ export default function Home() {
           <CercaParchi parchi={parchi} OnClick={setParco}/>
         </div>
       </div>
-      <MapView parchi={parchi} parco={parco} selectedTags={selectedTags} onTagRemoved={(tag) => {}} onClick={setParco} OnClose={setParco}/>
+      <MapView parchi={parchi} parco={parco} selectedTags={selectedTags} onTagRemoved={(tag) => removeTag(tag)} onClick={setParco} OnClose={setParco}/>
       <div id="help">
         <div className="flex grow justify-center gap-6" id="help-content">
           <div className="cursor-pointer" onClick={() => setIsSegnalazioniVisible(!isSegnalazioniVisible)}>Segnalazione</div>

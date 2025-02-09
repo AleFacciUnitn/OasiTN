@@ -11,7 +11,7 @@ import Parco from "./Parco";
 import ZoomSlider from 'ol/control/ZoomSlider';
 import newGeolocation from './geolocation';
 
-export default function MapView({parchi, parco, onClick, OnClose, admin, handleLocationChange, isClicked, selectedTags}) {
+export default function MapView({parchi, parco, onClick, OnClose, admin, handleLocationChange, isClicked, selectedTags, onTagRemoved}) {
   const ref = useRef(null);
   const mapRef = useRef(null);
   const viewRef = useRef(null);
@@ -169,19 +169,22 @@ export default function MapView({parchi, parco, onClick, OnClose, admin, handleL
   const containsTag = (parco) => {
     if(selectedTags.length === 0) return true;
     if(parco.tags.length === 0) return false;
-    var contains = false;
-    parco.tags.forEach((tag) => {
-      if(selectedTags.includes(tag.tagId.nome)) contains = true;
+    var contains = true;
+    selectedTags.forEach((tag) => {
+      if(parco.tags.filter(t => t.tagId.nome === tag).length === 0) contains = false;
     });
+    /*parco.tags.forEach((tag) => {
+      if(selectedTags.includes(tag.tagId.nome)) contains = true;
+    });*/
     return contains;
   }
   
   return <div className="w-full h-full flex flex-col md:flex-row">
     <div className={"flex  w-[33%] lg:w-1/4 "+(parco === null ? "visible" : "hidden")} id="suggerimenti">
       <div className="p-2">Suggerimenti</div>
-      {selectedTags.length !== 0 ? <div className="p-2 w-full flex flex-wrap"> 
+      {selectedTags.length !== 0 ? <div className="p-2 w-full flex flex-wrap gap-3"> 
         <span>Tags:</span>
-        {selectedTags.map((tag) => <span key={tag} className="bg-gray-300 flex items-center rounded-full text-sm p-1">{tag}<MdClose onClick={() => {}} className="cursor-pointer"/></span>)}
+        {selectedTags.map((tag) => <span key={tag} className="bg-gray-300 flex items-center rounded-full text-sm p-1">{tag}<MdClose onClick={() => onTagRemoved(tag)} className="cursor-pointer"/></span>)}
       </div> : ""}
       <ul className="h-full" style={{color: "black"}}>
           {!parchi ? "" : parchi.filter((parco) => containsTag(parco)).slice(0,5).map(parco =>
