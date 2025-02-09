@@ -43,12 +43,13 @@ export default function RequestForm({close, parchi}) {
     <div className="w-1/2 bg-white p-6 rounded-2xl shadow-lg text-gray-700">
       <div className="flex justify-between items-center mb-4">  
         <h2 className="text-xl font-semibold">Invia una segnalazione</h2>
-        <MdClose className="cursor-pointer" onClick={close} />
+        <MdClose className="cursor-pointer hover:text-red-500" onClick={close} />
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Priorità</label>
+          <label className="block text-sm font-medium text-gray-700">Parco</label>
           <select
+            required
             name="parcoId"
             value={formData.parcoId}
             onChange={handleChange}

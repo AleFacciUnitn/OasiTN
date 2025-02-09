@@ -14,13 +14,16 @@ export default function Home() {
   const [isClient, setIsClient] = useState(false);
   const [isSegnalazioniVisible, setIsSegnalazioniVisible] = useState(false);
   const [parchi, setParchi] = useState([]);
+  const [tags, setTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
   const [parco, setParco] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsClient(true);
+    const storedTags = sessionStorage.getItem("catTags")
     const storedParks = sessionStorage.getItem("parchi")
-    if(!storedParks){
+    if(!storedParks || !storedTags){
       const requestOptions = {
         method: "GET",
         redirect: "follow"
@@ -29,16 +32,15 @@ export default function Home() {
       fetch("http://localhost:5000/api/user/init", requestOptions)
         .then((response) => response.text())
         .then((result) => {
-          sessionStorage.setItem(
-            "parchi",
-            JSON.stringify(
-              JSON.parse(JSON.stringify(JSON.parse(result).parchi))
-            )
-          )
-          setParchi(JSON.parse(sessionStorage.getItem("parchi")));
+          const data = JSON.parse(result);
+          sessionStorage.setItem("parchi",JSON.stringify(data.parchi));
+          sessionStorage.setItem("catTags",JSON.stringify(data.categorie));
+          setParchi(data.parchi);
+          setTags(data.categorie);
         })
         .catch((error) => setError(error));
     } else {
+      setTags(JSON.parse(storedTags));
       setParchi(JSON.parse(storedParks));
     }
   }, []);
@@ -71,9 +73,16 @@ export default function Home() {
     return <Error error={error}/>; 
   }
 
-  if(parchi.length === 0) {
+  if(parchi.length === 0 || tags.length === 0) {
     return <Loading message="Caricamento mappa..."/>;
   }
+
+  const deNormalizeNome = (nome) => {
+    const res = nome.replaceAll("-", " ");
+    return res[0].toUpperCase()+res.slice(1,res.length);
+  }
+
+  console.log(Object.keys(tags));
 
   return (
     <div className="flex flex-col relative h-full">
@@ -96,23 +105,26 @@ export default function Home() {
           <div id="logo" style={{ display: "inline-block" }} ></div>
         </div>
         <div className="flex grow justify-evenly h-full" id="hotbar-center">
-        <NavItem name="Sport">
-          <ul className="topdown-menu w-full absolute">
-            <li><span className="filter">Calcio</span></li>
-            <li><span className="filter">Basket</span></li>
-            <li><span className="filter">Ping-Pong</span></li>
-          </ul>
-        </NavItem>
-        <NavItem name="Giochi" />
-        <NavItem name="Relax" />
-        <NavItem name="Varie" />
+        {Object.keys(tags).map((key) => {
+          return (
+            <NavItem key={key} name={deNormalizeNome(key)}>
+              <ul className="topdown-menu w-full absolute">
+                {tags[key].map((tag) => <li key={tag} onClick={() => {
+                    const newSelTags = [...selectedTags];
+                    if(newSelTags.includes(tag)) return;
+                    newSelTags.push(tag);
+                    setSelectedTags(newSelTags);
+                  }}><span className="text-sm filter">{deNormalizeNome(tag)}</span></li>)}
+              </ul>
+            </NavItem>
+          );
+        })}
         </div>    
         <div className="flex-none" id="hotbar-right">
           <CercaParchi parchi={parchi} OnClick={setParco}/>
         </div>
       </div>
-      <MapView parchi={parchi} parco={parco} onClick={setParco} OnClose={setParco}/>
-      {/* <div id="track"/> */}
+      <MapView parchi={parchi} parco={parco} selectedTags={selectedTags} onTagRemoved={(tag) => {}} onClick={setParco} OnClose={setParco}/>
       <div id="help">
         <div className="flex grow justify-center gap-6" id="help-content">
           <div className="cursor-pointer" onClick={() => setIsSegnalazioniVisible(!isSegnalazioniVisible)}>Segnalazione</div>
@@ -127,5 +139,4 @@ export default function Home() {
       </div>
     </div>
   );
-
 }

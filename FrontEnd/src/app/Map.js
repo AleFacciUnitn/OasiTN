@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import {MdClose} from 'react-icons/md';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
@@ -10,7 +11,7 @@ import Parco from "./Parco";
 import ZoomSlider from 'ol/control/ZoomSlider';
 import newGeolocation from './geolocation';
 
-export default function MapView({parchi, parco, onClick, OnClose, admin, handleLocationChange, isClicked}) {
+export default function MapView({parchi, parco, onClick, OnClose, admin, handleLocationChange, isClicked, selectedTags}) {
   const ref = useRef(null);
   const mapRef = useRef(null);
   const viewRef = useRef(null);
@@ -164,12 +165,26 @@ export default function MapView({parchi, parco, onClick, OnClose, admin, handleL
       });
     }
   },[viewRef, parco])
+
+  const containsTag = (parco) => {
+    if(selectedTags.length === 0) return true;
+    if(parco.tags.length === 0) return false;
+    var contains = false;
+    parco.tags.forEach((tag) => {
+      if(selectedTags.includes(tag.tagId.nome)) contains = true;
+    });
+    return contains;
+  }
   
   return <div className="w-full h-full flex flex-col md:flex-row">
-    <div className={"flex "+(parco === null ? "visible" : "hidden")} id="suggerimenti">
+    <div className={"flex  w-[33%] lg:w-1/4 "+(parco === null ? "visible" : "hidden")} id="suggerimenti">
       <div className="p-2">Suggerimenti</div>
+      {selectedTags.length !== 0 ? <div className="p-2 w-full flex flex-wrap"> 
+        <span>Tags:</span>
+        {selectedTags.map((tag) => <span key={tag} className="bg-gray-300 flex items-center rounded-full text-sm p-1">{tag}<MdClose onClick={() => {}} className="cursor-pointer"/></span>)}
+      </div> : ""}
       <ul className="h-full" style={{color: "black"}}>
-          {!parchi ? "" : parchi.slice(0,5).map(parco =>
+          {!parchi ? "" : parchi.filter((parco) => containsTag(parco)).slice(0,5).map(parco =>
             <li onClick={() => onClick(parco)} className="suggestion p-1 h-1/6" key={parco.nome}>{parco.nome}</li>
           )}
         </ul>
@@ -178,5 +193,4 @@ export default function MapView({parchi, parco, onClick, OnClose, admin, handleL
     <div ref={ref} id="map" className="h-full grow">
     </div>
   </div>;
-
 }
