@@ -17,6 +17,9 @@ const reformatNome = (nome) => {
 const addCategoria = async (req, res) => {
   let { nome, descrizione, password } = req.body;
   nome = reformatNome(nome);
+  if(!nome || !descrizione || !password) {
+    return res.status(400).json({ error: "Dati non validi" });
+  }
   // Verifica la password
   if (!validatePassword(password)) {
     return res.status(403).json({ message: 'Password non valida!' });

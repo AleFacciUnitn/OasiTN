@@ -17,7 +17,9 @@ const getSegnalazioni = async (req, res) => {
 // Funzione per aggiornare lo stato di una segnalazione
 const updateSegnalazioneStato = async (req, res) => {
   const { id, stato, password } = req.body;
-
+  if(!parcoId || !stato || !password || !mongoose.isValidObjectId(id)) {
+    return res.status(400).json({ error: "Dati non validi" });
+  }
   // Verifica la password
   if (!validatePassword(password)) {
     return res.status(403).json({ message: 'Password non valida!' });
@@ -51,7 +53,9 @@ const resolveSegnalazione = async (req, res) => {
   const password = req.headers.password;
 
   const { id } = req.params;
-    
+  if(!mongoose.isValidObjectId(id)) {
+    return res.status(400).json({ error: "Dati non validi" });
+  }
     // Verifica la password
     if (!validatePassword(password)) {
         return res.status(403).json({ message: 'Password non valida!' });

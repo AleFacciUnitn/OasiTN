@@ -1,6 +1,7 @@
 const Tag = require('../../../models/Tag');
 const Categoria = require('../../../models/Categoria');
 const Parco = require('../../../models/Parco');
+const { default: mongoose } = require('mongoose');
 const validatePassword = require('../../../middleware/auth.js').validatePassword; 
 
 const reformatNome = (nome) => {
@@ -12,12 +13,11 @@ const updateParco = async (req, res) => {
     try {
       const parcoId = req.params.id; // ID del parco dalla URL
       const { nome, location, tags, infoParco, password } = req.body; // Dati dal corpo della richiesta
-      console.log(password);
     if (!validatePassword(password)) {
         return res.status(403).json({ message: 'Password non valida!' });
       }
 
-      if (!nome || !location || typeof location.lat !== 'number' || typeof location.long !== 'number') {
+      if (!nome || !location || typeof location.lat !== 'number' || typeof location.long !== 'number' || !mongoose.isValidObjectId(parcoId)) {
         return res.status(400).json({ error: "Dati mancanti o non validi (nome o location)" });
       }
   
