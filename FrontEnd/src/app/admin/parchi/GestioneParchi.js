@@ -10,7 +10,7 @@ export default function GestioneParchi(){
   var sortFunction = (a,b) => a.nome.localeCompare(b.nome);
   const [sortType, setSortType] = useState("az");
   const [parchi, setParchi] = useState([]);
-  const endpoint = (process.env.API_URL || "http://localhost:5000/api")+"/admin/Parco";
+  const endpoint = (process.env.REACT_APP_API_URL || "http://localhost:5000/api")+"/admin/Parco";
 
   const refresh = () => {
       const myHeaders = new Headers();

@@ -29,7 +29,7 @@ export default function Home() {
         redirect: "follow"
       };
       console.log(process.env) 
-      fetch(`${process.env.API_URL}/user/init`, requestOptions)
+      fetch(`${process.env.REACT_APP_API_URL || "http://localhost:5000/api"}/user/init`, requestOptions)
         .then((response) => response.text())
         .then((result) => {
           const data = JSON.parse(result);

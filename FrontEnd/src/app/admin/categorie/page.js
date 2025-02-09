@@ -8,7 +8,7 @@ export default function Page(){
   const [categoria, setCategoria] = useState(null);
   const [edit, setEdit] = useState(-1);
   const [lastIndex, setLastIndex] = useState(-1);
-  const endpoint = (process.env.API_URL || "http://localhost:5000/api")+"/admin/Categoria"
+  const endpoint = (process.env.REACT_APP_API_URL || "http://localhost:5000/api")+"/admin/Categoria"
 
   useEffect(() => {
     const storedCategorie = sessionStorage.getItem("categorie");
