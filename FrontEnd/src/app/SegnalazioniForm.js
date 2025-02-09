@@ -26,7 +26,7 @@ export default function RequestForm({close, parchi}) {
       redirect: "follow"
     };
 
-    fetch(`${process.env.REACT_APP_API_URL || "http://localhost:5000/api"}/user/Segnalazioni`, requestOptions)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/user/Segnalazioni`, requestOptions)
       .then((response) => {
         if(!response.ok) throw response
         close(); 

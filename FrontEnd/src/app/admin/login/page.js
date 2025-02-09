@@ -40,7 +40,7 @@ export default function Page(){
     const headers = new Headers();
     headers.append('Content-Type','application/json');
 
-    fetch(`${process.env.REACT_APP_API_URL}/admin/Login`,{
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/admin/Login`,{
       method: 'POST',
       headers: headers,
       body: jsonData

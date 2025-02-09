@@ -15,7 +15,7 @@ export default function Page(){
   const [expand, setExpand] = useState(-1);
   const [isClicked, setIsClicked] = useState(false);
   const [action, setAction] = useState(() => {});
-  const endpoint = (process.env.REACT_APP_API_URL || "http://localhost:5000/api")+"/admin/Parco";
+  const endpoint = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api")+"/admin/Parco";
 
   useEffect(() => {
     const parcoStored = sessionStorage.getItem("parco");

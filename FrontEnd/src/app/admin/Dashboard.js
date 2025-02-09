@@ -8,7 +8,7 @@ export default function Dashboard({router}){
   const [error, setError] = useState(null);
   const [message, setMessage] = useState("");
   const [notifica, setNotifica] = useState(false);
-  const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
   useEffect(() => {
     const myHeaders = new Headers();

@@ -8,7 +8,7 @@ export default function Page(){
   const [segnalazione, setSegnalazione] = useState(null);
   const [action, setAction] = useState(() => {});
   const [isVisible, setIsVisible] = useState(false);
-  const endpoint = (process.env.REACT_APP_API_URL || "http://localhost:5000/api")+"/admin/Segnalazioni";
+  const endpoint = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api")+"/admin/Segnalazioni";
 
   useEffect(() => {
     const storedSegnalazione = sessionStorage.getItem("segnalazione");

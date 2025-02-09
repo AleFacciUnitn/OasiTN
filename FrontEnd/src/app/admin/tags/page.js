@@ -10,7 +10,7 @@ export default function Page(){
   const [clicked, setClicked] = useState(-1);
   const [edit, setEdit] = useState(-1);
   const [lastIndex, setLastIndex] = useState(-1);
-  const endpoint = (process.env.REACT_APP_API_URL || "http://localhost:5000/api")+"/admin/Tag";
+  const endpoint = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api")+"/admin/Tag";
 
   useEffect(() => {
     const storedTags = sessionStorage.getItem("tags");
