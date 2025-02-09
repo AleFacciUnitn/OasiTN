@@ -1,10 +1,15 @@
+const mongoose = require('mongoose');
 const Segnalazione = require('../../models/Segnalazione');
 const Parco = require('../../models/Parco');
 const { updateMany } = require('../../models/Tag');
 
 // Aggiungi una segnalazione
 const addSegnalazione = async (req, res) => {
+
   const { parcoId, oggetto, descrizione, priorita } = req.body;
+  if(!parcoId || !oggetto || !descrizione || !priorita || !mongoose.isValidObjectId(parcoId)) {
+    return res.status(400).json({ error: "Dati non validi" });
+  }
   // Controllo validità della password
 
   // Verifica se il parco esiste
