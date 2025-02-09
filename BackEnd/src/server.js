@@ -9,7 +9,7 @@ const adminRoutes = require('./routes/adminRoutes'); // Modifica con il percorso
 const userRoutes = require('./routes/userRoutes'); // Modifica con il percorso corretto
 
 const app = express();
-const PORT_POOL = [5000, 8888]; 
+const PORT_POOL = [process.env.PORT]; 
 
 // Middleware
 app.use(cors());
