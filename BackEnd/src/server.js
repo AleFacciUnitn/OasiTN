@@ -16,7 +16,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Connessione a MongoDB
-mongoose.connect('mongodb://localhost:27017/OasiTN')
+mongoose.connect(`${process.env.DATABASE_URL}/OasiTN`)
   .then(() => console.log('Connessione a MongoDB riuscita!'))
   .catch((err) => console.error('Errore di connessione a MongoDB:', err));
 
