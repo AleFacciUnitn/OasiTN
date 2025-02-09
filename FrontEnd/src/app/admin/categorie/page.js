@@ -8,6 +8,7 @@ export default function Page(){
   const [categoria, setCategoria] = useState(null);
   const [edit, setEdit] = useState(-1);
   const [lastIndex, setLastIndex] = useState(-1);
+  const endpoint = (process.env.API_URL || "http://localhost:5000/api")+"/admin/Categoria"
 
   useEffect(() => {
     const storedCategorie = sessionStorage.getItem("categorie");
@@ -24,7 +25,7 @@ export default function Page(){
      redirect: "follow"
     };
      
-    fetch("http://localhost:5000/api/admin/Categoria", requestOptions)
+    fetch(endpoint, requestOptions)
       .then((response) => {
         if(!response.ok) throw `Error ${response.status}`;
         return response.text();
@@ -53,7 +54,7 @@ export default function Page(){
       redirect: "follow"
     };
 
-    fetch("http://localhost:5000/api/admin/Categoria", requestOptions)
+    fetch(endpoint, requestOptions)
       .then((response) => {
         if(!response.ok) throw `Errore ${response.status}`;
         setCategoria(null);
@@ -80,7 +81,7 @@ export default function Page(){
       redirect: "follow"
     };
 
-    fetch(`http://localhost:8888/api/admin/Categoria/${categoria._id}`, requestOptions)
+    fetch(`${endpoint}/${categoria._id}`, requestOptions)
       .then((response) => {
         if(!response.ok) throw `Error ${response.status}`;
         setEdit(-1);
@@ -99,7 +100,7 @@ export default function Page(){
       redirect: "follow"
     };
 
-    fetch(`http://localhost:5000/api/admin/Categoria/${categoria._id}`, requestOptions)
+    fetch(`${endpoint}/${categoria._id}`, requestOptions)
       .then((response) => {
         if(!response.ok) throw `Error ${response.status}`
         const newCategorie = [...categorie];

@@ -8,6 +8,7 @@ export default function Dashboard({router}){
   const [error, setError] = useState(null);
   const [message, setMessage] = useState("");
   const [notifica, setNotifica] = useState(false);
+  const apiUrl = process.env.API_URL || "http://localhost:5000/api";
 
   useEffect(() => {
     const myHeaders = new Headers();
@@ -15,7 +16,7 @@ export default function Dashboard({router}){
 
     const storedSegnalazioni = sessionStorage.getItem("segnalazioni");
     if(!storedSegnalazioni){
-      fetch("http://localhost:5000/api/admin/Segnalazioni")
+      fetch(`${apiUrl}/admin/Segnalazioni`)
         .then((response) => response.text())
         .then((result) => {
           const data = JSON.parse(result);
@@ -35,7 +36,7 @@ export default function Dashboard({router}){
         redirect: "follow"
       };
 
-      fetch("http://localhost:5000/api/admin/Parco?", requestOptions)
+      fetch(`${apiUrl}/admin/Parco`, requestOptions)
         .then((response) => response.text())
         .then((result) => {
           const data = JSON.parse(result);
@@ -56,7 +57,7 @@ export default function Dashboard({router}){
         redirect: "follow"
       };
 
-      fetch("http://localhost:5000/api/admin/Categoria", requestOptions)
+      fetch(`${apiUrl}/admin/Categoria`, requestOptions)
         .then((response) => response.text())
         .then((result) => {
           const resultJSON = JSON.parse(result);
@@ -75,7 +76,7 @@ export default function Dashboard({router}){
         redirect: "follow"
       };
 
-      fetch("http://localhost:5000/api/admin/Tag", requestOptions)
+      fetch(`${apiUrl}/admin/Tag`, requestOptions)
         .then((response) => response.text())
         .then((result) => {
           const resultJSON = JSON.parse(result);

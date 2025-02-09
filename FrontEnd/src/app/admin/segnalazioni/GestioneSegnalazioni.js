@@ -6,9 +6,10 @@ import { MdRefresh } from "react-icons/md";
 export default function GestioneSegnalazioni(){
   const router = useRouter();
   const [segnalazioni, setSegnalazioni] = useState(null);
+  const endpoint = (process.env.API_URL || "http://localhost:5000/api")+"/admin/Segnalazioni";
 
   const fetchSegnalazioni = () => {
-    fetch("http://localhost:5000/api/admin/Segnalazioni")
+    fetch(endpoint)
       .then((response) => response.text())
       .then((result) => {
         const data = JSON.parse(result);

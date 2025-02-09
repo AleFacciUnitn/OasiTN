@@ -15,6 +15,7 @@ export default function Page(){
   const [expand, setExpand] = useState(-1);
   const [isClicked, setIsClicked] = useState(false);
   const [action, setAction] = useState(() => {});
+  const endpoint = (process.env.API_URL || "http://localhost:5000/api")+"/admin/Parco";
 
   useEffect(() => {
     const parcoStored = sessionStorage.getItem("parco");
@@ -40,7 +41,7 @@ export default function Page(){
       redirect: "follow"
     };
 
-    fetch("http://localhost:5000/api/admin/Parco?", requestOptions)
+    fetch(endpoint, requestOptions)
       .then((response) => response.text())
       .then((result) => {
         const data = JSON.parse(result);
@@ -111,7 +112,7 @@ export default function Page(){
       redirect: "follow"
     };
 
-    fetch(`http://localhost:5000/api/admin/Parco/${parco._id}`, requestOptions)
+    fetch(`${endpoint}/${parco._id}`, requestOptions)
       .then((response) => {
         if(!response.ok) throw `Error ${response.status}`;
       })
@@ -129,7 +130,7 @@ export default function Page(){
       redirect: "follow"
     };
 
-    fetch("http://localhost:5000/api/admin/Parco", requestOptions)
+    fetch(endpoint, requestOptions)
       .then((response) => {
         if(!response.ok) throw `Error ${response.status}`;
       })

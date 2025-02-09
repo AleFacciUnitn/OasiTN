@@ -10,6 +10,7 @@ export default function Page(){
   const [clicked, setClicked] = useState(-1);
   const [edit, setEdit] = useState(-1);
   const [lastIndex, setLastIndex] = useState(-1);
+  const endpoint = (process.env.API_URL || "http://localhost:5000/api")+"/admin/Tag";
 
   useEffect(() => {
     const storedTags = sessionStorage.getItem("tags");
@@ -29,7 +30,7 @@ export default function Page(){
      redirect: "follow"
     };
      
-    fetch("http://localhost:5000/api/admin/Tag", requestOptions)
+    fetch(endpoint, requestOptions)
       .then((response) => {
         if(!response.ok) throw `Error ${response.status}`;
         return response.text();
@@ -58,7 +59,7 @@ export default function Page(){
       redirect: "follow"
     };
 
-    fetch("http://localhost:5000/api/admin/Tag", requestOptions)
+    fetch(endpoint, requestOptions)
       .then((response) => {
         if(!response.ok) throw `Errore ${response.status}`;
         setTag(null);
@@ -85,7 +86,7 @@ export default function Page(){
       redirect: "follow"
     };
 
-    fetch(`http://localhost:8888/api/admin/Tag/${tag._id}`, requestOptions)
+    fetch(`${endpoint}/${tag._id}`, requestOptions)
       .then((response) => {
         if(!response.ok) throw `Error ${response.status}`;
         action;
@@ -104,7 +105,7 @@ export default function Page(){
       redirect: "follow"
     };
 
-    fetch(`http://localhost:5000/api/admin/Tag/${tag._id}`, requestOptions)
+    fetch(`${endpoint}/${tag._id}`, requestOptions)
       .then((response) => {
         if(!response.ok) throw `Error ${response.status}`
         const newTags = [...tags];

@@ -10,6 +10,7 @@ export default function GestioneParchi(){
   var sortFunction = (a,b) => a.nome.localeCompare(b.nome);
   const [sortType, setSortType] = useState("az");
   const [parchi, setParchi] = useState([]);
+  const endpoint = (process.env.API_URL || "http://localhost:5000/api")+"/admin/Parco";
 
   const refresh = () => {
       const myHeaders = new Headers();
@@ -21,7 +22,7 @@ export default function GestioneParchi(){
         redirect: "follow"
       };
 
-      fetch("http://localhost:5000/api/admin/Parco?", requestOptions)
+      fetch(endpoint, requestOptions)
         .then((response) => response.text())
         .then((result) => {
           const data = JSON.parse(result);
@@ -70,7 +71,7 @@ export default function GestioneParchi(){
       redirect: "follow"
     };
 
-    fetch(`http://localhost:5000/api/admin/Parco/${parco._id}`, requestOptions)
+    fetch(`${endpoint}/${parco._id}`, requestOptions)
       .then((response) => {
          if(!response.ok) throw `Error ${response.status}`;
          refresh();

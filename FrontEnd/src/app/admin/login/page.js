@@ -40,7 +40,7 @@ export default function Page(){
     const headers = new Headers();
     headers.append('Content-Type','application/json');
 
-    fetch("http://localhost:5000/api/admin/Login",{
+    fetch(`${process.env.API_URL}/admin/Login`,{
       method: 'POST',
       headers: headers,
       body: jsonData

@@ -8,6 +8,7 @@ export default function Page(){
   const [segnalazione, setSegnalazione] = useState(null);
   const [action, setAction] = useState(() => {});
   const [isVisible, setIsVisible] = useState(false);
+  const endpoint = (process.env.API_URL || "http://localhost:5000/api")+"/admin/Segnalazioni";
 
   useEffect(() => {
     const storedSegnalazione = sessionStorage.getItem("segnalazione");
@@ -46,7 +47,7 @@ export default function Page(){
       redirect: "follow"
     };
 
-    fetch("http://localhost:5000/api/admin/Segnalazioni/"+segnalazione._id, requestOptions)
+    fetch(`${endpoint}/${segnalazione._id}`, requestOptions)
       .then((response) => {
         console.log(response);
         if(!response.ok) throw "Error resolving segnalazione";
@@ -73,7 +74,7 @@ export default function Page(){
       redirect: "follow"
     };
 
-    fetch("http://localhost:5000/api/admin/Segnalazioni", requestOptions)
+    fetch(endpoint, requestOptions)
       .then((response) => {
         if(!response.ok) throw "Error updating status"
         router.back();
