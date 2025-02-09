@@ -11,7 +11,9 @@ async function deleteParco(req, res) {
       }
   try {
     const { id } = req.params;
-
+    if(!id || !mongoose.isValidObjectId(parcoId)) {
+      return res.status(400).json({ error: "Dati non validi" });
+    }
     const deletedParco = await Parco.findByIdAndDelete(id);
 
     if (!deletedParco) {

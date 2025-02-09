@@ -4,6 +4,9 @@ const Parco = require('../../models/Parco');
 // Aggiungi una segnalazione
 const addCrowdingReport = async (req, res) => {
   const { parcoId, crowding } = req.body;
+  if(!parcoId || !oggetto || !descrizione || !priorita || !mongoose.isValidObjectId(parcoId)) {
+    return res.status(400).json({ error: "Dati non validi" });
+  }
 
   // Controllo validità della password
 
