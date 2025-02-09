@@ -28,7 +28,7 @@ export default function Home() {
         method: "GET",
         redirect: "follow"
       };
-      console.log(process.env.API_URL) 
+      console.log(process.env) 
       fetch(`${process.env.API_URL}/user/init`, requestOptions)
         .then((response) => response.text())
         .then((result) => {
