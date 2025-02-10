@@ -9,14 +9,14 @@ const adminRoutes = require('./routes/adminRoutes'); // Modifica con il percorso
 const userRoutes = require('./routes/userRoutes'); // Modifica con il percorso corretto
 
 const app = express();
-const PORT_POOL = [process.env.PORT]; 
+const PORT_POOL = [process.env.PORT || 5000]; 
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
 // Connessione a MongoDB
-mongoose.connect(`${process.env.DATABASE_URL}`)
+mongoose.connect(`${process.env.DATABASE_URL || "mongodb://localhost:27017/OasiTN"}`)
   .then(() => console.log('Connessione a MongoDB riuscita!'))
   .catch((err) => console.error('Errore di connessione a MongoDB:', err));
 

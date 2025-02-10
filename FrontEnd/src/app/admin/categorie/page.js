@@ -56,7 +56,7 @@ export default function Page(){
 
     fetch(endpoint, requestOptions)
       .then((response) => {
-        if(!response.ok) throw `Errore ${response.status}`;
+        if(!response.ok) throw `Error ${response.status}`;
         setCategoria(null);
         setEdit(-1);
       })
