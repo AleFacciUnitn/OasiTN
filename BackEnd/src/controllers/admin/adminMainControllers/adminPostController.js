@@ -106,6 +106,7 @@ const addParco = async (req, res) => {
     }
 
     // Mappatura e verifica dei tag
+    try{
     const tagDetails = await Promise.all(tags.map(async (tag) => {
       //TODO: cambia nome in tagId
       const { tagId, count, positions } = tag;
@@ -142,6 +143,9 @@ const addParco = async (req, res) => {
         positions: validPositions
       };
     }));
+    }catch(error){
+      return res.status(400).json({ error: error.message });
+    }
 
     // Creazione del nuovo parco
     const newParco = new Parco({
