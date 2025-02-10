@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Segnalazione = require('../../models/Segnalazione');
 const Parco = require('../../models/Parco');
 const { updateMany } = require('../../models/Tag');
-const mongoose = require('mongoose');
 
 // Aggiungi una segnalazione
 const addSegnalazione = async (req, res) => {
