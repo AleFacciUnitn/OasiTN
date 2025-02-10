@@ -104,10 +104,10 @@ const addParco = async (req, res) => {
     if (!nome || !location || typeof location.lat !== 'number' || typeof location.long !== 'number') {
       return res.status(400).json({ error: "Dati mancanti o non validi (nome o location)" });
     }
-
+    let tagDetails;
     // Mappatura e verifica dei tag
     try{
-    const tagDetails = await Promise.all(tags.map(async (tag) => {
+      tagDetails = await Promise.all(tags.map(async (tag) => {
       //TODO: cambia nome in tagId
       const { tagId, count, positions } = tag;
       
