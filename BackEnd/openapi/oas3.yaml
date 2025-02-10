@@ -5,7 +5,7 @@ info:
   description: API documentation for OasiTN backend
 
 servers:
-  - url: http://localhost:5000/api
+  - url: http://oasitn-db.onrender.com/api
 
 
 tags:
