@@ -50,7 +50,6 @@ const updateSegnalazioneStato = async (req, res) => {
   }
 };
 
-//scrivi resolveSegnalazione, che setta lo stato della segnalazione a 'completata', e aggiunge un tempo di vita alla segnalazione di un mese
 const resolveSegnalazione = async (req, res) => {
   const password = req.headers.password;
 
@@ -72,7 +71,7 @@ const resolveSegnalazione = async (req, res) => {
     
         // Aggiorna lo stato
         segnalazione.stato = 'completata';
-// Aggiungi un auto-delete dal database in 1 mese
+// Aggiunge un auto-delete dal database in 1 mese
         segnalazione.scadenza = Date.now() + 1000;
 
         await segnalazione.save();

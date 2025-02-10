@@ -431,12 +431,12 @@ paths:
                       type: number
                     long:
                       type: number
-                addTags:
+                tags:
                   type: array
                   items:
                     type: object
                     properties:
-                      tagId:
+                      nome:
                         type: string
                       count:
                         type: number
@@ -449,21 +449,17 @@ paths:
                               type: number
                             long:
                               type: number
-                removeTagIds:
-                  type: array
-                  items:
-                    type: string
                 infoParco:
                   type: string
                 password:
                   type: string
       responses:
         '200':
-          description: Park updated successfully
+          description: Report status updated successfully
+        '400':
+          description: Bad request
         '403':
           description: Invalid password
-        '404':
-          description: Park not found
         '500':
           description: Internal server error
     delete:
