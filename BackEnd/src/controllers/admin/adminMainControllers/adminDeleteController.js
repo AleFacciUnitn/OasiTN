@@ -1,6 +1,8 @@
 const Tag = require('../../../models/Tag');
 const Categoria = require('../../../models/Categoria');
 const Parco = require('../../../models/Parco');
+const mongoose = require('mongoose');
+
 const validatePassword = require('../../../middleware/auth.js').validatePassword; 
 // Funzione per cancellare un parco
 async function deleteParco(req, res) {

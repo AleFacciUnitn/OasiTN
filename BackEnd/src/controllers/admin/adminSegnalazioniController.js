@@ -1,5 +1,7 @@
 const Segnalazione = require('../../models/Segnalazione');
 const crypto = require('crypto');
+const mongoose = require('mongoose');
+
 const validatePassword = require('../../middleware/auth.js').validatePassword; 
 
 
@@ -17,7 +19,7 @@ const getSegnalazioni = async (req, res) => {
 // Funzione per aggiornare lo stato di una segnalazione
 const updateSegnalazioneStato = async (req, res) => {
   const { id, stato, password } = req.body;
-  if(!parcoId || !stato || !password || !mongoose.isValidObjectId(id)) {
+  if(!id || !stato || !password || !mongoose.isValidObjectId(id)) {
     return res.status(400).json({ error: "Dati non validi" });
   }
   // Verifica la password
@@ -53,7 +55,7 @@ const resolveSegnalazione = async (req, res) => {
   const password = req.headers.password;
 
   const { id } = req.params;
-  if(!mongoose.isValidObjectId(id)) {
+  if(!id || !mongoose.isValidObjectId(id)) {
     return res.status(400).json({ error: "Dati non validi" });
   }
     // Verifica la password

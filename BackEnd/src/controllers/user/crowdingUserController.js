@@ -1,5 +1,6 @@
 const CrowdingRaw = require('../../models/CrowdingRaw'); // Adjust the path as necessary
 const Parco = require('../../models/Parco');
+const mongoose = require('mongoose');
 
 // Aggiungi una segnalazione
 const addCrowdingReport = async (req, res) => {

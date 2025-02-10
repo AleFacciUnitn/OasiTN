@@ -2,6 +2,7 @@
 const Tag = require('../../../models/Tag');
 const Categoria = require('../../../models/Categoria');
 const Parco = require('../../../models/Parco');
+const mongoose = require('mongoose');
 const validatePassword = require('../../../middleware/auth.js').validatePassword; 
 
 // Funzione per generare MD5
@@ -25,10 +26,6 @@ const addCategoria = async (req, res) => {
     return res.status(403).json({ message: 'Password non valida!' });
   }
 
-  // Verifica se i campi obbligatori sono presenti
-  if (!nome) {
-    return res.status(400).json({ message: 'Il nome della categoria è obbligatorio.' });
-  }
 
   try {
     // Verifica se la categoria esiste già
@@ -112,7 +109,7 @@ const addParco = async (req, res) => {
       
       //TODO: cambia tutte le occorrenze di nome in tagId.nome
       // Verifica che i campi siano presenti
-      if (!tagId || !count || !positions || !Array.isArray(positions)) {
+      if (!tagId || !count || !positions || !Array.isArray(positions) || !mongoose.isValidObjectId(tagId)) {
         throw new Error("Dati tag mancanti o non validi");
       }
 

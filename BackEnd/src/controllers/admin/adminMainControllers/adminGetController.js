@@ -1,6 +1,8 @@
 const Tag = require('../../../models/Tag');
 const Categoria = require('../../../models/Categoria');
 const Parco = require('../../../models/Parco');
+const mongoose = require('mongoose');
+
 //Questo si potrà cambiare con l'authentication vera e propria
 const validatePassword = require('../../../middleware/auth.js').validatePassword; 
 

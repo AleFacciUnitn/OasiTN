@@ -6,7 +6,7 @@ const adminLogin = async (req, res) => {
       let { password } = req.body;
       // Controllo della validità della categoria
       if (!password) {
-        return res.status(400).json({ error: 'Formato non valido' });
+        return res.status(400).json({ error: 'Password mancante' });
       }
       // Controllo della validità dei dati (esempio con una password hardcoded)
   

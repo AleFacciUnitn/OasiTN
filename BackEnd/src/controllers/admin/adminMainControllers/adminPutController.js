@@ -28,7 +28,7 @@ const updateParco = async (req, res) => {
         
         //TODO: cambia tutte le occorrenze di nome in tagId.nome
         // Verifica che i campi siano presenti
-        if (!tagId || !count || !positions || !Array.isArray(positions)) {
+        if (!tagId || !count || !positions || !Array.isArray(positions) || !mongoose.isValidObjectId(tagId)) {
           throw new Error("Dati tag mancanti o non validi");
         }
   
@@ -151,6 +151,9 @@ async function updateCategoria(req, res) {
     const { id } = req.params; // Ottieni l'ID dal parametro
     let updateData = req.body; // Ottieni i dati aggiornati dal corpo della richiesta
     updateData.nome = reformatNome(updateData.nome);
+    if(!updateData.nome || !mongoose.isValidObjectId(id)){
+        return res.status(400).json({ error: "Dati non validi" });
+    }
     const updatedCategoria = await Categoria.findByIdAndUpdate(id, updateData, { new: true });
 
     if (!updatedCategoria) {
@@ -178,7 +181,10 @@ async function updateTag(req, res) {
     
   try {
     const { id } = req.params; // Ottieni l'ID dal parametro
-    let {nome, nomeCategoria, password} = req.body; // Ottieni i dati aggiornati dal corpo della richiesta
+    let {nome, nomeCategoria, password} = req.body;
+    if(!nome || !nomeCategoria || !password || !mongoose.isValidObjectId(id)){
+        return res.status(400).json({ error: "Dati non validi" });
+    } // Ottieni i dati aggiornati dal corpo della richiesta
     if (!validatePassword(password)) {
         return res.status(403).json({ message: 'Password non valida!' });
     }
