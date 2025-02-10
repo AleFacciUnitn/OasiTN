@@ -53,18 +53,22 @@ const addCategoria = async (req, res) => {
 const addTag = async (req, res) => {
   try {
     let { nome, nomeCategoria, password } = req.body;
+    if(!nome || !nomeCategoria || !password) {
+      return res.status(400).json({ error: "Dati non validi" });
+    }
     nome = reformatNome(nome);
+    //Controllo della password
+    if (!validatePassword(password)) {
+      return res.status(403).json({ error: 'Password non valida' });
+    }
+
     // Controllo della validità della categoria
     const categoria = await Categoria.findOne({ nome: nomeCategoria });
     if (!categoria) {
       return res.status(400).json({ error: 'Categoria non valida' });
     }
 
-    // Controllo della validità dei dati (esempio con una password hardcoded)
 
-    if (!validatePassword(password)) {
-      return res.status(403).json({ error: 'Password non valida' });
-    }
 
     console.log('Categoria:', categoria);
     // Creazione del nuovo tag
