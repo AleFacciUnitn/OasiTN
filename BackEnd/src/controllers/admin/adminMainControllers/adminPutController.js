@@ -20,9 +20,10 @@ const updateParco = async (req, res) => {
       if (!nome || !location || typeof location.lat !== 'number' || typeof location.long !== 'number' || !mongoose.isValidObjectId(parcoId)) {
         return res.status(400).json({ error: "Dati mancanti o non validi (nome o location)" });
       }
-  
+      let tagDetails;
       // Mappatura e verifica dei tag
-      const tagDetails = await Promise.all(tags.map(async (tag) => {
+      try{
+        tagDetails = await Promise.all(tags.map(async (tag) => {
         //TODO: cambia nome in tagId
         const { tagId, count, positions } = tag;
         
@@ -33,9 +34,9 @@ const updateParco = async (req, res) => {
         }
   
         // Trova l'ID del tag corrispondente al nome
-        const tagFromDb = await Tag.findById(tagId._id);
+        const tagFromDb = await Tag.findById(tagId);
         if (!tagFromDb) {
-          throw new Error(`Il tag con id '${_id}' non esiste`);
+          throw new Error(`Il tag con id '${tagId}' non esiste`);
         }
   
         // Verifica il numero delle posizioni
@@ -53,11 +54,14 @@ const updateParco = async (req, res) => {
   
         // Ritorna il dettaglio del tag con l'ID
         return {
-          tagId: tagId._id, // Assicura che sia un ObjectId
-          count: count,
+          tagId: tagId, // Assicura che sia un ObjectId
+          count,
           positions: validPositions
         };
       }));
+      }catch(error){
+        return res.status(400).json({ error: error.message });
+      }
       // Creazione del nuovo parco
       const updatedInfoParco = {
         nome,
