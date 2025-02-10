@@ -70,7 +70,6 @@ const addTag = async (req, res) => {
 
 
 
-    console.log('Categoria:', categoria);
     // Creazione del nuovo tag
     const newTag = new Tag({
       nome: nome,
