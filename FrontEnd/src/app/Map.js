@@ -182,7 +182,7 @@ export default function MapView({parchi, parco, onClick, OnClose, admin, handleL
   return <div className="w-full h-full flex flex-col md:flex-row">
     <div className={"flex  w-[33%] lg:w-1/4 "+(parco === null ? "visible" : "hidden")} id="suggerimenti">
       <div className="p-2">Suggerimenti</div>
-      {selectedTags.length !== 0 ? <div className="p-2 w-full flex flex-wrap gap-3"> 
+      { selectedTags && selectedTags.length !== 0 ? <div className="p-2 w-full flex flex-wrap gap-3"> 
         <span>Tags:</span>
         {selectedTags.map((tag) => <span key={tag} className="bg-gray-300 flex items-center rounded-full text-sm p-1">{tag}<MdClose onClick={() => onTagRemoved(tag)} className="cursor-pointer"/></span>)}
       </div> : ""}

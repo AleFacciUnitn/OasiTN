@@ -28,7 +28,7 @@ export default function Home() {
         method: "GET",
         redirect: "follow"
       };
-      console.log(process.env) 
+
       fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/user/init`, requestOptions)
         .then((response) => response.text())
         .then((result) => {
