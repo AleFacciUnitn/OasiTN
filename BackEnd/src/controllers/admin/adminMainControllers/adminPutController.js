@@ -158,6 +158,10 @@ async function updateCategoria(req, res) {
     if(!updateData.nome || !mongoose.isValidObjectId(id)){
         return res.status(400).json({ error: "Dati non validi" });
     }
+    const categoriaEsistente = await Categoria.findOne({ nome: updateData.nome });
+    if(categoriaEsistente){
+        return res.status(400).json({message: "Categoria già esistente"});
+    }
     const updatedCategoria = await Categoria.findByIdAndUpdate(id, updateData, { new: true });
 
     if (!updatedCategoria) {
@@ -200,8 +204,12 @@ async function updateTag(req, res) {
         });
     }
     const idCategoria = categoria._id;
-    const updateData = { nome: reformatNome(nome), categoria: idCategoria}; // Crea un oggetto con i dati aggiornati
-    const updatedTag = await Tag.findByIdAndUpdate(id, updateData, { new: true });
+    const updateData = { nome: reformatNome(nome), categoria: idCategoria};
+    const tagEsistente = await Tag.findOne({nome});
+    if(tagEsistente){
+        return res.status(400).json({ message: 'Tag già esistente' });
+    }
+    const updatedTag = await Tag.findByIdAndUpdate(id, updateData, { new: true });  // Crea un oggetto con i dati aggiornati
 
     if (!updatedTag) {
       return res.status(404).json({

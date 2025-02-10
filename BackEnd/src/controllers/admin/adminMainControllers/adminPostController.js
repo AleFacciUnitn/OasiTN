@@ -67,7 +67,10 @@ const addTag = async (req, res) => {
     if (!categoria) {
       return res.status(400).json({ error: 'Categoria non valida' });
     }
-
+    const tagEsistente = await Tag.findOne({ nome });
+    if (tagEsistente) {
+      return res.status(400).json({ message: 'Tag già esistente' });
+    }
 
 
     // Creazione del nuovo tag
