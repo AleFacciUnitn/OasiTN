@@ -29,7 +29,7 @@ const updateParco = async (req, res) => {
         
         //TODO: cambia tutte le occorrenze di nome in tagId.nome
         // Verifica che i campi siano presenti
-        if (!tagId || !count || !positions || !Array.isArray(positions) || !mongoose.isValidObjectId(tagId)) {
+        if (!tagId || !count || !positions || !Array.isArray(positions)) {
           throw new Error("Dati tag mancanti o non validi");
         }
   
