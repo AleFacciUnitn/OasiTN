@@ -114,7 +114,7 @@ export default function Page(){
 
     fetch(`${endpoint}/${parco._id}`, requestOptions)
       .then((response) => {
-        if(!response.ok) throw `Error ${response.status}`;
+        if(!response.ok) throw `Error ${response}`;
       })
       .catch((error) => console.error(error));
   }
