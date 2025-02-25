@@ -116,7 +116,10 @@ export default function Page(){
       .then((response) => {
         //if(!response.ok) throw `Error ${response}`;
 	return response;
-      }).then((res) => console.error(res))
+      }).then((res) => {
+	console.error(res)
+	console.log(res.text);
+      })
       .catch((error) => console.error(error));
   }
 
