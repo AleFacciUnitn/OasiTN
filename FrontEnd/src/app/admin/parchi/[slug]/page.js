@@ -118,7 +118,7 @@ export default function Page(){
 	return response;
       }).then((res) => {
 	console.error(res)
-	console.log(res.text);
+	console.log(res.text());
       })
       .catch((error) => console.error(error));
   }
