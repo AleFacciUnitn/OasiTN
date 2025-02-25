@@ -48,7 +48,6 @@ export default function Page(){
         if(!data.success) throw `Error ${result}`;
 	console.log(data.data);
         sessionStorage.setItem("parchi", JSON.stringify(data.data));
-	setParchi(data.data);
         router.back();
       })
       .catch((error) => console.error(error));
