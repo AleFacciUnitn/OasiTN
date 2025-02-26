@@ -25,11 +25,11 @@ export default function Parco({parco}){
       <img src={piazza_centa.src} style={{borderRadius: ".75rem"}} className="h-1/2 md:h-1/3 w-full h-full"/>
       <div className="grow text-md flex flex-col justify-between">
         <div>
-          <p>{parco?.infoParco || ""}</p>
+          <p className="py-4">{parco?.infoParco || ""}</p>
           <h2 className="font-semibold text-xl">Tags</h2>
           <ul>
           {parco?.tags.map(tag =>
-            <li className="w-1/2" key={tag.tagId.nome}><span>{tag.tagId.nome}</span><span>{tag.count}</span></li>
+            <li className="w-1/2 flex justify-between" key={tag.tagId.nome}><span>{tag.tagId.nome}</span><span>{tag.count}</span></li>
           )}
           </ul>
         </div>
