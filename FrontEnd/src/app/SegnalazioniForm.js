@@ -9,6 +9,15 @@ export default function RequestForm({close, parchi}) {
     descrizione: "",
     priorita: 1,
   });
+
+  const clearForm = () => {
+    setFormData({
+      parcoId: "",
+      oggetto: "",
+      descrizione: "",
+      priorita: 1,
+    });
+  }
  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,8 +37,9 @@ export default function RequestForm({close, parchi}) {
 
     fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/user/Segnalazioni`, requestOptions)
       .then((response) => {
-        if(!response.ok) throw response
-        close(); 
+        if(!response.ok) throw response;
+        close();
+	clearForm();
       })
       .catch((error) => console.error(error));
   };
