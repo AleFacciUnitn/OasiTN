@@ -179,7 +179,7 @@ export default function MapView({parchi, parco, onClick, OnClose, admin, handleL
     return contains;
   }
   
-  return <div className="w-full h-full flex flex-col md:flex-row">
+  return <div className="w-full grow overflow-auto flex flex-col md:flex-row">
     <div className={"flex  w-[33%] lg:w-1/4 "+(parco === null ? "visible" : "hidden")} id="suggerimenti">
       <div className="p-2">Suggerimenti</div>
       { selectedTags && selectedTags.length !== 0 ? <div className="p-2 w-full flex flex-wrap gap-3"> 

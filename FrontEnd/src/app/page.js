@@ -105,7 +105,7 @@ export default function Home() {
           }}
         />
       )}
-      <div className="gap-4 px-2 sticky" id="hotbar">
+      <div className="gap-4 px-2 sticky top-0 left-0" id="hotbar">
         <div className="flex-none" id="hotbar-left">
           <div id="logo" style={{ display: "inline-block" }} ></div>
         </div>
