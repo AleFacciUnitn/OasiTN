@@ -129,7 +129,9 @@ export default function Home() {
           <CercaParchi parchi={parchi} OnClick={setParco}/>
         </div>
       </div>
-      <MapView parchi={parchi} parco={parco} selectedTags={selectedTags} onTagRemoved={(tag) => removeTag(tag)} onClick={setParco} OnClose={setParco}/>
+      <div className="grow">
+        <MapView parchi={parchi} parco={parco} selectedTags={selectedTags} onTagRemoved={(tag) => removeTag(tag)} onClick={setParco} OnClose={setParco}/>
+      </div>
       <div id="help">
         <div className="flex grow justify-center gap-6" id="help-content">
           <div className="cursor-pointer" onClick={() => setIsSegnalazioniVisible(!isSegnalazioniVisible)}>Segnalazione</div>
