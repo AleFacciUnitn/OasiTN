@@ -19,7 +19,7 @@ export default function Parco({parco}){
   console.log(parco);
   return (
     <aside 
-      className={"h-1/2 text-black bg-white md:h-full gap-3 flex flex-col w-full md:w-1/2 lg:w-1/3 p-2 "+(parco === null ? "hidden" : "visible")}
+      className={"h-1/2 text-black bg-white md:h-full gap-3 flex flex-col w-full md:w-1/2 lg:w-1/3 overflow-auto p-2 "+(parco === null ? "hidden" : "visible")}
       >
       <h1 className="self-start font-semibold text-3xl z-10">{parco?.nome || ""}</h1>
       <img src={piazza_centa.src} style={{borderRadius: ".75rem"}} className="h-1/2 md:h-1/3 w-full h-full"/>

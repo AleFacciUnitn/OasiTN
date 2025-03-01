@@ -90,7 +90,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col relative h-full">
+    <div className="flex overflow-hidden flex-col relative h-screen">
       {isClient && (
         <Joyride
           steps={steps}
