@@ -11,7 +11,10 @@ export default function CercaParchi({parchi, OnClick, className}) {
     return subset.slice(0,(5 > subset.length ? subset.length : 5)).map(parco => {
             return (
               <li 
-                onClick={() => OnClick(parco)} 
+                onClick={() => {
+		  setSearch('');
+		  OnClick(parco);
+		}} 
                 className="suggestion p-1" 
                 key={parco.nome}
               >{parco.nome}</li>

@@ -35,7 +35,7 @@ export default function Parco({parco}){
           )}
           </ul>
         </div>
-	  <div className="w-full h-64 flex items-center justify-center bg-white rounded-lg shadow-md p-4">
+	  <div className="w-full h-64 flex items-center justify-center bg-white rounded-lg shadow-md px-4">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} barSize={20}>
           {/* Asse orizzontale senza linea visibile */}
