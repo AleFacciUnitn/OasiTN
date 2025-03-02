@@ -80,7 +80,7 @@ export default function GestioneParchi(){
   }
 
   return (
-    <div className="px-10 grow overflow-auto">
+    <div className="px-10 grow flex flex-col overflow-auto">
       <div className="flex justify-between py-4 items-center">
         <div className="flex lg:w-1/5 w-1/3 justify-between items-center">
           <h2 className="text-2xl font-bold">Gestione parchi</h2>
