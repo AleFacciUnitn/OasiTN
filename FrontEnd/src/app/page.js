@@ -129,7 +129,7 @@ export default function Home() {
           <CercaParchi parchi={parchi} OnClick={setParco}/>
         </div>
       </div>
-      <div className="grow">
+      <div className="grow overflow-auto">
         <MapView parchi={parchi} parco={parco} selectedTags={selectedTags} onTagRemoved={(tag) => removeTag(tag)} onClick={setParco} OnClose={setParco}/>
       </div>
       <div id="help">
