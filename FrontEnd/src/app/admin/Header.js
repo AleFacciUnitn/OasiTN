@@ -5,7 +5,7 @@ export default function Header(){
   const router = useRouter();
 
   return (
-    <div className="flex sticky w-full h-16 justify-between px-6" id="sidebar">
+    <div className="flex sticky w-full justify-between px-6 py-4" id="sidebar">
        <div 
          className="options" 
          id="admin" 

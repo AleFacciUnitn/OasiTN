@@ -5,7 +5,7 @@ import Header from "./Header";
 
 export default function AdminLayout({ children }) {
   return (
-      <div className="relative flex flex-col" style={{height: "100vh"}}>
+      <div className="relative flex flex-col h-screen">
         <Header />
         {children}
       </div>
