@@ -53,7 +53,10 @@ export default function RequestForm({close, parchi}) {
     <div className="w-1/2 bg-white p-6 rounded-2xl shadow-lg text-gray-700">
       <div className="flex justify-between items-center mb-4">  
         <h2 className="text-xl font-semibold">Invia una segnalazione</h2>
-        <MdClose className="cursor-pointer hover:text-red-500" onClick={close} />
+        <MdClose className="cursor-pointer hover:text-red-500" onClick={() => {
+	  close();
+	  clearForm();
+	}} />
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
